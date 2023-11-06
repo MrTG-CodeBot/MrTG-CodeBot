@@ -22,7 +22,7 @@ I'm studying first year BCA. I love coding and sharing my knowledge with others 
 
 # used language
 
-[![Pyrogram](https://img.shields.io/badge/Pyrogram-Visit-red)](https://github.com/pyrogram/pyrogram)
+[![Pyrogram](https://img.shields.io/badge/Language-Pyrogram-red)](https://github.com/pyrogram/pyrogram)
 [![HTML](https://img.shields.io/badge/Language-HTML-orange)](https://en.wikipedia.org/wiki/HTML)
 [![C](https://img.shields.io/badge/Language-C-blue)](https://en.wikipedia.org/wiki/C_(programming_language))
 
