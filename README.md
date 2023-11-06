@@ -13,7 +13,3 @@ I'm studying first year BCA. I love coding and sharing my knowledge with others 
 <a href="https://github.com/yourusername">
   <img align="center" src="https://github-readme-stats.vercel.app/api?username=MrTG-CodeBot&show_icons=true&theme=radical" alt="MrTG-CodeBot's GitHub Stats" />
 </a>
-
-## 🏆 GitHub Trophies
-
-!trophy
