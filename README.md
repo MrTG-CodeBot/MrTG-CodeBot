@@ -26,4 +26,11 @@ I'm studying first year BCA. I love coding and sharing my knowledge with others 
 [![HTML](https://img.shields.io/badge/Language-HTML-orange)](https://en.wikipedia.org/wiki/HTML)
 [![C](https://img.shields.io/badge/Language-C-blue)](https://en.wikipedia.org/wiki/C_(programming_language))
 
+<div align="center">
+    <img src="path_to_pyrogram_logo.png" alt="Pyrogram Logo" width="100" height="100">
+    <img src="path_to_html_logo.png" alt="HTML Logo" width="100" height="100">
+    <img src="path_to_c_logo.png" alt="C Logo" width="100" height="100">
+</div>
+
+
 
