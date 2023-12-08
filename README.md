@@ -20,7 +20,7 @@ I'm studying first year BCA. I love coding and sharing my knowledge with others 
   <img align="center" src="https://github-readme-stats.vercel.app/api?username=MrTG-CodeBot&show_icons=true&theme=radical" alt="MrTG-CodeBot's GitHub Stats" />
 </a>
 
-# used language
+# used language (private)
 
 [![Pyrogram](https://img.shields.io/badge/Language-Pyrogram-red?logo=pyrogram)](https://github.com/pyrogram/pyrogram)
 [![HTML](https://img.shields.io/badge/Language-HTML-orange?logo=html5)](https://en.wikipedia.org/wiki/HTML)
