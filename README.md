@@ -25,3 +25,26 @@ I'm studying first year BCA. I love coding and sharing my knowledge with others 
 [![Pyrogram](https://img.shields.io/badge/Language-Pyrogram-red?logo=pyrogram)](https://github.com/pyrogram/pyrogram)
 [![HTML](https://img.shields.io/badge/Language-HTML-orange?logo=html5)](https://en.wikipedia.org/wiki/HTML)
 [![C](https://img.shields.io/badge/Language-C-blue?logo=c)](https://en.wikipedia.org/wiki/C_(programming_language))
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background-color: #fff;
+  animation: twinkle 2s linear infinite;
+}
+
+@keyframes twinkle {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
