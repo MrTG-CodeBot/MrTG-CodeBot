@@ -20,9 +20,9 @@ I'm studying first year BCA. I love coding and sharing my knowledge with others 
   <img align="center" src="https://github-readme-stats.vercel.app/api?username=MrTG-CodeBot&show_icons=true&theme=radical" alt="MrTG-CodeBot's GitHub Stats" />
 </a>
 
-# used language (private)
+# used language (most of them are private)
 
-[![Pyrogram](https://img.shields.io/badge/Language-Pyrogram-red?logo=pyrogram)](https://github.com/pyrogram/pyrogram)
+[![Pyrogram](https://i.imgur.com/BOgY9ai.png/Language-Pyrogram-red?logo=pyrogram)](https://github.com/pyrogram/pyrogram)
 [![HTML](https://img.shields.io/badge/Language-HTML-orange?logo=html5)](https://en.wikipedia.org/wiki/HTML)
 [![C](https://img.shields.io/badge/Language-C-blue?logo=c)](https://en.wikipedia.org/wiki/C_(programming_language))
 
