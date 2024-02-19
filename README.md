@@ -2,7 +2,7 @@
 
 I'm studying first year BCA. I love coding and sharing my knowledge with others and most are private. Here's a bit about me:
 
-- 🔭 I’m currently working on sakura bot
+- 🔭 I’m currently working on https://t.me/mrtgcoderbot
 - 🌱 I’m repeatidly learning pyrogram
 
 # contact me 
