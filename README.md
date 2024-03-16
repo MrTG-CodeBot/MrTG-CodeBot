@@ -17,5 +17,3 @@
 
 ## 🏆 GitHub Trophies
 ![](https://github-profile-trophy.vercel.app/?username=MrTG-CodeBot&theme=onedark&no-frame=false&no-bg=false&margin-w=4)
-
-[![](https://visitcount.itsvg.in/api?id=MrTG-CodeBot&icon=9&color=4)](https://visitcount.itsvg.in)
