@@ -1,32 +1,21 @@
-# Hi there, I'm MrTG-CodeBot 👋
-
-I'm studying first year BCA. I love coding and sharing my knowledge with others and most are private. Here's a bit about me:
-
-- 🔭 I’m currently working on https://t.me/mrtgcoderbot
-- 🌱 I’m repeatidly learning pyrogram
-
-# contact me 
-
-[![Telegram](https://img.shields.io/badge/Telegram-Chat-blue)](https://t.me/MrTG_Coder)
+# 💫 About Me:
+🔭 I’m currently working on<br>👯 I’m looking to collaborate on<br>🤝 I’m looking for help with<br>🌱 I’m currently learning<br>💬 Ask me about<br>⚡ Fun fact
 
 
+## 🌐 Socials:
+[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/mrtg_coder) 
 
-## 📈 GitHub Stats
+# 💻 Tech Stack:
+![C](https://img.shields.io/badge/c-%2300599C.svg?style=flat&logo=c&logoColor=white) ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=flat&logo=c%2B%2B&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=ffdd54) ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=flat&logo=heroku&logoColor=white) ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=flat&logo=render&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-black?style=flat&logo=JSON%20web%20tokens) ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=flat&logo=mongodb&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=flat&logo=docker&logoColor=white)
+# 📊 GitHub Stats:
+![](https://github-readme-stats.vercel.app/api?username=MrTG-CodeBot&theme=synthwave&hide_border=false&include_all_commits=false&count_private=true)<br/>
+![](https://github-readme-streak-stats.herokuapp.com/?user=MrTG-CodeBot&theme=synthwave&hide_border=false)<br/>
+![](https://github-readme-stats.vercel.app/api/top-langs/?username=MrTG-CodeBot&theme=synthwave&hide_border=false&include_all_commits=false&count_private=true&layout=compact)
 
-<a href="https://github.com/MrTG-CodeBot">
-  <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=MrTG-CodeBot&theme=radical" />
-</a>
-<a href="https://github.com/MrTG-CodeBot">
-  <img align="center" src="https://github-readme-stats.vercel.app/api?username=MrTG-CodeBot&show_icons=true&theme=radical" alt="MrTG-CodeBot's GitHub Stats" />
-</a>
+## 🏆 GitHub Trophies
+![](https://github-profile-trophy.vercel.app/?username=MrTG-CodeBot&theme=onedark&no-frame=false&no-bg=false&margin-w=4)
 
-## Visitor Count
+---
+[![](https://visitcount.itsvg.in/api?id=MrTG-CodeBot&icon=9&color=4)](https://visitcount.itsvg.in)
 
-![Visitor Count](https://profile-counter.glitch.me/{MrTG-CodeBot}/count.svg)
-
-# used language (most of them are private)
-
-[![Pyrogram](https://img.shields.io/badge/Language-Pyrogram-red?logo=pyrogram)](https://github.com/pyrogram/pyrogram)
-[![HTML](https://img.shields.io/badge/Language-HTML-orange?logo=html5)](https://en.wikipedia.org/wiki/HTML)
-[![C](https://img.shields.io/badge/Language-C-blue?logo=c)](https://en.wikipedia.org/wiki/C_(programming_language))
-
+<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
