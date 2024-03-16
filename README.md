@@ -4,7 +4,7 @@
 
 ## 🌐 contact me:
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/mrtg_coder)
-[![Telegram](https://img.shields.io/badge/ʙᴏᴛ-blue?logo=telegram)](https://t.me/MrTG_Coder)
+[![Telegram](https://img.shields.io/badge/Telegram-blue?logo=telegram)](https://t.me/MrTG_Coder)
 
 
 # 💻 Tech Stack:
