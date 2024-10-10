@@ -1,6 +1,7 @@
 # 💫 About Me:
 
-🔭 I’m currently working on [bot](https://t.me/mrtgcoderbot)<br>🌱 I’m currently learning new languages<br>
+🔭I'ᴍ 𝐀𝐦𝐚𝐥 𝐧𝐚𝐭𝐡,
+            Tᴇʟᴇɢʀᴀᴍ & ᴅɪsᴄᴏʀᴅ ʙᴏᴛ ᴅᴇᴠᴘʟᴏᴇʀ ᴀɴᴅ ᴘʏᴛʜᴏɴ Dᴇᴠᴇʟᴏᴘᴇʀ. <br>🌱 I’m currently learning new languages<br>
 
 
 ## 🌐 contact me:
