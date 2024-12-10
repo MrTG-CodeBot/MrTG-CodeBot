@@ -21,7 +21,7 @@
 ![](https://github-contributor-stats.vercel.app/api?username=MrTG-CodeBot&limit=5&theme=blue-green&combine_all_yearly_contributions=true)
 
 ## 🏆 GitHub Trophies
-![](https://github-profile-trophy.vercel.app/?username=MrTG-CodeBot&theme=onedark&no-frame=false&no-bg=false&margin-w=4)
+![](https://github-profile-trophy.vercel.app/?username=MrTG-CodeBot&theme=radical&no-frame=true&no-bg=false&margin-w=4)
 
 ------------------------
 [![](https://visitcount.itsvg.in/api?id=MrTG-CodeBot&icon=5&color=1)](https://visitcount.itsvg.in)
