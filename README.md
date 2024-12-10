@@ -1,12 +1,31 @@
 # 💫 About Me:
 
-🔭I'ᴍ 𝐀𝐦𝐚𝐥 𝐧𝐚𝐭𝐡, 
-            Tᴇʟᴇɢʀᴀᴍ & ᴅɪsᴄᴏʀᴅ ʙᴏᴛ ᴅᴇᴠᴘʟᴏᴇʀ ᴀɴᴅ ᴘʏᴛʜᴏɴ Dᴇᴠᴇʟᴏᴘᴇʀ. <br>🌱 I’ᴍ ᴄᴜʀʀᴇɴᴛʟʏ ʟᴇᴀʀɴɪɴɢ ɴᴇᴡ ʟᴀɴɢᴜᴀɢᴇs<br>
+🔭 **I'm Amal Nath,**
 
+🖥️ Telegram & Discord Bot Developer | 🐍 Python Enthusiast
 
-## 🌐 contact me:
+🚀 **What I'm Building:**
+
+- 🤖 Innovative Chatbots and Automation Tools
+- 🌐 Engaging mobile Applications
+- 🔄 Efficient Workflow Automations
+
+🌟 **Passionate About:**
+
+- 💡 Coding
+- 🧠 AI 
+- 🏆 Open Source Contributions
+
+📫 **How to Reach Me:**
+
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/mrtg_coder)
 [![Telegram](https://img.shields.io/badge/Telegram-blue?logo=telegram)](https://t.me/MrTG_Coder)
+
+⚡ **Fun Fact:**
+
+- 🧩 I love solving puzzles and riddles!
+
+---
 
 
 # 💻 Tech Stack:
