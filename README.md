@@ -4,12 +4,6 @@
 
 🖥️ Telegram & Discord Bot Developer | 🐍 Python Enthusiast
 
-🚀 **What I'm Building:**
-
-- 🤖 Innovative Chatbots and Automation Tools
-- 🌐 Engaging mobile Applications
-- 🔄 Efficient Workflow Automations
-
 🌟 **Passionate About:**
 
 - 💡 Coding
