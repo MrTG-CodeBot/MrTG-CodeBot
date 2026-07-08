@@ -63,26 +63,6 @@ class AmalNath:
 
 ---
 
-# 🚀 Featured Projects
-
-| Project | Description |
-|---------|-------------|
-| 🎫 TempleApp | Offline temple billing, Malayalam transliteration, ledgers and thermal printing. |
-| 💳 BillingApp | POS system for retail and restaurants with UPI QR billing. |
-| 🪙 GoldLoanApp | Gold loan management with KYC and interest calculations. |
-| 🔒 DevVault | Secure finance manager with biometric protection. |
-| 🗃️ Devzz | Multi-role workspace with admin, employee and customer dashboards. |
-| 🎓 Apexx Institution | Student, fee and commission management system. |
-| 🎬 MovieApp | Movies, TV and Anime discovery platform with AI assistant. |
-| 🎭 Movie Recommendation | Recommends movies and series by genre and ratings. |
-| 🎶 MuzicX | Cross-platform music streaming application. |
-| 🎵 MuzicX Lite | Lightweight version of MuzicX. |
-| 🎟️ Bill Counter Token System | Billing terminal with queue token management. |
-| 📦 Git Desktop UI | Beautiful Git GUI built with Python supporting commit, branch, merge and repository management. |
-| 🎥 Reel Downloader Bot | Downloads Instagram reels and forwards them automatically to Telegram. |
-
----
-
 # 📊 Contribution Graph
 
 <p align="center">
