@@ -86,24 +86,23 @@ class AmalNath:
 # 📈 GitHub Analytics
 
 <p align="center">
-<img height="170" src="https://github-readme-stats.vercel.app/api?username=MrTG-CodeBot&show_icons=true&theme=tokyonight&hide_border=true"/>
-<img height="170" src="https://streak-stats.demolab.com?user=MrTG-CodeBot&theme=tokyonight&hide_border=true"/>
+  <img width="49%" src="https://github-readme-stats.vercel.app/api?username=MrTG-CodeBot&show_icons=true&theme=github_dark&hide_border=true&count_private=true"/>
+  <img width="49%" src="https://streak-stats.demolab.com?user=MrTG-CodeBot&theme=github-dark&hide_border=true"/>
+</p>
+---
+
+# 🌍 Most Used Languages
+
+<p align="center">
+  <img width="70%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=MrTG-CodeBot&layout=compact&theme=github_dark&hide_border=true&langs_count=10"/>
 </p>
 
 ---
 
-# 🌍 Languages
+# 📊 Contribution Graph
 
 <p align="center">
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=MrTG-CodeBot&theme=tokyonight"/>
-</p>
-
----
-
-# 📈 Contribution Graph
-
-<p align="center">
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=MrTG-CodeBot&theme=tokyo-night&hide_border=true"/>
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=MrTG-CodeBot&theme=github-dark&hide_border=true"/>
 </p>
 
 ---
