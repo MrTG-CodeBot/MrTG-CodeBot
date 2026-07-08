@@ -1,4 +1,4 @@
-````markdown
+
 # <div align="center">
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=250&color=0:2563EB,100:7C3AED&text=Amal%20Nath&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=40"/>
@@ -221,4 +221,4 @@ Docker         █████████████░░░░░░░░  
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&section=footer&height=170&color=0:2563EB,100:7C3AED"/>
 
 </div>
-````
+
