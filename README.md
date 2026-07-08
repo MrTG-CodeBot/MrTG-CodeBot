@@ -83,39 +83,10 @@ class AmalNath:
 
 ---
 
-# 📈 GitHub Analytics
-
-<p align="center">
-  <img width="49%" src="https://github-readme-stats.vercel.app/api?username=MrTG-CodeBot&show_icons=true&theme=github_dark&hide_border=true&count_private=true"/>
-  <img width="49%" src="https://streak-stats.demolab.com?user=MrTG-CodeBot&theme=github-dark&hide_border=true"/>
-</p>
----
-
-# 🌍 Most Used Languages
-
-<p align="center">
-  <img width="70%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=MrTG-CodeBot&layout=compact&theme=github_dark&hide_border=true&langs_count=10"/>
-</p>
-
----
-
 # 📊 Contribution Graph
 
 <p align="center">
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=MrTG-CodeBot&theme=github-dark&hide_border=true"/>
-</p>
-
----
-
-# 📊 GitHub Summary
-
-<p align="center">
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=MrTG-CodeBot&theme=tokyonight"/>
-</p>
-
-<p align="center">
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=MrTG-CodeBot&theme=tokyonight"/>
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=MrTG-CodeBot&theme=tokyonight"/>
 </p>
 
 ---
