@@ -1,40 +1,224 @@
-# 💫 About Me:
+````markdown
+# <div align="center">
 
-🔭 **I'm Amal Nath,**
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=250&color=0:2563EB,100:7C3AED&text=Amal%20Nath&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=40"/>
 
-🖥️ Telegram & Discord Bot Developer | 🐍 Python Enthusiast
+# 👋 Hi, I'm Amal Nath
 
-🌟 **Passionate About:**
+### 🚀 Flutter Developer • Python Backend Developer • AI Enthusiast
 
-- 💡 Coding
-- 🧠 AI 
-- 🏆 Open Source Contributions
+<img src="https://readme-typing-svg.herokuapp.com?font=Poppins&weight=600&size=28&duration=3500&pause=900&color=38BDF8&center=true&vCenter=true&width=900&lines=Flutter+Developer;Python+Backend+Developer;AI+SaaS+Developer;Telegram+Bot+Developer;FastAPI+Developer;Always+Learning+New+Things"/>
 
-📫 **How to Reach Me:**
+<p align="center">
 
-[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/amal_.nath_)
-[![Telegram](https://img.shields.io/badge/Telegram-blue?logo=telegram)](https://t.me/MrTG_Coder)
+<a href="https://instagram.com/amal_.nath_">
+<img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"/>
+</a>
 
-⚡ **Fun Fact:**
+<a href="https://t.me/MrTG_Coder">
+<img src="https://img.shields.io/badge/Telegram-229ED9?style=for-the-badge&logo=telegram&logoColor=white"/>
+</a>
 
-- 🧩 I love solving puzzles and riddles!
+<a href="https://github.com/MrTG-CodeBot">
+<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github"/>
+</a>
+
+</p>
+
+</div>
 
 ---
 
+# 💫 About Me
 
-# 💻 Tech Stack:
-![C](https://img.shields.io/badge/c-%2300599C.svg?style=plastic&logo=c&logoColor=white) ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=plastic&logo=c%2B%2B&logoColor=white) ![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=plastic&logo=dart&logoColor=white) ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=plastic&logo=openjdk&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=plastic&logo=python&logoColor=ffdd54) ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=plastic&logo=firebase) ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=plastic&logo=render&logoColor=white) ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=plastic&logo=netlify&logoColor=#00C7B7) ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=plastic&logo=heroku&logoColor=white) ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=plastic&logo=google-cloud&logoColor=white) ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=plastic&logo=vercel&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=plastic&logo=mongodb&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=plastic&logo=mysql&logoColor=white) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=plastic&logo=figma&logoColor=white) ![Canva](https://img.shields.io/badge/Canva-%2300C4CC.svg?style=plastic&logo=Canva&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=plastic&logo=github&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=plastic&logo=git&logoColor=white) ![FFmpeg](https://shields.io/badge/FFmpeg-%23171717.svg?logo=ffmpeg&style=plastic&labelColor=171717&logoColor=5cb85c) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=plastic&logo=docker&logoColor=white)
+```python
+class AmalNath:
 
-# 📊 GitHub Stats:
-![](https://github-readme-stats.vercel.app/api?username=MrTG-CodeBot&theme=dark&hide_border=true&include_all_commits=true&count_private=false)<br/>
-![](https://github-readme-streak-stats.herokuapp.com/?user=MrTG-CodeBot&theme=dark&hide_border=true)<br/>
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=MrTG-CodeBot&theme=dark&hide_border=true&include_all_commits=true&count_private=false&layout=compact)
+    role = [
+        "Flutter Developer",
+        "Python Developer",
+        "Backend Engineer",
+        "AI Enthusiast"
+    ]
 
-### 🔝 Top Contributed Repo
-![](https://github-contributor-stats.vercel.app/api?username=MrTG-CodeBot&limit=5&theme=blue-green&combine_all_yearly_contributions=true)
+    current_focus = [
+        "AI SaaS",
+        "Cross Platform Apps",
+        "Business Software",
+        "Automation"
+    ]
 
-## 🏆 GitHub Trophies
-![](https://github-profile-trophy.vercel.app/?username=MrTG-CodeBot&theme=radical&no-frame=true&no-bg=false&margin-w=4)
+    learning = [
+        "AI Agents",
+        "Docker",
+        "Cloud",
+        "Microservices"
+    ]
 
-------------------------
-[![](https://visitcount.itsvg.in/api?id=MrTG-CodeBot&icon=5&color=1)](https://visitcount.itsvg.in)
+    fun_fact = "I enjoy solving programming puzzles."
+```
+
+---
+
+# 🚀 Tech Stack
+
+## 👨‍💻 Languages
+
+<p>
+
+<img src="https://skillicons.dev/icons?i=python,dart,java,c,cpp"/>
+
+</p>
+
+---
+
+## 📱 Mobile Development
+
+<p>
+
+<img src="https://skillicons.dev/icons?i=flutter,firebase"/>
+
+</p>
+
+---
+
+## ⚙ Backend
+
+<p>
+
+<img src="https://skillicons.dev/icons?i=fastapi,flask,mongodb,mysql"/>
+
+</p>
+
+---
+
+## ☁ Cloud & DevOps
+
+<p>
+
+<img src="https://skillicons.dev/icons?i=docker,git,github,vercel,netlify,gcp"/>
+
+</p>
+
+---
+
+## 🎨 Design
+
+<p>
+
+<img src="https://skillicons.dev/icons?i=figma"/>
+
+</p>
+
+---
+
+# ⭐ Featured Projects
+
+| Project | Description |
+|----------|-------------|
+| 🎵 **MuzicX** | Premium Music Streaming Platform |
+| 🛕 **Temple Billing** | Malayalam Temple Management Software |
+| 💳 **Billing POS** | Restaurant Billing & Inventory |
+| 🤖 **AI Resume Builder** | AI Powered ATS Resume Generator |
+| 📦 **Git Desktop UI** | Beautiful Git GUI built with Python |
+
+---
+
+# 📈 GitHub Analytics
+
+<p align="center">
+
+<img height="170" src="https://github-readme-stats.vercel.app/api?username=MrTG-CodeBot&show_icons=true&theme=tokyonight&hide_border=true"/>
+
+<img height="170" src="https://github-readme-streak-stats.herokuapp.com/?user=MrTG-CodeBot&theme=tokyonight&hide_border=true"/>
+
+</p>
+
+---
+
+# 🌍 Most Used Languages
+
+<p align="center">
+
+<img width="450" src="https://github-readme-stats.vercel.app/api/top-langs/?username=MrTG-CodeBot&layout=compact&theme=tokyonight&hide_border=true"/>
+
+</p>
+
+---
+
+# 📊 Contribution Graph
+
+<p align="center">
+
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=MrTG-CodeBot&theme=tokyo-night&hide_border=true"/>
+
+</p>
+
+---
+
+# 🏆 GitHub Trophies
+
+<p align="center">
+
+<img src="https://github-profile-trophy.vercel.app/?username=MrTG-CodeBot&theme=tokyonight&no-frame=true&row=2&column=4"/>
+
+</p>
+
+---
+
+# 🔥 Top Contributions
+
+<p align="center">
+
+<img src="https://github-contributor-stats.vercel.app/api?username=MrTG-CodeBot&limit=6&theme=tokyonight&combine_all_yearly_contributions=true"/>
+
+</p>
+
+---
+
+# 📊 Coding Activity
+
+```text
+Flutter        ███████████████████░░   95%
+
+Python         ███████████████████░░   95%
+
+FastAPI        █████████████████░░░░   90%
+
+Firebase       ████████████████░░░░░   85%
+
+MongoDB        ███████████████░░░░░░   80%
+
+Docker         █████████████░░░░░░░░   75%
+```
+
+---
+
+# 💡 Quote
+
+> "Programs must be written for people to read, and only incidentally for machines to execute."
+
+— Harold Abelson
+
+---
+
+# 👀 Visitors
+
+<p align="center">
+
+<img src="https://visitcount.itsvg.in/api?id=MrTG-CodeBot&icon=5&color=6"/>
+
+</p>
+
+---
+
+# 💙 Thanks for Visiting
+
+<div align="center">
+
+### ⭐ If you like my work, consider giving my repositories a star.
+
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&section=footer&height=170&color=0:2563EB,100:7C3AED"/>
+
+</div>
+````
