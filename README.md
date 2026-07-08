@@ -22,20 +22,23 @@
 
 ```python
 class AmalNath:
-    role = ["Flutter Developer",
+    role = [
+            "Flutter Developer",
             "Python Backend Developer",
             "AI Enthusiast"
-            ]
-    current_focus = ["AI SaaS",
+    ]
+    current_focus = [
+                     "AI SaaS",
                      "Business Software",
                      "Automation",
                      "Cross Platform Apps"
-                     ]
-    learning = ["AI Agents",
+    ]
+    learning = [
+                "AI Agents",
                 "Docker",
                 "Cloud",
                 "Microservices"
-                ]
+    ]
     fun_fact = "I enjoy solving programming puzzles."
 ```
 
