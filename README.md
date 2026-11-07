@@ -1,111 +1,113 @@
-# <div align="center">
-
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=250&color=0:2563EB,100:7C3AED&text=Amal%20Nath&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=40"/>
-
-# 👋 Hi, I'm <a href="https://amalnath.netlify.app/"> Amal Nath </a>
-
-### 🚀 Flutter Developer • Python Backend Developer • AI Enthusiast
-
-<img src="https://readme-typing-svg.herokuapp.com?font=Poppins&weight=600&size=28&duration=3500&pause=900&color=38BDF8&center=true&vCenter=true&width=900&lines=Flutter+Developer;Python+Backend+Developer;AI+SaaS+Developer;Telegram+Bot+Developer;FastAPI+Developer;Always+Learning+New+Things"/>
-
-<p align="center">
-<a href="https://instagram.com/amal_.nath_"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"/></a>
-<a href="https://t.me/MrTG_Coder"><img src="https://img.shields.io/badge/Telegram-229ED9?style=for-the-badge&logo=telegram&logoColor=white"/></a>
-<a href="https://github.com/MrTG-CodeBot"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github"/></a>
-</p>
-
-</div>
-
----
-
-# 💫 About Me
-
-```python
-class AmalNath:
-    role = [
-            "Flutter Developer",
-            "Python Backend Developer",
-            "AI Enthusiast"
-    ]
-    current_focus = [
-                     "AI SaaS",
-                     "Business Software",
-                     "Automation",
-                     "Cross Platform Apps"
-    ]
-    learning = [
-                "AI Agents",
-                "Docker",
-                "Cloud",
-                "Microservices"
-    ]
-    fun_fact = "I enjoy solving programming puzzles."
-```
-
----
-
-# 🚀 Tech Stack
-
-## 👨‍💻 Languages
-<p><img src="https://skillicons.dev/icons?i=python,dart,java,c,cpp"/></p>
-
-## 📱 Mobile
-<p><img src="https://skillicons.dev/icons?i=flutter,firebase"/></p>
-
-## ⚙ Backend
-<p><img src="https://skillicons.dev/icons?i=fastapi,flask,mongodb,mysql"/></p>
-
-## ☁ Cloud & DevOps
-<p><img src="https://skillicons.dev/icons?i=docker,git,github,vercel,netlify,gcp"/></p>
-
-## 🎨 Design
-<p><img src="https://skillicons.dev/icons?i=figma"/></p>
-
----
-
-# 📊 Contribution Graph
-
-<p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=MrTG-CodeBot&theme=github-dark&hide_border=true"/>
-</p>
-
----
-
-# 📊 Coding Activity
-
-```text
-Flutter      ███████████████████ 95%
-Python       ███████████████████ 95%
-FastAPI      ██████████████████  90%
-Firebase     ████████████████    85%
-MongoDB      ███████████████     80%
-Docker       █████████████       75%
-```
-
----
-
-# 💡 Quote
-
-> "Programs must be written for people to read, and only incidentally for machines to execute."
-
-— Harold Abelson
-
----
-
-# 👀 Profile Views
-
-<p align="center">
-<img src="https://komarev.com/ghpvc/?username=MrTG-CodeBot&label=Profile%20Views&color=0e75b6&style=for-the-badge"/>
-</p>
-
----
-
-# 💙 Thanks for Visiting
-
 <div align="center">
+<picture>
+    <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/hero?username=mrtg-codebot&theme=aurora&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F148360334%3Fu%3D233e68cbec6dc3a34d66795cb6b605565f4651f4%26v%3D4&mode=light" />
+    <img src="https://www.gitskins.com/api/section/hero?username=mrtg-codebot&theme=aurora&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F148360334%3Fu%3D233e68cbec6dc3a34d66795cb6b605565f4651f4%26v%3D4&mode=dark" width="100%" alt="MrTG-CodeBot — profile" />
+  </picture>
 
-### ⭐ If you like my work, consider giving my repositories a star.
+<h1>MrTG-CodeBot</h1>
+<p><strong>Frontend or full-stack engineer</strong></p>
+<p>Tᴇʟᴇɢʀᴀᴍ &amp; ᴅɪsᴄᴏʀᴅ ʙᴏᴛ ᴅᴇᴠᴘʟᴏᴇʀ ᴀɴᴅ ᴘʏᴛʜᴏɴ Dᴇᴠᴇʟᴏᴘᴇʀ.</p>
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&section=footer&height=170&color=0:2563EB,100:7C3AED"/>
 
+<table width="100%">
+<tr>
+<td width="25%" align="center"><strong>16</strong><br /><sub>Followers</sub></td>
+<td width="25%" align="center"><strong>38</strong><br /><sub>Repositories</sub></td>
+<td width="25%" align="center"><strong>33</strong><br /><sub>Stars</sub></td>
+<td width="25%" align="center"><strong>1,173</strong><br /><sub>Contributions</sub></td>
+</tr>
+</table>
+
+<p><a href="https://github.com/mrtg-codebot">GitHub</a></p>
 </div>
+
+<h2>Building in public</h2>
+
+<table width="100%">
+<tr>
+<td width="62%" valign="top">
+<p>Tᴇʟᴇɢʀᴀᴍ &amp; ᴅɪsᴄᴏʀᴅ ʙᴏᴛ ᴅᴇᴠᴘʟᴏᴇʀ ᴀɴᴅ ᴘʏᴛʜᴏɴ Dᴇᴠᴇʟᴏᴘᴇʀ.</p>
+<p><strong>Focus:</strong> Python · Dart · JavaScript</p>
+<p><sub>Designed to make the work, momentum, and next conversation easy to find.</sub></p>
+</td>
+<td width="38%" valign="top">
+<img src="https://www.gitskins.com/api/section/portrait?username=mrtg-codebot&theme=aurora&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F148360334%3Fu%3D233e68cbec6dc3a34d66795cb6b605565f4651f4%26v%3D4&color=1&v=showcase-portrait-1" width="100%" alt="MrTG-CodeBot animated colored ASCII portrait" />
+</td>
+</tr>
+</table>
+
+<h2>What I’m shipping</h2>
+
+<p align="center">
+  <img src="https://www.gitskins.com/api/section/highlights?username=mrtg-codebot&theme=aurora&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F148360334%3Fu%3D233e68cbec6dc3a34d66795cb6b605565f4651f4%26v%3D4&items=Python%3A%3A38%20public%20repositories%7CObanai%3A%3ADownload%20song%2Cringtune%2Cinstagram%20reels%2C%20storie%7CImpact%3A%3A33%20stars%20%C2%B7%2099%20active%20days" width="100%" alt="Highlights" />
+</p>
+
+<h2>Featured work</h2>
+
+<table width="100%">
+<tr>
+<td width="58%" valign="top">
+<img src="https://www.gitskins.com/api/section/projects?username=mrtg-codebot&theme=aurora&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F148360334%3Fu%3D233e68cbec6dc3a34d66795cb6b605565f4651f4%26v%3D4" width="100%" alt="Featured projects" />
+</td>
+<td width="42%" valign="top">
+<h3><a href="https://github.com/MrTG-CodeBot/Obanai"><strong>Obanai</strong></a></h3>
+<p>Download song,ringtune,instagram reels, stories, post, song download using spotify track url, and some feature https://t.me/mrtgcoderbot</p>
+<p><sub>Python · ⭐ 9 stars · 11 forks</sub></p>
+<p><a href="https://github.com/MrTG-CodeBot/Obanai">View project →</a></p>
+</td>
+</tr>
+</table>
+
+<h2>Selected work</h2>
+
+<table width="100%">
+<tr>
+<td width="33%" valign="top">
+<h3><a href="https://github.com/MrTG-CodeBot/Obanai"><strong>Obanai</strong></a></h3>
+<p>Download song,ringtune,instagram reels, stories, post, song download using spotify track url, and some feature https://t.me/mrtgcoderbot</p>
+<p><sub>Python · ⭐ 9</sub></p>
+</td>
+<td width="33%" valign="top">
+<h3><a href="https://github.com/MrTG-CodeBot/muzicX-music-app"><strong>muzicX-music-app</strong></a></h3>
+<p>A project built and shared in public.</p>
+<p><sub>Open source · ⭐ 7</sub></p>
+</td>
+<td width="33%" valign="top">
+<h3><a href="https://github.com/MrTG-CodeBot/telemoviebot"><strong>telemoviebot</strong></a></h3>
+<p>A project built and shared in public.</p>
+<p><sub>Python · ⭐ 3</sub></p>
+</td>
+</tr>
+</table>
+
+<h2>Signal</h2>
+
+<p align="center">
+  <img src="https://www.gitskins.com/api/section/stats?username=mrtg-codebot&theme=aurora&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F148360334%3Fu%3D233e68cbec6dc3a34d66795cb6b605565f4651f4%26v%3D4" width="100%" alt="33 stars across 38 repositories" />
+</p>
+
+<h2>Stack</h2>
+
+<p align="center">
+  <img src="https://www.gitskins.com/api/section/stack?username=mrtg-codebot&theme=aurora&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F148360334%3Fu%3D233e68cbec6dc3a34d66795cb6b605565f4651f4%26v%3D4" width="100%" alt="Language stack" />
+</p>
+
+<h2>Activity</h2>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/heatmap?username=mrtg-codebot&theme=aurora&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F148360334%3Fu%3D233e68cbec6dc3a34d66795cb6b605565f4651f4%26v%3D4&mode=light" />
+    <img src="https://www.gitskins.com/api/section/heatmap?username=mrtg-codebot&theme=aurora&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F148360334%3Fu%3D233e68cbec6dc3a34d66795cb6b605565f4651f4%26v%3D4&mode=dark" width="100%" alt="1173 contributions in the last year" />
+  </picture>
+</p>
+
+<hr />
+
+<table width="100%">
+<tr>
+<td width="62%" valign="middle"><h2>Let’s build something</h2><p>Open to thoughtful collaboration, ambitious products, and useful open-source work.</p></td>
+<td width="38%" valign="middle" align="right"><a href="https://github.com/mrtg-codebot">GitHub</a></td>
+</tr>
+</table>
+
+<p align="center"><sub>MrTG-CodeBot · live profile data, designed with <a href="https://www.gitskins.com/readme-generator">GitSkins</a></sub></p>
