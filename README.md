@@ -110,4 +110,3 @@
 </tr>
 </table>
 
-<p align="center"><sub>MrTG-CodeBot · live profile data, designed with <a href="https://www.gitskins.com/readme-generator">GitSkins</a></sub></p>
