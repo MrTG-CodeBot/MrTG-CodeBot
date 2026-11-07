@@ -5,7 +5,7 @@
   </picture>
 
 <h1>MrTG-CodeBot</h1>
-<p><strong>Frontend or full-stack engineer</strong></p>
+<p><strong>full-stack engineer</strong></p>
 <p>Tᴇʟᴇɢʀᴀᴍ &amp; ᴅɪsᴄᴏʀᴅ ʙᴏᴛ ᴅᴇᴠᴘʟᴏᴇʀ ᴀɴᴅ ᴘʏᴛʜᴏɴ Dᴇᴠᴇʟᴏᴘᴇʀ.</p>
 
 
