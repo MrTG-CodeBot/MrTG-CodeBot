@@ -1,4 +1,3 @@
-
 <div align="center">
 
   <h1>Hey 👨‍💻 I’m MrTG-CodeBot</h1>
@@ -29,7 +28,7 @@
 
 </div>
 
-
+---
 
 ### 👨‍💻 System Overview
 
@@ -179,6 +178,8 @@ Passionate  = Turning manual tasks into elegant, automated bots
   </a>
 </p>
 
+---
 
- 
- 
+<div align="center">
+  <sub>Built with ⚡ by <a href="https://github.com/MrTG-CodeBot">MrTG-CodeBot</a>. All rights reserved.</sub>
+</div>
