@@ -7,18 +7,11 @@
 
 ---
 
-### 💻 Workstation Screen // Tech Matrix
+### 🛠️ Skills & Technologies
 
-<table align="center" width="100%">
-<tr>
-<th align="left">
-<span>🔴 🟡 🟢 &nbsp;&nbsp; <b>💻 MrTG-CodeBot // developer-workstation.zsh</b></span>
-</th>
-</tr>
-<tr>
-<td align="center">
-<br/>
-<p align="center"><strong>🤖 Telegram Bot Engineering &amp; MTProto</strong></p>
+<div align="center">
+
+<h4>🤖 Telegram Bot Engineering &amp; MTProto</h4>
 <p align="center">
 <a href="https://core.telegram.org/bots/api" target="_blank" title="Telegram Bot API"><img src="https://img.shields.io/badge/Telegram_API-26A5E4?style=for-the-badge&logo=telegram&logoColor=white&labelColor=0d1117" alt="Telegram API" /></a>
 &nbsp;
@@ -32,8 +25,10 @@
 &nbsp;
 <a href="https://en.wikipedia.org/wiki/Webhook" target="_blank" title="Webhooks"><img src="https://img.shields.io/badge/Webhooks-FF6C37?style=for-the-badge&logo=postman&logoColor=white&labelColor=0d1117" alt="Webhooks" /></a>
 </p>
+
 <br/>
-<p align="center"><strong>💻 Core Programming &amp; Scripting</strong></p>
+
+<h4>💻 Core Programming &amp; Scripting</h4>
 <p align="center">
 <a href="https://www.python.org" target="_blank" title="Python"><img src="https://skillicons.dev/icons?i=py&theme=dark" width="46" height="46" alt="Python" /></a>&nbsp;&nbsp;
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" title="JavaScript"><img src="https://skillicons.dev/icons?i=js&theme=dark" width="46" height="46" alt="JavaScript" /></a>&nbsp;&nbsp;
@@ -41,8 +36,10 @@
 <a href="https://go.dev" target="_blank" title="Golang"><img src="https://skillicons.dev/icons?i=go&theme=dark" width="46" height="46" alt="Golang" /></a>&nbsp;&nbsp;
 <a href="https://www.gnu.org/software/bash" target="_blank" title="Bash"><img src="https://skillicons.dev/icons?i=bash&theme=dark" width="46" height="46" alt="Bash" /></a>
 </p>
+
 <br/>
-<p align="center"><strong>⚙️ Backend Frameworks &amp; APIs</strong></p>
+
+<h4>⚙️ Backend Frameworks &amp; APIs</h4>
 <p align="center">
 <a href="https://fastapi.tiangolo.com" target="_blank" title="FastAPI"><img src="https://skillicons.dev/icons?i=fastapi&theme=dark" width="46" height="46" alt="FastAPI" /></a>&nbsp;&nbsp;
 <a href="https://flask.palletsprojects.com" target="_blank" title="Flask"><img src="https://skillicons.dev/icons?i=flask&theme=dark" width="46" height="46" alt="Flask" /></a>&nbsp;&nbsp;
@@ -50,8 +47,10 @@
 <a href="https://nodejs.org" target="_blank" title="Node.js"><img src="https://skillicons.dev/icons?i=nodejs&theme=dark" width="46" height="46" alt="Node.js" /></a>&nbsp;&nbsp;
 <a href="https://expressjs.com" target="_blank" title="Express.js"><img src="https://skillicons.dev/icons?i=express&theme=dark" width="46" height="46" alt="Express.js" /></a>
 </p>
+
 <br/>
-<p align="center"><strong>🗄️ Databases &amp; Persistence</strong></p>
+
+<h4>🗄️ Databases &amp; Persistence</h4>
 <p align="center">
 <a href="https://www.mongodb.com" target="_blank" title="MongoDB"><img src="https://skillicons.dev/icons?i=mongodb&theme=dark" width="46" height="46" alt="MongoDB" /></a>&nbsp;&nbsp;
 <a href="https://www.postgresql.org" target="_blank" title="PostgreSQL"><img src="https://skillicons.dev/icons?i=postgres&theme=dark" width="46" height="46" alt="PostgreSQL" /></a>&nbsp;&nbsp;
@@ -60,8 +59,10 @@
 <a href="https://supabase.com" target="_blank" title="Supabase"><img src="https://skillicons.dev/icons?i=supabase&theme=dark" width="46" height="46" alt="Supabase" /></a>&nbsp;&nbsp;
 <a href="https://firebase.google.com" target="_blank" title="Firebase"><img src="https://skillicons.dev/icons?i=firebase&theme=dark" width="46" height="46" alt="Firebase" /></a>
 </p>
+
 <br/>
-<p align="center"><strong>🚀 DevOps &amp; Cloud Deployment</strong></p>
+
+<h4>🚀 DevOps &amp; Cloud Deployment</h4>
 <p align="center">
 <a href="https://www.docker.com" target="_blank" title="Docker"><img src="https://skillicons.dev/icons?i=docker&theme=dark" width="46" height="46" alt="Docker" /></a>&nbsp;&nbsp;
 <a href="https://www.linux.org" target="_blank" title="Linux"><img src="https://skillicons.dev/icons?i=linux&theme=dark" width="46" height="46" alt="Linux" /></a>&nbsp;&nbsp;
@@ -70,25 +71,16 @@
 <a href="https://www.heroku.com" target="_blank" title="Heroku"><img src="https://skillicons.dev/icons?i=heroku&theme=dark" width="46" height="46" alt="Heroku" /></a>&nbsp;&nbsp;
 <a href="https://vercel.com" target="_blank" title="Vercel"><img src="https://skillicons.dev/icons?i=vercel&theme=dark" width="46" height="46" alt="Vercel" /></a>
 </p>
+
 <br/>
-<p align="center"><strong>🛠️ Developer Tooling</strong></p>
+
+<h4>🛠️ Developer Tooling</h4>
 <p align="center">
 <a href="https://code.visualstudio.com" target="_blank" title="VS Code"><img src="https://skillicons.dev/icons?i=vscode&theme=dark" width="46" height="46" alt="VS Code" /></a>&nbsp;&nbsp;
 <a href="https://git-scm.com" target="_blank" title="Git"><img src="https://skillicons.dev/icons?i=git&theme=dark" width="46" height="46" alt="Git" /></a>&nbsp;&nbsp;
 <a href="https://www.postman.com" target="_blank" title="Postman"><img src="https://skillicons.dev/icons?i=postman&theme=dark" width="46" height="46" alt="Postman" /></a>
 </p>
-<br/>
-</td>
-</tr>
-<tr>
-<th align="center">
-<samp>⚡ MrTG-CodeBot WORKSTATION ⚡</samp>
-</th>
-</tr>
-</table>
 
-<div align="center">
-<kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ─── [ TRACKPAD ] ─── &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</kbd>
 </div>
 
 ---
