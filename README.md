@@ -6,23 +6,19 @@
 
   <br/><br/>
 
-  <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=00F2FE&center=true&vCenter=true&width=550&lines=Building+Intelligent+Telegram+Bots;Scalable+Backend+Services+%26+APIs;Automating+Complex+Workflows;Open+Source+Tooling+%26+Microservices" alt="Typing SVG" />
-  </a>
-
   <br/><br/>
 
-  <p>
+  <p align="center">
     <a href="https://t.me/MrTG_Coder" target="_blank">
-      <img src="https://img.shields.io/badge/Telegram-@MrTG__Coder-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram" />
+      <img src="https://img.shields.io/badge/Telegram-Chat%20Now-26A5E4?style=for-the-badge&logo=telegram&logoColor=white&labelColor=0d1117" alt="Telegram" />
     </a>
-    &nbsp;
+    &nbsp;&nbsp;
     <a href="https://discordapp.com/users/mr_.orion" target="_blank">
-      <img src="https://img.shields.io/badge/Discord-mr__._orion-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" />
+      <img src="https://img.shields.io/badge/Discord-Connect-5865F2?style=for-the-badge&logo=discord&logoColor=white&labelColor=0d1117" alt="Discord" />
     </a>
-    &nbsp;
+    &nbsp;&nbsp;
     <a href="mailto:amalnath0600@gmail.com" target="_blank">
-      <img src="https://img.shields.io/badge/Email-amalnath0600@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+      <img src="https://img.shields.io/badge/Gmail-Send%20Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white&labelColor=0d1117" alt="Email" />
     </a>
   </p>
 
@@ -151,16 +147,20 @@ Passionate  = Turning manual tasks into elegant, automated bots
 <div align="center">
 
   <a href="https://t.me/MrTG_Coder" target="_blank">
-    <img src="https://img.shields.io/badge/Telegram-@MrTG__Coder-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram" />
+    <img src="https://img.shields.io/badge/Telegram-@MrTG__Coder-26A5E4?style=for-the-badge&logo=telegram&logoColor=white&labelColor=0d1117" alt="Telegram" />
   </a>
-  &nbsp;
+  &nbsp;&nbsp;
   <a href="https://discordapp.com/users/mr_.orion" target="_blank">
-    <img src="https://img.shields.io/badge/Discord-mr__._orion-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" />
+    <img src="https://img.shields.io/badge/Discord-mr__._orion-5865F2?style=for-the-badge&logo=discord&logoColor=white&labelColor=0d1117" alt="Discord" />
   </a>
-  &nbsp;
+  &nbsp;&nbsp;
   <a href="mailto:amalnath0600@gmail.com" target="_blank">
-    <img src="https://img.shields.io/badge/Email-amalnath0600@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+    <img src="https://img.shields.io/badge/Email-Contact%20Me-EA4335?style=for-the-badge&logo=gmail&logoColor=white&labelColor=0d1117" alt="Email" />
   </a>
+
+  <br/><br/>
+
+  <sub>💬 Telegram: <code>@MrTG_Coder</code> &nbsp;|&nbsp; 🎮 Discord: <code>mr_.orion</code> &nbsp;|&nbsp; ✉️ Email: <code>amalnath0600@gmail.com</code></sub>
 
 </div>
 
