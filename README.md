@@ -7,45 +7,10 @@
   <br/><br/>
 
   <br/><br/>
-
-  <p align="center">
-    <a href="https://t.me/MrTG_Coder" target="_blank">
-      <img src="https://img.shields.io/badge/Telegram-Chat%20Now-26A5E4?style=for-the-badge&logo=telegram&logoColor=white&labelColor=0d1117" alt="Telegram" />
-    </a>
-    &nbsp;&nbsp;
-    <a href="https://discordapp.com/users/mr_.orion" target="_blank">
-      <img src="https://img.shields.io/badge/Discord-Connect-5865F2?style=for-the-badge&logo=discord&logoColor=white&labelColor=0d1117" alt="Discord" />
-    </a>
-    &nbsp;&nbsp;
-    <a href="mailto:amalnath0600@gmail.com" target="_blank">
-      <img src="https://img.shields.io/badge/Gmail-Send%20Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white&labelColor=0d1117" alt="Email" />
-    </a>
-  </p>
-
 </div>
 
 ---
 
-### 👨‍💻 System Overview
-
-```ini
-[DEVELOPER_PROFILE]
-Alias       = MrTG-CodeBot
-Role        = Telegram Bot Developer & Systems Automator
-Core_Focus  = Asynchronous Pipelines, Bot APIs, Webhooks & REST Microservices
-Status      = Active & Open for Collaboration
-
-[CURRENT_OBJECTIVES]
-Building    = Advanced Telegram Bots with AsyncIO & Modern Frameworks
-Exploring   = Distributed Microservices & AI Workflow Orchestration
-Passionate  = Turning manual tasks into elegant, automated bots
-```
-
-- 🤖 **Specialization**: Building fast, fault-tolerant Telegram bots (`Pyrogram`, `Telethon`, `aiogram`).
-- ⚡ **Asynchronous Systems**: Designing event-driven, webhook-ready backend architectures.
-- 🛠️ **Problem Solving**: Converting repetitive workflows into robust background scripts.
-
----
 
 ### 🧰 Tech Matrix
 
@@ -140,21 +105,19 @@ Passionate  = Turning manual tasks into elegant, automated bots
 
 <div align="center">
 
-  <a href="https://t.me/MrTG_Coder" target="_blank">
-    <img src="https://img.shields.io/badge/Telegram-@MrTG__Coder-26A5E4?style=for-the-badge&logo=telegram&logoColor=white&labelColor=0d1117" alt="Telegram" />
-  </a>
-  &nbsp;&nbsp;
-  <a href="https://discordapp.com/users/mr_.orion" target="_blank">
-    <img src="https://img.shields.io/badge/Discord-mr__._orion-5865F2?style=for-the-badge&logo=discord&logoColor=white&labelColor=0d1117" alt="Discord" />
-  </a>
-  &nbsp;&nbsp;
-  <a href="mailto:amalnath0600@gmail.com" target="_blank">
-    <img src="https://img.shields.io/badge/Email-Contact%20Me-EA4335?style=for-the-badge&logo=gmail&logoColor=white&labelColor=0d1117" alt="Email" />
-  </a>
-
-  <br/><br/>
-
-  <sub>💬 Telegram: <code>@MrTG_Coder</code> &nbsp;|&nbsp; 🎮 Discord: <code>mr_.orion</code> &nbsp;|&nbsp; ✉️ Email: <code>amalnath0600@gmail.com</code></sub>
+  <p align="center">
+    <a href="https://t.me/MrTG_Coder" target="_blank">
+      <img src="./assets/btn-telegram.svg" width="220" alt="Telegram - @MrTG_Coder" />
+    </a>
+    &nbsp;&nbsp;
+    <a href="https://discordapp.com/users/mr_.orion" target="_blank">
+      <img src="./assets/btn-discord.svg" width="220" alt="Discord - mr_.orion" />
+    </a>
+    &nbsp;&nbsp;
+    <a href="mailto:amalnath0600@gmail.com" target="_blank">
+      <img src="./assets/btn-email.svg" width="220" alt="Email - amalnath0600@gmail.com" />
+    </a>
+  </p>
 
 </div>
 

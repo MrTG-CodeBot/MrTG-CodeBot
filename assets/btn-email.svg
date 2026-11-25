@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 58" width="230" height="58">
+  <defs>
+    <linearGradient id="email-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EA4335" />
+      <stop offset="100%" stop-color="#FF6D00" />
+    </linearGradient>
+
+    <linearGradient id="email-stroke-anim" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EA4335" stop-opacity="0.2">
+        <animate attributeName="offset" values="0;1;0" dur="4s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="50%" stop-color="#FF5722" stop-opacity="1">
+        <animate attributeName="offset" values="0.5;1;0.5" dur="4s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" stop-color="#EA4335" stop-opacity="0.2">
+        <animate attributeName="offset" values="1;0;1" dur="4s" repeatCount="indefinite" />
+      </stop>
+    </linearGradient>
+  </defs>
+
+  <style>
+    @keyframes arrowBounce {
+      0%, 100% { transform: translateX(0px); }
+      50% { transform: translateX(4px); }
+    }
+    @keyframes beaconPulseEmail {
+      0%, 100% { opacity: 0.4; r: 3.5; }
+      50% { opacity: 1; r: 4.5; }
+    }
+    @keyframes cardGlowEmail {
+      0%, 100% { stroke-opacity: 0.5; }
+      50% { stroke-opacity: 1; }
+    }
+    .card-border {
+      fill: #0d1117;
+      stroke: url(#email-stroke-anim);
+      stroke-width: 1.5;
+      rx: 14;
+      animation: cardGlowEmail 3s infinite ease-in-out;
+    }
+    .text-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      fill: #ffffff;
+      letter-spacing: 0.3px;
+    }
+    .text-sub {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      fill: #FF8A65;
+    }
+    .arrow {
+      fill: #FF8A65;
+      animation: arrowBounce 1.8s infinite ease-in-out;
+    }
+    .beacon {
+      fill: #FF5722;
+      animation: beaconPulseEmail 2s infinite ease-in-out;
+    }
+  </style>
+
+  <!-- Button Background & Border -->
+  <rect x="2" y="2" width="226" height="54" class="card-border" />
+
+  <!-- Email Icon Circle -->
+  <g transform="translate(14, 11)">
+    <circle cx="18" cy="18" r="17" fill="url(#email-grad)" />
+    <!-- Envelope Mail Icon -->
+    <path d="M10 13h16c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H10c-1.1 0-2-.9-2-2V15c0-1.1.9-2 2-2zm0 2l8 5 8-5H10zm0 10h16V17.5l-8 5-8-5V25z" fill="#ffffff" />
+  </g>
+
+  <!-- Text Info -->
+  <text x="60" y="26" class="text-title">Email</text>
+  <text x="60" y="42" class="text-sub">amalnath0600@...</text>
+
+  <!-- Pulsing Online Indicator -->
+  <circle cx="196" cy="22" r="4" class="beacon" />
+
+  <!-- Animated Right Arrow -->
+  <g class="arrow" transform="translate(192, 28)">
+    <path d="M0 6l5-5-5-5M4 1h-8" stroke="#FF8A65" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+</svg>
