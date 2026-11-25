@@ -13,8 +13,7 @@
 <div align="center">
 
   <!-- Category 1: Telegram & Bots -->
-  <h4>🤖 Telegram Bot Engineering &amp; Automation</h4>
-  <p><sub>⚡ <strong>Used for:</strong> High-throughput async bots, user session handling, custom MTProto protocols &amp; webhook dispatchers</sub></p>
+  <h4>🤖 Telegram Bot Engineering</h4>
   <p>
     <img src="https://img.shields.io/badge/Telegram_Bot_API-26A5E4?style=for-the-badge&logo=telegram&logoColor=white&labelColor=0d1117" alt="Telegram API" />
     <img src="https://img.shields.io/badge/Pyrogram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white&labelColor=0d1117" alt="Pyrogram" />
@@ -27,8 +26,7 @@
   <br/>
 
   <!-- Category 2: Programming Languages -->
-  <h4>💻 Core Programming &amp; Scripting</h4>
-  <p><sub>⚡ <strong>Used for:</strong> Asynchronous event loops, backend logic, microservice algorithms &amp; automation scripts</sub></p>
+  <h4>💻 Programming Languages</h4>
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=py,js,ts,go,bash&theme=dark" alt="Languages" />
   </a>
@@ -37,7 +35,6 @@
 
   <!-- Category 3: Backend & APIs -->
   <h4>⚙️ Backend Frameworks &amp; APIs</h4>
-  <p><sub>⚡ <strong>Used for:</strong> High-speed REST endpoints, async background task queues &amp; scalable server microservices</sub></p>
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=fastapi,flask,django,nodejs,express&theme=dark" alt="Backend" />
   </a>
@@ -45,8 +42,7 @@
   <br/><br/>
 
   <!-- Category 4: Databases & Storage -->
-  <h4>🗄️ Databases &amp; Persistence</h4>
-  <p><sub>⚡ <strong>Used for:</strong> Storing bot states, user chat sessions, real-time caching &amp; relational data</sub></p>
+  <h4>🗄️ Databases &amp; Storage</h4>
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=mongodb,postgres,mysql,sqlite,supabase,firebase&theme=dark" alt="Databases" />
   </a>
@@ -54,8 +50,7 @@
   <br/><br/>
 
   <!-- Category 5: DevOps & Cloud Hosting -->
-  <h4>🚀 DevOps &amp; 24/7 Cloud Deployment</h4>
-  <p><sub>⚡ <strong>Used for:</strong> Docker containers, automated CI/CD pipelines &amp; round-the-clock uptime cloud hosting</sub></p>
+  <h4>🚀 DevOps &amp; Cloud Deployment</h4>
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=docker,linux,ubuntu,githubactions,heroku,render,vercel&theme=dark" alt="DevOps" />
   </a>
@@ -63,8 +58,7 @@
   <br/><br/>
 
   <!-- Category 6: Developer Tooling -->
-  <h4>🛠️ Developer Tooling &amp; Workflow</h4>
-  <p><sub>⚡ <strong>Used for:</strong> API contract testing, git version control, code debugging &amp; developer productivity</sub></p>
+  <h4>🛠️ Developer Tooling</h4>
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=vscode,git,postman&theme=dark" alt="Tools" />
   </a>
