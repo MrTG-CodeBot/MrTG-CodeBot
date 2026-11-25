@@ -52,7 +52,7 @@
   <!-- Category 5: DevOps & Cloud Hosting -->
   <h4>🚀 DevOps &amp; Cloud Deployment</h4>
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=docker,linux,ubuntu,githubactions,heroku,render,vercel&theme=dark" alt="DevOps" />
+    <img src="https://skillicons.dev/icons?i=docker,linux,ubuntu,githubactions,heroku,vercel&theme=dark" alt="DevOps" />
   </a>
 
   <br/><br/>
@@ -113,20 +113,3 @@
 
 ---
 
-### ☕ Support & Sponsorship
-
-<p align="center">
-  <a href="https://www.buymeacoffee.com/your_handle" target="_blank">
-    <img src="https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee" />
-  </a>
-  &nbsp;
-  <a href="https://ko-fi.com/your_handle" target="_blank">
-    <img src="https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Ko-fi" />
-  </a>
-</p>
-
----
-
-<div align="center">
-  <sub>Built with ⚡ by <a href="https://github.com/MrTG-CodeBot">MrTG-CodeBot</a>. All rights reserved.</sub>
-</div>
