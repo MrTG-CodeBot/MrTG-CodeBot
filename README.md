@@ -12,6 +12,10 @@
 
 <div align="center">
 
+  <img src="./assets/tech-matrix.svg" width="800" alt="MrTG-CodeBot Cyber Tech Matrix" />
+
+  <br/><br/>
+
   <!-- Category 1: Telegram & Bots -->
   <h4>🤖 Telegram Bot Engineering</h4>
   <p>
@@ -31,15 +35,11 @@
     <img src="https://skillicons.dev/icons?i=py,js,ts,go,bash&theme=dark" alt="Languages" />
   </a>
 
-  <br/><br/>
-
   <!-- Category 3: Backend & APIs -->
   <h4>⚙️ Backend Frameworks &amp; APIs</h4>
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=fastapi,flask,django,nodejs,express&theme=dark" alt="Backend" />
   </a>
-
-  <br/><br/>
 
   <!-- Category 4: Databases & Storage -->
   <h4>🗄️ Databases &amp; Storage</h4>
@@ -47,15 +47,11 @@
     <img src="https://skillicons.dev/icons?i=mongodb,postgres,mysql,sqlite,supabase,firebase&theme=dark" alt="Databases" />
   </a>
 
-  <br/><br/>
-
   <!-- Category 5: DevOps & Cloud Hosting -->
   <h4>🚀 DevOps &amp; Cloud Deployment</h4>
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=docker,linux,ubuntu,githubactions,heroku,vercel&theme=dark" alt="DevOps" />
   </a>
-
-  <br/><br/>
 
   <!-- Category 6: Developer Tooling -->
   <h4>🛠️ Developer Tooling</h4>
