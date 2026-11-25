@@ -112,21 +112,15 @@ Passionate  = Turning manual tasks into elegant, automated bots
 
 ---
 
-### 🤖 Featured Bot Projects & Works
-
-| Project / Bot | Tech Stack | Description | Status |
-| :--- | :--- | :--- | :---: |
-| **Telegram Automation Bot** | `Python` • `Pyrogram` • `AsyncIO` | High-throughput message automation and channel management bot. | 🟢 *Active* |
-| **Media Downloader & Converter** | `Python` • `FastAPI` • `MongoDB` | Fetches, converts, and delivers high-resolution media on demand. | 🟢 *Active* |
-| **Custom Webhook Microservice** | `FastAPI` • `Docker` • `PostgreSQL` | Lightweight event listener processing payloads and triggering Telegram alerts. | 🟡 *In Dev* |
-
-*(You can replace or edit these project entries with your actual repositories!)*
-
----
-
-### 📊 GitHub Activity & Badges
+### 📊 GitHub Activity & Repositories
 
 <div align="center">
+
+  <a href="https://gitshine.com/stats/MrTG-CodeBot" target="_blank">
+    <img src="https://gitshine.com/card/MrTG-CodeBot?layout=repos" alt="MrTG-CodeBot's GitHub stats" />
+  </a>
+
+  <br/><br/>
 
   <a href="https://gitshine.com/stats/MrTG-CodeBot" target="_blank">
     <img src="https://gitshine.com/card/MrTG-CodeBot?theme=dark" alt="MrTG-CodeBot's GitHub stats" />
