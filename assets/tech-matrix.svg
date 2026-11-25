@@ -1,0 +1,281 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 230" width="800" height="230">
+  <defs>
+    <linearGradient id="neon-stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F2FE">
+        <animate attributeName="stop-color" values="#00F2FE;#4FACFE;#0088cc;#00F2FE" dur="6s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="50%" stop-color="#26A5E4">
+        <animate attributeName="stop-color" values="#26A5E4;#00F2FE;#4FACFE;#26A5E4" dur="6s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" stop-color="#4FACFE">
+        <animate attributeName="stop-color" values="#4FACFE;#0088cc;#00F2FE;#4FACFE" dur="6s" repeatCount="indefinite" />
+      </stop>
+    </linearGradient>
+
+    <linearGradient id="badge-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161b22" />
+      <stop offset="100%" stop-color="#0d1117" />
+    </linearGradient>
+
+    <!-- Fades for smooth infinite carousel edges -->
+    <linearGradient id="edge-fade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0d1117" stop-opacity="1" />
+      <stop offset="6%" stop-color="#0d1117" stop-opacity="0" />
+      <stop offset="94%" stop-color="#0d1117" stop-opacity="0" />
+      <stop offset="100%" stop-color="#0d1117" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+
+  <style>
+    @keyframes marquee1 {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-960px); }
+    }
+    @keyframes marquee2 {
+      0% { transform: translateX(-960px); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes scan {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.9; }
+    }
+    .track1 {
+      animation: marquee1 22s linear infinite;
+    }
+    .track2 {
+      animation: marquee2 24s linear infinite;
+    }
+    .badge-card {
+      fill: url(#badge-bg);
+      stroke: #30363d;
+      stroke-width: 1.2;
+      rx: 10;
+    }
+    .badge-card:hover {
+      stroke: #00F2FE;
+    }
+    .badge-text {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      fill: #e6edf3;
+    }
+    .header-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      fill: #00F2FE;
+      text-transform: uppercase;
+    }
+    .radar-dot {
+      fill: #00F2FE;
+      animation: scan 2s infinite ease-in-out;
+    }
+  </style>
+
+  <!-- Outer Container Card with Glowing Animated Border -->
+  <rect x="2" y="2" width="796" height="226" rx="16" fill="#0d1117" stroke="url(#neon-stroke)" stroke-width="1.8" />
+
+  <!-- Card Top Banner -->
+  <g transform="translate(24, 28)">
+    <circle cx="0" cy="-4" r="4.5" class="radar-dot" />
+    <text x="14" y="0" class="header-title">⚡ Interactive Tech Matrix &amp; Stack</text>
+  </g>
+
+  <!-- Row 1: Languages & Bot Tech (Moving Left) -->
+  <g transform="translate(0, 52)">
+    <g class="track1">
+      <!-- SET A -->
+      <g transform="translate(10, 0)">
+        <rect width="120" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#3776AB" />
+        <text x="22" y="25" font-size="10" font-weight="900" fill="#fff" text-anchor="middle">PY</text>
+        <text x="40" y="26" class="badge-text">Python</text>
+      </g>
+      <g transform="translate(140, 0)">
+        <rect width="165" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#26A5E4" />
+        <text x="22" y="25" font-size="10" font-weight="900" fill="#fff" text-anchor="middle">TG</text>
+        <text x="40" y="26" class="badge-text">Telegram Bot API</text>
+      </g>
+      <g transform="translate(315, 0)">
+        <rect width="135" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#2CA5E0" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">PG</text>
+        <text x="40" y="26" class="badge-text">Pyrogram</text>
+      </g>
+      <g transform="translate(460, 0)">
+        <rect width="130" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#0088cc" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">TL</text>
+        <text x="40" y="26" class="badge-text">Telethon</text>
+      </g>
+      <g transform="translate(600, 0)">
+        <rect width="130" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#2CA5E0" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">AI</text>
+        <text x="40" y="26" class="badge-text">aiogram</text>
+      </g>
+      <g transform="translate(740, 0)">
+        <rect width="140" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#3178C6" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">TS</text>
+        <text x="40" y="26" class="badge-text">TypeScript</text>
+      </g>
+      <g transform="translate(890, 0)">
+        <rect width="110" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#00ADD8" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">GO</text>
+        <text x="40" y="26" class="badge-text">Golang</text>
+      </g>
+
+      <!-- DUPLICATE SET A (FOR SEAMLESS LOOP) -->
+      <g transform="translate(1010, 0)">
+        <rect width="120" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#3776AB" />
+        <text x="22" y="25" font-size="10" font-weight="900" fill="#fff" text-anchor="middle">PY</text>
+        <text x="40" y="26" class="badge-text">Python</text>
+      </g>
+      <g transform="translate(1140, 0)">
+        <rect width="165" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#26A5E4" />
+        <text x="22" y="25" font-size="10" font-weight="900" fill="#fff" text-anchor="middle">TG</text>
+        <text x="40" y="26" class="badge-text">Telegram Bot API</text>
+      </g>
+      <g transform="translate(1315, 0)">
+        <rect width="135" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#2CA5E0" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">PG</text>
+        <text x="40" y="26" class="badge-text">Pyrogram</text>
+      </g>
+      <g transform="translate(1460, 0)">
+        <rect width="130" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#0088cc" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">TL</text>
+        <text x="40" y="26" class="badge-text">Telethon</text>
+      </g>
+      <g transform="translate(1600, 0)">
+        <rect width="130" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#2CA5E0" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">AI</text>
+        <text x="40" y="26" class="badge-text">aiogram</text>
+      </g>
+      <g transform="translate(1740, 0)">
+        <rect width="140" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#3178C6" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">TS</text>
+        <text x="40" y="26" class="badge-text">TypeScript</text>
+      </g>
+      <g transform="translate(1890, 0)">
+        <rect width="110" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#00ADD8" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">GO</text>
+        <text x="40" y="26" class="badge-text">Golang</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Row 2: Backend, Database & Cloud (Moving Right) -->
+  <g transform="translate(0, 114)">
+    <g class="track2">
+      <!-- SET B -->
+      <g transform="translate(10, 0)">
+        <rect width="125" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#009688" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">FA</text>
+        <text x="40" y="26" class="badge-text">FastAPI</text>
+      </g>
+      <g transform="translate(145, 0)">
+        <rect width="125" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#2496ED" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">DK</text>
+        <text x="40" y="26" class="badge-text">Docker</text>
+      </g>
+      <g transform="translate(280, 0)">
+        <rect width="135" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#47A248" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">MG</text>
+        <text x="40" y="26" class="badge-text">MongoDB</text>
+      </g>
+      <g transform="translate(425, 0)">
+        <rect width="145" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#4169E1" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">PG</text>
+        <text x="40" y="26" class="badge-text">PostgreSQL</text>
+      </g>
+      <g transform="translate(580, 0)">
+        <rect width="125" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#339933" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">JS</text>
+        <text x="40" y="26" class="badge-text">Node.js</text>
+      </g>
+      <g transform="translate(715, 0)">
+        <rect width="120" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#FCC624" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#000" text-anchor="middle">LX</text>
+        <text x="40" y="26" class="badge-text">Linux</text>
+      </g>
+      <g transform="translate(845, 0)">
+        <rect width="135" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#3ECF8E" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">SB</text>
+        <text x="40" y="26" class="badge-text">Supabase</text>
+      </g>
+
+      <!-- DUPLICATE SET B (FOR SEAMLESS LOOP) -->
+      <g transform="translate(990, 0)">
+        <rect width="125" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#009688" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">FA</text>
+        <text x="40" y="26" class="badge-text">FastAPI</text>
+      </g>
+      <g transform="translate(1125, 0)">
+        <rect width="125" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#2496ED" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">DK</text>
+        <text x="40" y="26" class="badge-text">Docker</text>
+      </g>
+      <g transform="translate(1260, 0)">
+        <rect width="135" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#47A248" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">MG</text>
+        <text x="40" y="26" class="badge-text">MongoDB</text>
+      </g>
+      <g transform="translate(1405, 0)">
+        <rect width="145" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#4169E1" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">PG</text>
+        <text x="40" y="26" class="badge-text">PostgreSQL</text>
+      </g>
+      <g transform="translate(1560, 0)">
+        <rect width="125" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#339933" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">JS</text>
+        <text x="40" y="26" class="badge-text">Node.js</text>
+      </g>
+      <g transform="translate(1695, 0)">
+        <rect width="120" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#FCC624" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#000" text-anchor="middle">LX</text>
+        <text x="40" y="26" class="badge-text">Linux</text>
+      </g>
+      <g transform="translate(1825, 0)">
+        <rect width="135" height="42" class="badge-card" />
+        <circle cx="22" cy="21" r="9" fill="#3ECF8E" />
+        <text x="22" y="25" font-size="9" font-weight="900" fill="#fff" text-anchor="middle">SB</text>
+        <text x="40" y="26" class="badge-text">Supabase</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Left/Right Edge Fades to make marquee loop seamlessly -->
+  <rect x="2" y="50" width="796" height="130" fill="url(#edge-fade)" pointer-events="none" />
+
+  <!-- Bottom Accent Status -->
+  <g transform="translate(24, 206)">
+    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#8b949e">
+      ⚡ Automated Workflows &amp; Event-Driven Microservices
+    </text>
+  </g>
+</svg>
