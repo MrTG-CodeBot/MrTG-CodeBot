@@ -3,33 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>MrTG-CodeBot // 3D Architectural WebGL Studio</title>
+  <title>MrTG-CodeBot // 3D Dark Manga WebGL Studio</title>
   
-  <meta name="description" content="Senior Bot Architect, Automation Engineer & WebGL Creative Developer Portfolio" />
-  <meta name="theme-color" content="#f8fafc" />
+  <meta name="description" content="Senior Bot Architect, Automation Engineer & 3D WebGL Manga Experience" />
+  <meta name="theme-color" content="#070a12" />
 
-  <!-- Google Fonts: Space Grotesk (Display), JetBrains Mono (Technical), Inter (Body) -->
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Bebas Neue, Noto Sans JP -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600;800&family=Noto+Sans+JP:wght@700;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
 
   <!-- Font Awesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
     :root {
-      --bg-vellum: #f8fafc;
-      --paper-white: #ffffff;
-      --ink-black: #0f172a;
-      --ink-subtle: #475569;
-      --cad-slate: #94a3b8;
-      --spidey-red: #e11d48;
-      --spidey-crimson: #be123c;
-      --blueprint-blue: #0284c7;
-      --border-ink: rgba(15, 23, 42, 0.16);
+      --bg-midnight: #070a12;
+      --bg-dark-card: rgba(13, 18, 30, 0.94);
+      --ink-black: #000000;
+      --manga-white: #f8fafc;
+      --manga-red: #ff2a5f;
+      --manga-crimson: #e11d48;
+      --manga-cyan: #00f0ff;
+      --manga-blue: #38bdf8;
+      --manga-yellow: #facc15;
+      --manga-slate: #64748b;
+      --border-neon: rgba(0, 240, 255, 0.35);
+      --border-red: rgba(255, 42, 95, 0.45);
       
-      --font-display: 'Space Grotesk', -apple-system, sans-serif;
+      --font-display: 'Bebas Neue', 'Space Grotesk', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+      --font-jp: 'Noto Sans JP', sans-serif;
       --font-body: 'Inter', -apple-system, sans-serif;
     }
 
@@ -43,29 +47,44 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background-color: var(--bg-vellum);
-      color: var(--ink-black);
+      background-color: var(--bg-midnight);
+      color: var(--manga-white);
       font-family: var(--font-body);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       user-select: none;
     }
 
-    /* Architectural Millimeter Drafting Grid */
-    .drafting-grid-bg {
+    /* Manga Halftone Screentone Grid Overlay */
+    .manga-screentone-bg {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 1;
-      background-size: 40px 40px, 8px 8px;
       background-image: 
-        linear-gradient(to right, rgba(15, 23, 42, 0.045) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(15, 23, 42, 0.045) 1px, transparent 1px),
-        linear-gradient(to right, rgba(15, 23, 42, 0.015) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(15, 23, 42, 0.015) 1px, transparent 1px);
+        radial-gradient(circle, rgba(0, 240, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(to right, rgba(255, 42, 95, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 42, 95, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px, 48px 48px, 48px 48px;
     }
 
-    /* WebGL Canvas */
+    /* Japanese Architectural Kanji Background Watermark */
+    .kanji-watermark {
+      position: fixed;
+      bottom: 5vh;
+      left: 3vw;
+      font-family: var(--font-jp);
+      font-size: 9rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.015);
+      line-height: 0.85;
+      pointer-events: none;
+      z-index: 1;
+      writing-mode: vertical-rl;
+      letter-spacing: -10px;
+    }
+
+    /* Three.js Canvas Container */
     #webgl-canvas-container {
       position: fixed;
       inset: 0;
@@ -77,163 +96,206 @@
       display: block;
     }
 
-    /* Corner CAD Crosshairs */
-    .cad-crosshair {
+    /* Custom Manga Reticle Cursor */
+    .manga-cursor {
       position: fixed;
-      z-index: 20;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--cad-slate);
-      pointer-events: none;
-      line-height: 1;
-    }
-    .cad-tl { top: 16px; left: 16px; }
-    .cad-tr { top: 16px; right: 16px; }
-    .cad-bl { bottom: 16px; left: 16px; }
-    .cad-br { bottom: 16px; right: 16px; }
-
-    /* Custom Reticle Cursor */
-    .custom-cursor {
-      position: fixed;
-      width: 28px;
-      height: 28px;
-      border: 1.5px solid var(--spidey-red);
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--manga-cyan);
       border-radius: 50%;
       pointer-events: none;
       z-index: 999;
       transform: translate(-50%, -50%);
-      transition: width 0.15s ease, height 0.15s ease, background 0.15s ease;
+      transition: width 0.15s ease, height 0.15s ease, border-color 0.15s ease, background 0.15s ease;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
     }
-    .custom-cursor-dot {
-      width: 4px;
-      height: 4px;
-      background: var(--spidey-red);
+    .manga-cursor-center {
+      width: 5px;
+      height: 5px;
+      background: var(--manga-red);
       border-radius: 50%;
+      box-shadow: 0 0 8px var(--manga-red);
     }
-    body.cursor-hover .custom-cursor {
-      width: 48px;
-      height: 48px;
-      background: rgba(225, 29, 72, 0.08);
-      border-color: var(--ink-black);
+    body.cursor-hover .manga-cursor {
+      width: 52px;
+      height: 52px;
+      border-color: var(--manga-red);
+      background: rgba(255, 42, 95, 0.15);
+      box-shadow: 0 0 18px var(--manga-red);
     }
 
-    /* Top Studio Header */
-    header.studio-header {
+    /* Comic Action Speed Lines Flash */
+    .speed-lines-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0.25;
+      background: radial-gradient(circle at center, transparent 40%, rgba(7, 10, 18, 0.8) 100%);
+    }
+
+    /* CAD Corner Coordinates */
+    .cad-crop-mark {
+      position: fixed;
+      z-index: 20;
+      font-family: var(--font-mono);
+      font-size: 0.70rem;
+      color: rgba(0, 240, 255, 0.6);
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: 0.5px;
+    }
+    .cad-tl { top: 18px; left: 20px; }
+    .cad-tr { top: 18px; right: 20px; text-align: right; }
+    .cad-bl { bottom: 18px; left: 20px; }
+    .cad-br { bottom: 18px; right: 20px; text-align: right; }
+
+    /* Top Studio Manga Header */
+    header.manga-header {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      height: 64px;
-      padding: 0 28px;
+      height: 68px;
+      padding: 0 32px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       z-index: 30;
-      background: rgba(248, 250, 252, 0.85);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border-ink);
+      background: linear-gradient(180deg, rgba(7, 10, 18, 0.95) 0%, rgba(7, 10, 18, 0.6) 80%, transparent 100%);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.2);
     }
 
-    .brand-cluster {
+    .brand-group {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
-    .brand-icon-box {
-      width: 34px;
-      height: 34px;
-      background: var(--spidey-red);
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      background: var(--manga-red);
+      border: 2px solid #ffffff;
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 4px;
-      font-size: 0.95rem;
-      box-shadow: 2px 2px 0px var(--ink-black);
+      font-size: 1.1rem;
+      transform: skewX(-8deg);
+      box-shadow: 3px 3px 0px var(--manga-cyan);
     }
-    .brand-title {
-      font-family: var(--font-display);
-      font-size: 0.98rem;
-      font-weight: 700;
-      letter-spacing: -0.2px;
-      color: var(--ink-black);
+    .brand-text {
+      display: flex;
+      flex-direction: column;
     }
-    .brand-sub {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: var(--ink-subtle);
-    }
-
-    /* Telemetry HUD Badge */
-    .telemetry-strip {
+    .brand-title-row {
       display: flex;
       align-items: center;
-      gap: 18px;
-      background: #ffffff;
-      border: 1px solid var(--border-ink);
-      padding: 6px 16px;
-      border-radius: 30px;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      gap: 8px;
     }
-    .telemetry-item {
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+      color: #ffffff;
+      line-height: 1;
+    }
+    .brand-jp {
+      font-family: var(--font-jp);
+      font-size: 0.70rem;
+      font-weight: 900;
+      color: var(--manga-cyan);
+      background: rgba(0, 240, 255, 0.12);
+      padding: 1px 6px;
+      border-radius: 2px;
+      border: 1px solid rgba(0, 240, 255, 0.3);
+    }
+    .brand-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--manga-slate);
+      letter-spacing: 0.5px;
+    }
+
+    /* Live Telemetry Strip */
+    .manga-telemetry {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: rgba(13, 18, 30, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 6px 18px;
+      border-radius: 4px;
+      transform: skewX(-6deg);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.12);
+    }
+    .telemetry-node {
       display: flex;
       align-items: center;
       gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      transform: skewX(6deg);
     }
-    .telemetry-label {
-      color: var(--cad-slate);
+    .telemetry-node .label {
+      color: var(--manga-slate);
     }
-    .telemetry-val {
-      font-weight: 700;
-      color: var(--ink-black);
+    .telemetry-node .val {
+      font-weight: 800;
+      color: #fff;
     }
-    .telemetry-val.highlight {
-      color: var(--spidey-red);
+    .telemetry-node .val.cyan {
+      color: var(--manga-cyan);
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+    }
+    .telemetry-node .val.red {
+      color: var(--manga-red);
+      text-shadow: 0 0 8px rgba(255, 42, 95, 0.6);
     }
 
-    /* Header Action Controls */
-    .header-actions {
+    /* Action Buttons in Header */
+    .header-btns {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
-    .studio-btn {
+    .manga-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: #ffffff;
-      border: 1px solid var(--border-ink);
-      padding: 7px 14px;
-      border-radius: 4px;
+      background: rgba(13, 18, 30, 0.9);
+      border: 1.5px solid var(--border-neon);
+      padding: 7px 15px;
+      border-radius: 2px;
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--ink-black);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #ffffff;
       cursor: pointer;
       text-decoration: none;
+      transform: skewX(-6deg);
       transition: all 0.15s ease;
-      box-shadow: 2px 2px 0px rgba(15, 23, 42, 0.06);
+      box-shadow: 2px 2px 0px rgba(0, 240, 255, 0.3);
     }
-    .studio-btn:hover {
-      background: var(--ink-black);
-      color: #ffffff;
-      border-color: var(--ink-black);
-      transform: translate(-1px, -1px);
-      box-shadow: 3px 3px 0px var(--spidey-red);
+    .manga-btn > * {
+      transform: skewX(6deg);
     }
-    .studio-btn.active {
-      background: var(--ink-black);
-      color: #ffffff;
-      border-color: var(--ink-black);
+    .manga-btn:hover {
+      background: var(--manga-red);
+      border-color: #ffffff;
+      box-shadow: 4px 4px 0px var(--manga-cyan);
+      transform: skewX(-6deg) translate(-2px, -2px);
+    }
+    .manga-btn.active {
+      background: var(--manga-red);
+      border-color: #ffffff;
     }
 
-    /* Vertical Sector Scrubber */
-    aside.sector-scrubber {
+    /* Right Vertical Chapter Scrubber */
+    aside.manga-chapter-scrubber {
       position: fixed;
       right: 28px;
       top: 50%;
@@ -241,416 +303,468 @@
       z-index: 25;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
     }
-    .scrubber-item {
+    .chapter-node {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       cursor: pointer;
       position: relative;
     }
-    .scrubber-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #cbd5e1;
-      border: 1.5px solid #fff;
-      box-shadow: 0 0 0 1px var(--border-ink);
-      transition: all 0.2s ease;
+    .chapter-pip {
+      width: 10px;
+      height: 10px;
+      background: #1e293b;
+      border: 1.5px solid rgba(0, 240, 255, 0.4);
+      transform: rotate(45deg);
+      transition: all 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     }
-    .scrubber-label {
+    .chapter-tag {
       font-family: var(--font-mono);
-      font-size: 0.68rem;
-      font-weight: 500;
-      color: var(--cad-slate);
+      font-size: 0.70rem;
+      font-weight: 700;
+      color: var(--manga-slate);
       opacity: 0;
-      transform: translateX(6px);
+      transform: translateX(10px);
       transition: all 0.2s ease;
       white-space: nowrap;
       pointer-events: none;
+      background: rgba(7, 10, 18, 0.9);
+      padding: 3px 8px;
+      border-left: 2px solid var(--manga-cyan);
     }
-    .scrubber-item:hover .scrubber-label,
-    .scrubber-item.active .scrubber-label {
+    .chapter-node:hover .chapter-tag,
+    .chapter-node.active .chapter-tag {
       opacity: 1;
       transform: translateX(0);
     }
-    .scrubber-item.active .scrubber-dot {
-      background: var(--spidey-red);
-      transform: scale(1.4);
-      box-shadow: 0 0 0 2px var(--ink-black);
+    .chapter-node.active .chapter-pip {
+      background: var(--manga-red);
+      border-color: #ffffff;
+      transform: rotate(45deg) scale(1.6);
+      box-shadow: 0 0 12px var(--manga-red), 0 0 4px var(--manga-cyan);
     }
-    .scrubber-item.active .scrubber-label {
-      color: var(--ink-black);
-      font-weight: 700;
+    .chapter-node.active .chapter-tag {
+      color: #ffffff;
+      border-color: var(--manga-red);
     }
 
-    /* 3D Blueprint Screen-Projected Spec Callouts */
-    .blueprint-specs-container {
+    /* Screen-Projected Manga Spec Callouts */
+    .manga-specs-overlay {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 22;
       transition: opacity 0.25s ease;
     }
-    .blueprint-specs-container.hidden {
+    .manga-specs-overlay.hidden {
       opacity: 0;
     }
-    .spec-annotation {
+    .manga-spec-box {
       position: absolute;
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid var(--spidey-red);
-      padding: 4px 8px;
+      background: rgba(13, 18, 30, 0.95);
+      border: 1.5px solid var(--manga-red);
+      padding: 5px 10px;
       border-radius: 2px;
       font-family: var(--font-mono);
       font-size: 0.68rem;
-      font-weight: 600;
-      color: var(--ink-black);
-      box-shadow: 2px 2px 0px rgba(225, 29, 72, 0.25);
+      font-weight: 700;
+      color: #ffffff;
+      box-shadow: 3px 3px 0px rgba(0, 240, 255, 0.5);
       white-space: nowrap;
       pointer-events: auto;
+      transform: skewX(-6deg);
       transition: transform 0.08s ease-out;
     }
-    .spec-annotation::before {
+    .manga-spec-box > * {
+      transform: skewX(6deg);
+    }
+    .manga-spec-box::before {
       content: '';
       position: absolute;
-      width: 5px;
-      height: 5px;
-      background: var(--spidey-red);
-      border-radius: 50%;
+      width: 6px;
+      height: 6px;
+      background: var(--manga-cyan);
+      box-shadow: 0 0 6px var(--manga-cyan);
     }
     .spec-left::before {
       right: -8px;
       top: 50%;
-      transform: translateY(-50%);
+      transform: translateY(-50%) rotate(45deg);
     }
     .spec-right::before {
       left: -8px;
       top: 50%;
-      transform: translateY(-50%);
+      transform: translateY(-50%) rotate(45deg);
     }
-    .spec-tag {
-      background: var(--spidey-red);
+    .spec-kanji-tag {
+      background: var(--manga-red);
       color: #fff;
-      padding: 1px 4px;
-      border-radius: 2px;
-      font-size: 0.60rem;
+      padding: 1px 5px;
+      font-family: var(--font-jp);
+      font-size: 0.62rem;
+      font-weight: 900;
     }
 
-    /* Story Card Viewports */
-    .story-viewport {
+    /* Manga Comic Story Panels Viewport */
+    .manga-panel-stage {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 24;
       display: flex;
       align-items: center;
-      padding: 0 8vw;
-    }
-    .editorial-card {
-      width: 100%;
-      max-width: 480px;
-      background: rgba(255, 255, 255, 0.94);
-      border: 1.5px solid var(--ink-black);
-      border-radius: 6px;
-      padding: 34px 32px;
-      box-shadow: 6px 6px 0px var(--spidey-red);
-      backdrop-filter: blur(12px);
-      pointer-events: auto;
-      opacity: 0;
-      transform: translateY(28px) scale(0.97);
-      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      position: absolute;
-      pointer-events: none;
-    }
-    .editorial-card.visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-    }
-    .editorial-card.pos-left {
-      left: 7vw;
-    }
-    .editorial-card.pos-right {
-      right: 7vw;
+      padding: 0 7vw;
     }
 
-    /* Card Micro Elements */
-    .card-meta-bar {
+    /* Manga Action Panel Box */
+    .manga-card {
+      width: 100%;
+      max-width: 500px;
+      background: var(--bg-dark-card);
+      border: 2px solid #ffffff;
+      padding: 34px 32px;
+      box-shadow: 8px 8px 0px var(--manga-red), 12px 12px 0px rgba(0, 240, 255, 0.4);
+      backdrop-filter: blur(14px);
+      pointer-events: auto;
+      opacity: 0;
+      transform: translateY(32px) scale(0.96) skewX(-2deg);
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: absolute;
+      pointer-events: none;
+      clip-path: polygon(0% 0%, 96% 0%, 100% 4%, 100% 100%, 4% 100%, 0% 96%);
+    }
+    .manga-card.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1) skewX(0deg);
+      pointer-events: auto;
+    }
+    .manga-card.pos-left {
+      left: 6vw;
+    }
+    .manga-card.pos-right {
+      right: 6vw;
+    }
+
+    /* Manga Chapter Strip Header */
+    .panel-chapter-strip {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 16px;
       padding-bottom: 12px;
-      border-bottom: 1px dashed var(--border-ink);
+      border-bottom: 2px dashed rgba(255, 255, 255, 0.2);
     }
-    .card-sector-badge {
+    .chapter-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.70rem;
-      font-weight: 700;
-      color: var(--spidey-red);
-      letter-spacing: 0.5px;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: 1px;
+      color: var(--manga-cyan);
     }
-    .card-cad-tag {
+    .chapter-kanji {
+      font-family: var(--font-jp);
+      font-size: 0.70rem;
+      font-weight: 900;
+      background: var(--manga-red);
+      color: #fff;
+      padding: 2px 8px;
+      transform: skewX(-10deg);
+    }
+    .panel-cad-ref {
       font-family: var(--font-mono);
       font-size: 0.65rem;
-      color: var(--cad-slate);
-    }
-    .card-heading {
-      font-family: var(--font-display);
-      font-size: 2.1rem;
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.5px;
-      color: var(--ink-black);
-      margin-bottom: 14px;
-    }
-    .card-heading .accent-red {
-      color: var(--spidey-red);
-    }
-    .card-body-text {
-      font-size: 0.92rem;
-      line-height: 1.6;
-      color: var(--ink-subtle);
-      margin-bottom: 22px;
+      color: var(--manga-slate);
     }
 
-    /* Badges & Metrics Grid */
-    .metrics-pill-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+    /* Dramatic Manga Headlines */
+    .panel-headline {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: 1px;
+      color: #ffffff;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .panel-headline .glow-red {
+      color: var(--manga-red);
+      text-shadow: 0 0 14px rgba(255, 42, 95, 0.7);
+    }
+    .panel-headline .glow-cyan {
+      color: var(--manga-cyan);
+      text-shadow: 0 0 14px rgba(0, 240, 255, 0.7);
+    }
+
+    .panel-synopsis {
+      font-size: 0.94rem;
+      line-height: 1.6;
+      color: #cbd5e1;
       margin-bottom: 24px;
     }
-    .metric-pill {
-      background: var(--bg-vellum);
-      border: 1px solid var(--border-ink);
-      padding: 10px 12px;
-      border-radius: 4px;
+
+    /* Metrics Grid with Manga Screentone */
+    .manga-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
     }
-    .metric-num {
+    .manga-metric-cell {
+      background: rgba(7, 10, 18, 0.9);
+      border: 1.5px solid var(--border-neon);
+      padding: 12px 14px;
+      border-radius: 2px;
+      box-shadow: 2px 2px 0px var(--manga-red);
+    }
+    .metric-value {
       font-family: var(--font-display);
-      font-size: 1.25rem;
+      font-size: 1.8rem;
       font-weight: 700;
-      color: var(--ink-black);
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: 1px;
     }
-    .metric-title {
+    .metric-caption {
       font-family: var(--font-mono);
       font-size: 0.65rem;
-      color: var(--cad-slate);
+      font-weight: 700;
+      color: var(--manga-cyan);
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      margin-top: 4px;
     }
 
-    /* Stack Pills Grid */
-    .stack-tags-cloud {
+    /* Manga Stack Tags */
+    .manga-tags-row {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       margin-bottom: 24px;
     }
-    .stack-tag {
+    .manga-tag {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: #ffffff;
-      border: 1px solid var(--border-ink);
-      padding: 5px 10px;
-      border-radius: 4px;
+      background: rgba(7, 10, 18, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 6px 12px;
+      border-radius: 2px;
       font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--ink-black);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #ffffff;
+      box-shadow: 2px 2px 0px var(--manga-red);
     }
-    .stack-tag i {
-      color: var(--spidey-red);
-      font-size: 0.85rem;
+    .manga-tag i {
+      color: var(--manga-cyan);
     }
 
-    /* Card Interactive Action Row */
-    .card-action-row {
+    /* Manga Action Buttons */
+    .manga-action-group {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-    .action-button-primary {
+    .manga-primary-btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: var(--ink-black);
+      gap: 10px;
+      background: var(--manga-red);
       color: #ffffff;
-      border: 1px solid var(--ink-black);
-      padding: 10px 18px;
-      border-radius: 4px;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 600;
+      border: 2px solid #ffffff;
+      padding: 11px 22px;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: 1px;
       cursor: pointer;
       text-decoration: none;
+      transform: skewX(-8deg);
       transition: all 0.15s ease;
-      box-shadow: 3px 3px 0px var(--spidey-red);
+      box-shadow: 4px 4px 0px var(--manga-cyan);
     }
-    .action-button-primary:hover {
-      background: var(--spidey-red);
-      border-color: var(--spidey-red);
-      box-shadow: 3px 3px 0px var(--ink-black);
-      transform: translate(-1px, -1px);
+    .manga-primary-btn > * {
+      transform: skewX(8deg);
     }
-    .action-button-ghost {
+    .manga-primary-btn:hover {
+      background: var(--manga-cyan);
+      color: var(--ink-black);
+      border-color: #ffffff;
+      box-shadow: 6px 6px 0px var(--manga-red);
+      transform: skewX(-8deg) translate(-2px, -2px);
+    }
+    .manga-ghost-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       background: transparent;
-      color: var(--ink-black);
-      border: 1px solid var(--border-ink);
-      padding: 10px 16px;
-      border-radius: 4px;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 500;
+      color: #ffffff;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      padding: 10px 18px;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 1px;
       cursor: pointer;
       text-decoration: none;
+      transform: skewX(-8deg);
       transition: all 0.15s ease;
     }
-    .action-button-ghost:hover {
-      background: #ffffff;
-      border-color: var(--ink-black);
+    .manga-ghost-btn > * {
+      transform: skewX(8deg);
+    }
+    .manga-ghost-btn:hover {
+      border-color: var(--manga-cyan);
+      background: rgba(0, 240, 255, 0.1);
     }
 
-    /* Bottom Scrolly Flight Control Deck */
-    .flight-control-deck {
+    /* Bottom Scrolly Manga Flight Control Deck */
+    .manga-control-deck {
       position: fixed;
-      bottom: 22px;
+      bottom: 24px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 30;
       display: flex;
       align-items: center;
-      gap: 14px;
-      background: rgba(255, 255, 255, 0.94);
-      border: 1.5px solid var(--ink-black);
-      padding: 8px 18px;
-      border-radius: 36px;
-      box-shadow: 4px 4px 0px var(--ink-black);
-      backdrop-filter: blur(8px);
+      gap: 16px;
+      background: rgba(13, 18, 30, 0.95);
+      border: 2px solid #ffffff;
+      padding: 8px 22px;
+      border-radius: 4px;
+      box-shadow: 5px 5px 0px var(--manga-red), 8px 8px 0px var(--manga-cyan);
+      backdrop-filter: blur(10px);
+      transform: translateX(-50%) skewX(-6deg);
     }
-    .flight-stepper-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--bg-vellum);
-      border: 1px solid var(--border-ink);
-      color: var(--ink-black);
+    .manga-control-deck > * {
+      transform: skewX(6deg);
+    }
+    .manga-stepper-btn {
+      width: 34px;
+      height: 34px;
+      background: rgba(7, 10, 18, 0.9);
+      border: 1.5px solid var(--border-neon);
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 0.75rem;
+      font-size: 0.80rem;
       transition: all 0.15s ease;
     }
-    .flight-stepper-btn:hover {
-      background: var(--spidey-red);
-      color: #fff;
-      border-color: var(--spidey-red);
+    .manga-stepper-btn:hover {
+      background: var(--manga-red);
+      border-color: #fff;
     }
-    .flight-slider {
-      width: 160px;
+    .manga-slider {
+      width: 170px;
       -webkit-appearance: none;
-      height: 4px;
-      background: #cbd5e1;
+      height: 5px;
+      background: #1e293b;
       border-radius: 2px;
       outline: none;
     }
-    .flight-slider::-webkit-slider-thumb {
+    .manga-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
-      background: var(--spidey-red);
-      border: 2px solid var(--ink-black);
-      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      background: var(--manga-cyan);
+      border: 2px solid #ffffff;
+      border-radius: 2px;
       cursor: pointer;
+      box-shadow: 0 0 10px var(--manga-cyan);
       transition: transform 0.1s ease;
     }
-    .flight-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.2);
+    .manga-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
     }
-    .flight-hint-text {
+    .deck-hint {
       font-family: var(--font-mono);
-      font-size: 0.70rem;
-      font-weight: 600;
-      color: var(--ink-subtle);
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--manga-cyan);
+      letter-spacing: 0.5px;
     }
 
-    /* Spider-Man Interactive Hint Pill */
-    .hero-hint-pill {
+    /* Floating Spider-Man Comic Hint */
+    .comic-interaction-pill {
       position: fixed;
-      top: 80px;
+      top: 86px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 25;
-      background: #ffffff;
-      border: 1.5px solid var(--ink-black);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--ink-black);
-      box-shadow: 3px 3px 0px var(--spidey-red);
+      background: var(--manga-red);
+      border: 2px solid #ffffff;
+      color: #ffffff;
+      padding: 6px 18px;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: 1px;
+      box-shadow: 4px 4px 0px var(--manga-cyan);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       pointer-events: none;
-      animation: floatHint 2.4s infinite ease-in-out;
+      transform: translateX(-50%) skewX(-8deg);
+      animation: mangaFloat 2s infinite ease-in-out;
     }
-    @keyframes floatHint {
-      0%, 100% { transform: translate(-50%, 0); }
-      50% { transform: translate(-50%, -6px); }
+    .comic-interaction-pill > * {
+      transform: skewX(8deg);
+    }
+    @keyframes mangaFloat {
+      0%, 100% { transform: translateX(-50%) skewX(-8deg) translateY(0); }
+      50% { transform: translateX(-50%) skewX(-8deg) translateY(-8px); }
     }
 
-    /* Comic Action Word Popup */
-    .comic-fx-burst {
+    /* Manga Comic Action Word Burst */
+    .manga-fx-shout {
       position: fixed;
       z-index: 998;
       font-family: var(--font-display);
-      font-size: 2.2rem;
+      font-size: 3.4rem;
       font-weight: 700;
-      color: var(--spidey-red);
-      text-shadow: 2px 2px 0px var(--ink-black), -1px -1px 0px var(--ink-black);
+      color: var(--manga-yellow);
+      text-shadow: 
+        3px 3px 0px var(--manga-red),
+        -2px -2px 0px var(--ink-black),
+        2px -2px 0px var(--ink-black),
+        -2px 2px 0px var(--ink-black),
+        0 0 20px var(--manga-red);
       pointer-events: none;
-      transform: translate(-50%, -50%) scale(0) rotate(-10deg);
-      transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 0.2s ease;
+      transform: translate(-50%, -50%) scale(0) rotate(-14deg);
+      transition: transform 0.22s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 0.22s ease;
       opacity: 0;
+      letter-spacing: 2px;
     }
-    .comic-fx-burst.active {
-      transform: translate(-50%, -50%) scale(1.2) rotate(6deg);
+    .manga-fx-shout.active {
+      transform: translate(-50%, -50%) scale(1.25) rotate(6deg);
       opacity: 1;
     }
 
-    /* Responsive Queries */
+    /* Responsive Adjustments */
     @media (max-width: 860px) {
-      .editorial-card {
-        max-width: 90% !important;
-        left: 5% !important;
-        right: 5% !important;
+      .manga-card {
+        max-width: 92% !important;
+        left: 4% !important;
+        right: 4% !important;
         padding: 24px 20px;
       }
-      .card-heading {
-        font-size: 1.7rem;
+      .panel-headline {
+        font-size: 2.2rem;
       }
-      .telemetry-strip, .hero-hint-pill, .blueprint-specs-container {
+      .manga-telemetry, .comic-interaction-pill, .manga-specs-overlay, .kanji-watermark {
         display: none !important;
       }
-      .flight-slider {
+      .manga-slider {
         width: 100px;
       }
-      .scrubber-label {
+      .chapter-tag {
         display: none !important;
       }
     }
@@ -658,293 +772,302 @@
 </head>
 <body>
 
-  <!-- Precision Custom Reticle Cursor -->
-  <div class="custom-cursor" id="customCursor">
-    <div class="custom-cursor-dot"></div>
+  <!-- Custom Manga Reticle Cursor -->
+  <div class="manga-cursor" id="customCursor">
+    <div class="manga-cursor-center"></div>
   </div>
 
   <!-- CAD Crop Marks -->
-  <div class="cad-crosshair cad-tl">+ 00°00'N 00°00'W</div>
-  <div class="cad-crosshair cad-tr">CAD // ARCH-0600</div>
-  <div class="cad-crosshair cad-bl">GRID: 0.1MM VELLUM</div>
-  <div class="cad-crosshair cad-br">SPIDEY-ENGINE v4.2</div>
+  <div class="cad-crop-mark cad-tl">[SECTOR_00] // 暗黒電脳都市</div>
+  <div class="cad-crop-mark cad-tr">MANGA_SPEC v5.0 // 規格-2026</div>
+  <div class="cad-crop-mark cad-bl">GRID: HIGH-CONTRAST INK</div>
+  <div class="cad-crop-mark cad-br">SPIDEY_ENGINE // 始動</div>
 
-  <!-- Drafting Grid Layer -->
-  <div class="drafting-grid-bg"></div>
+  <!-- Screentone Dot Layer -->
+  <div class="manga-screentone-bg"></div>
 
-  <!-- Three.js Canvas Container -->
+  <!-- Speed Lines Radial Vignette -->
+  <div class="speed-lines-overlay"></div>
+
+  <!-- Japanese Kanji Watermark -->
+  <div class="kanji-watermark">電脳電信設計</div>
+
+  <!-- WebGL 3D Canvas -->
   <div id="webgl-canvas-container">
     <canvas id="webgl-canvas"></canvas>
   </div>
 
-  <!-- Comic Word FX Burst -->
-  <div class="comic-fx-burst" id="comicFx">BOOM-WEB!</div>
+  <!-- Manga Action Comic Word Popup -->
+  <div class="manga-fx-shout" id="mangaShout">THWIP!</div>
 
-  <!-- Top Studio Header -->
-  <header class="studio-header">
-    <div class="brand-cluster">
-      <div class="brand-icon-box">
+  <!-- Top Manga Studio Header -->
+  <header class="manga-header">
+    <div class="brand-group">
+      <div class="brand-badge">
         <i class="fa-solid fa-spider"></i>
       </div>
-      <div>
-        <div class="brand-title">MRTG-CODEBOT</div>
-        <div class="brand-sub">BOT ARCHITECT // 3D LAB</div>
+      <div class="brand-text">
+        <div class="brand-title-row">
+          <span class="brand-name">MRTG-CODEBOT</span>
+          <span class="brand-jp">電脳蜘蛛</span>
+        </div>
+        <span class="brand-subtitle">BOT ARCHITECT // MANGA 3D EXPERIENCE</span>
       </div>
     </div>
 
-    <!-- Live Flight Telemetry -->
-    <div class="telemetry-strip">
-      <div class="telemetry-item">
-        <span class="telemetry-label">SECTOR:</span>
-        <span class="telemetry-val highlight" id="telemetrySector">SPEC-01</span>
+    <!-- Live Dark Telemetry Strip -->
+    <div class="manga-telemetry">
+      <div class="telemetry-node">
+        <span class="label">CHAPTER:</span>
+        <span class="val cyan" id="telemetryChapter">CH.01</span>
       </div>
-      <div class="telemetry-item">
-        <span class="telemetry-label">ALT:</span>
-        <span class="telemetry-val" id="telemetryAltitude">184m</span>
+      <div class="telemetry-node">
+        <span class="label">ALTITUDE:</span>
+        <span class="val" id="telemetryAltitude">240m</span>
       </div>
-      <div class="telemetry-item">
-        <span class="telemetry-label">TRAJECTORY:</span>
-        <span class="telemetry-val highlight" id="telemetryProgress">00%</span>
+      <div class="telemetry-node">
+        <span class="label">TRAJECTORY:</span>
+        <span class="val red" id="telemetryProgress">00%</span>
       </div>
     </div>
 
-    <!-- Action Controls -->
-    <div class="header-actions">
-      <button class="studio-btn" id="specToggleBtn" title="Toggle Blueprint CAD Annotations">
-        <i class="fa-solid fa-compass-drafting" style="color:var(--spidey-red)"></i>
+    <!-- Header Actions -->
+    <div class="header-btns">
+      <button class="manga-btn" id="specToggleBtn" title="Toggle Manga Blueprint CAD Callouts">
+        <i class="fa-solid fa-crosshairs" style="color:var(--manga-cyan)"></i>
         <span id="specToggleText">SPECS: ON</span>
       </button>
-      <button class="studio-btn" id="audioToggleBtn" title="Toggle Procedural Web Audio FX">
-        <i class="fa-solid fa-volume-high" id="audioIcon"></i>
+      <button class="manga-btn" id="audioToggleBtn" title="Toggle Manga Procedural Sound FX">
+        <i class="fa-solid fa-volume-high" id="audioIcon" style="color:var(--manga-red)"></i>
         <span id="audioText">SFX: ON</span>
       </button>
-      <a href="https://github.com/MrTG-CodeBot" target="_blank" class="studio-btn">
+      <a href="https://github.com/MrTG-CodeBot" target="_blank" class="manga-btn">
         <i class="fa-brands fa-github"></i>
         <span>GITHUB</span>
       </a>
     </div>
   </header>
 
-  <!-- Interactive Hero Click Hint -->
-  <div class="hero-hint-pill">
-    <i class="fa-solid fa-hand-pointer" style="color:var(--spidey-red)"></i>
-    <span>CLICK SPIDER-MAN TO FLIP &amp; WEB-BLAST</span>
+  <!-- Interactive Spider-Man Click Hint Pill -->
+  <div class="comic-interaction-pill">
+    <i class="fa-solid fa-bolt" style="color:var(--manga-yellow)"></i>
+    <span>CLICK SPIDER-MAN TO TRIGGER 360° WEB-BLAST!</span>
   </div>
 
-  <!-- Dynamic Screen-Projected Blueprint Technical Specs -->
-  <div class="blueprint-specs-container" id="blueprintSpecs">
-    <div class="spec-annotation spec-left" id="specAudio">
-      <span class="spec-tag">ACOUSTICS</span>
+  <!-- Dynamic Screen-Projected Manga Spec Callouts -->
+  <div class="manga-specs-overlay" id="mangaSpecs">
+    <div class="manga-spec-box spec-left" id="specAudio">
+      <span class="spec-kanji-tag">音響</span>
       <span>WH-1000XM4 // APEX AUDIO</span>
     </div>
-    <div class="spec-annotation spec-right" id="specHoodie">
-      <span class="spec-tag">CHASSIS</span>
-      <span>WHITE TECHNICAL FABRIC HOODIE</span>
+    <div class="manga-spec-box spec-right" id="specHoodie">
+      <span class="spec-kanji-tag">外装</span>
+      <span>WHITE TECH DRAFTING HOODIE</span>
     </div>
-    <div class="spec-annotation spec-left" id="specPack">
-      <span class="spec-tag">PAYLOAD</span>
+    <div class="manga-spec-box spec-left" id="specPack">
+      <span class="spec-kanji-tag">積載</span>
       <span>HIGH-PRESSURE WEB RESERVOIR</span>
     </div>
-    <div class="spec-annotation spec-right" id="specShoes">
-      <span class="spec-tag">TRACTION</span>
-      <span>AIR JORDAN 1 RETRO CHICAGO</span>
+    <div class="manga-spec-box spec-right" id="specShoes">
+      <span class="spec-kanji-tag">足装</span>
+      <span>AIR JORDAN 1 RETRO CHICAGO HIGH</span>
     </div>
   </div>
 
-  <!-- Vertical Sector Navigation -->
-  <aside class="sector-scrubber">
-    <div class="scrubber-item active" data-progress="0.0">
-      <div class="scrubber-dot"></div>
-      <div class="scrubber-label">01 // PHILOSOPHY</div>
+  <!-- Right Vertical Manga Chapter Scrubber -->
+  <aside class="manga-chapter-scrubber">
+    <div class="chapter-node active" data-progress="0.0">
+      <div class="chapter-pip"></div>
+      <div class="chapter-tag">01 // ORIGIN 原点</div>
     </div>
-    <div class="scrubber-item" data-progress="0.25">
-      <div class="scrubber-dot"></div>
-      <div class="scrubber-label">02 // BOT FLEET</div>
+    <div class="chapter-node" data-progress="0.25">
+      <div class="chapter-pip"></div>
+      <div class="chapter-tag">02 // BOT FLEET 艦隊</div>
     </div>
-    <div class="scrubber-item" data-progress="0.50">
-      <div class="scrubber-dot"></div>
-      <div class="scrubber-label">03 // ARSENAL</div>
+    <div class="chapter-node" data-progress="0.50">
+      <div class="chapter-pip"></div>
+      <div class="chapter-tag">03 // ARSENAL 兵器庫</div>
     </div>
-    <div class="scrubber-item" data-progress="0.75">
-      <div class="scrubber-dot"></div>
-      <div class="scrubber-label">04 // TELEMETRY</div>
+    <div class="chapter-node" data-progress="0.75">
+      <div class="chapter-pip"></div>
+      <div class="chapter-tag">04 // VELOCITY 速度</div>
     </div>
-    <div class="scrubber-item" data-progress="1.0">
-      <div class="scrubber-dot"></div>
-      <div class="scrubber-label">05 // TRANSMISSION</div>
+    <div class="chapter-node" data-progress="1.0">
+      <div class="chapter-pip"></div>
+      <div class="chapter-tag">05 // TRANSMIT 通信</div>
     </div>
   </aside>
 
-  <!-- Story Overlay Cards (Editorial & Authentic) -->
-  <div class="story-viewport">
+  <!-- Manga Comic Story Panels Viewport -->
+  <div class="manga-panel-stage">
 
-    <!-- Card 01: Core Architecture -->
-    <article class="editorial-card pos-left visible" id="card0">
-      <div class="card-meta-bar">
-        <span class="card-sector-badge">
-          <i class="fa-solid fa-cube"></i> SPEC-01 // IDENTITY
+    <!-- Panel 01: Identity & Philosophy -->
+    <article class="manga-card pos-left visible" id="panel0">
+      <div class="panel-chapter-strip">
+        <span class="chapter-badge">
+          CHAPTER 01 <span class="chapter-kanji">原点</span>
         </span>
-        <span class="card-cad-tag">DRAFT-2026.11</span>
+        <span class="panel-cad-ref">SPEC_01 // IDENTITY</span>
       </div>
-      <h2 class="card-heading">
+      <h2 class="panel-headline">
         ARCHITECTING <br/>
-        <span class="accent-red">RESILIENT SYSTEMS</span>
+        <span class="glow-red">RESILIENT SYSTEMS</span>
       </h2>
-      <p class="card-body-text">
-        Welcome to the studio of <strong>MrTG-CodeBot</strong>. I engineer high-throughput asynchronous Telegram bot fleets, resilient automation engines, and bespoke 3D WebGL user journeys with zero fluff.
+      <p class="panel-synopsis">
+        Welcome to the studio of <strong>MrTG-CodeBot</strong>. I forge high-throughput asynchronous Telegram bot fleets, resilient automation pipelines, and dramatic 3D WebGL user experiences with zero fluff.
       </p>
-      <div class="metrics-pill-grid">
-        <div class="metric-pill">
-          <div class="metric-num">99.9%</div>
-          <div class="metric-title">Uptime Reliability</div>
+      <div class="manga-metrics-grid">
+        <div class="manga-metric-cell">
+          <div class="metric-value">99.9%</div>
+          <div class="metric-caption">UPTIME RELIABILITY</div>
         </div>
-        <div class="metric-pill">
-          <div class="metric-num">&lt;85ms</div>
-          <div class="metric-title">Event Loop Latency</div>
+        <div class="manga-metric-cell">
+          <div class="metric-value">&lt;85MS</div>
+          <div class="metric-caption">EVENT LOOP LATENCY</div>
         </div>
       </div>
-      <div class="card-action-row">
-        <button class="action-button-primary" onclick="window.experience.flight.flyTo(0.25)">
-          <span>EXPLORE BOT FLEET</span>
+      <div class="manga-action-group">
+        <button class="manga-primary-btn" onclick="window.experience.flight.flyTo(0.25)">
+          <span>ENTER BOT FLEET</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
     </article>
 
-    <!-- Card 02: Bot Fleet & Systems -->
-    <article class="editorial-card pos-right" id="card1">
-      <div class="card-meta-bar">
-        <span class="card-sector-badge">
-          <i class="fa-solid fa-network-wired"></i> SPEC-02 // FLEET
+    <!-- Panel 02: Bot Fleet & Systems -->
+    <article class="manga-card pos-right" id="panel1">
+      <div class="panel-chapter-strip">
+        <span class="chapter-badge">
+          CHAPTER 02 <span class="chapter-kanji">自動化艦隊</span>
         </span>
-        <span class="card-cad-tag">PRODUCTION DEPLOYMENTS</span>
+        <span class="panel-cad-ref">SPEC_02 // DEPLOYMENTS</span>
       </div>
-      <h2 class="card-heading">
+      <h2 class="panel-headline">
         AUTONOMOUS <br/>
-        <span class="accent-red">BOT ENGINES</span>
+        <span class="glow-cyan">BOT ENGINES</span>
       </h2>
-      <p class="card-body-text">
-        Engineered for massive event concurrency. Leveraging modern Python asynchronous paradigms, custom MTProto client filters, rate-limited queueing, and fail-safe database connections.
+      <p class="panel-synopsis">
+        Built for massive event concurrency. Leveraging modern Python asynchronous paradigms, custom MTProto client filters, rate-limited queues, and fail-safe database connections.
       </p>
-      <div class="stack-tags-cloud">
-        <div class="stack-tag"><i class="fa-brands fa-python"></i> Pyrogram / Telethon</div>
-        <div class="stack-tag"><i class="fa-solid fa-bolt"></i> Asyncio Concurrency</div>
-        <div class="stack-tag"><i class="fa-solid fa-layer-group"></i> Message Brokers</div>
-        <div class="stack-tag"><i class="fa-solid fa-shield-halved"></i> Anti-Spam Gateways</div>
+      <div class="manga-tags-row">
+        <div class="manga-tag"><i class="fa-brands fa-python"></i> Pyrogram / Telethon</div>
+        <div class="manga-tag"><i class="fa-solid fa-bolt"></i> Asyncio Concurrency</div>
+        <div class="manga-tag"><i class="fa-solid fa-layer-group"></i> Message Brokers</div>
+        <div class="manga-tag"><i class="fa-solid fa-shield-halved"></i> Anti-Spam Gateways</div>
       </div>
-      <div class="card-action-row">
-        <button class="action-button-ghost" onclick="window.experience.flight.flyTo(0.0)">
+      <div class="manga-action-group">
+        <button class="manga-ghost-btn" onclick="window.experience.flight.flyTo(0.0)">
           <i class="fa-solid fa-arrow-left"></i>
           <span>BACK</span>
         </button>
-        <button class="action-button-primary" onclick="window.experience.flight.flyTo(0.50)">
+        <button class="manga-primary-btn" onclick="window.experience.flight.flyTo(0.50)">
           <span>VIEW ARSENAL</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
     </article>
 
-    <!-- Card 03: Tech Arsenal -->
-    <article class="editorial-card pos-left" id="card2">
-      <div class="card-meta-bar">
-        <span class="card-sector-badge">
-          <i class="fa-solid fa-microchip"></i> SPEC-03 // ARSENAL
+    <!-- Panel 03: Tech Arsenal -->
+    <article class="manga-card pos-left" id="panel2">
+      <div class="panel-chapter-strip">
+        <span class="chapter-badge">
+          CHAPTER 03 <span class="chapter-kanji">兵器庫</span>
         </span>
-        <span class="card-cad-tag">CORE CAPABILITIES</span>
+        <span class="panel-cad-ref">SPEC_03 // CORE ARSENAL</span>
       </div>
-      <h2 class="card-heading">
+      <h2 class="panel-headline">
         TECHNICAL <br/>
-        <span class="accent-red">CORE MATRIX</span>
+        <span class="glow-red">CORE MATRIX</span>
       </h2>
-      <p class="card-body-text">
-        Battle-tested stack focused on speed, efficiency, and zero bloat across the complete development lifecycle.
+      <p class="panel-synopsis">
+        Battle-tested stack focused on speed, efficiency, and zero bloat across the full engineering lifecycle.
       </p>
-      <div class="stack-tags-cloud">
-        <div class="stack-tag"><i class="fa-brands fa-python"></i> Python 3.12+</div>
-        <div class="stack-tag"><i class="fa-brands fa-js"></i> TypeScript / ES6+</div>
-        <div class="stack-tag"><i class="fa-solid fa-cube"></i> Three.js / WebGL</div>
-        <div class="stack-tag"><i class="fa-brands fa-docker"></i> Dockerized Deploy</div>
-        <div class="stack-tag"><i class="fa-brands fa-react"></i> React UI</div>
-        <div class="stack-tag"><i class="fa-solid fa-database"></i> PostgreSQL / SQLite</div>
-        <div class="stack-tag"><i class="fa-brands fa-git-alt"></i> Git Workflow</div>
+      <div class="manga-tags-row">
+        <div class="manga-tag"><i class="fa-brands fa-python"></i> Python 3.12+</div>
+        <div class="manga-tag"><i class="fa-brands fa-js"></i> TypeScript / ES6+</div>
+        <div class="manga-tag"><i class="fa-solid fa-cube"></i> Three.js / WebGL</div>
+        <div class="manga-tag"><i class="fa-brands fa-docker"></i> Dockerized Deploy</div>
+        <div class="manga-tag"><i class="fa-brands fa-react"></i> React UI</div>
+        <div class="manga-tag"><i class="fa-solid fa-database"></i> PostgreSQL / SQLite</div>
+        <div class="manga-tag"><i class="fa-brands fa-git-alt"></i> Git Workflow</div>
       </div>
-      <div class="card-action-row">
-        <button class="action-button-ghost" onclick="window.experience.flight.flyTo(0.25)">
+      <div class="manga-action-group">
+        <button class="manga-ghost-btn" onclick="window.experience.flight.flyTo(0.25)">
           <i class="fa-solid fa-arrow-left"></i>
           <span>BACK</span>
         </button>
-        <button class="action-button-primary" onclick="window.experience.flight.flyTo(0.75)">
-          <span>SEE TELEMETRY</span>
+        <button class="manga-primary-btn" onclick="window.experience.flight.flyTo(0.75)">
+          <span>CHECK VELOCITY</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
     </article>
 
-    <!-- Card 04: Velocity & Stats -->
-    <article class="editorial-card pos-right" id="card3">
-      <div class="card-meta-bar">
-        <span class="card-sector-badge">
-          <i class="fa-solid fa-chart-line"></i> SPEC-04 // VELOCITY
+    <!-- Panel 04: Velocity & Stats -->
+    <article class="manga-card pos-right" id="panel3">
+      <div class="panel-chapter-strip">
+        <span class="chapter-badge">
+          CHAPTER 04 <span class="chapter-kanji">速度遠隔</span>
         </span>
-        <span class="card-cad-tag">GITSHINE TELEMETRY</span>
+        <span class="panel-cad-ref">SPEC_04 // TELEMETRY</span>
       </div>
-      <h2 class="card-heading">
+      <h2 class="panel-headline">
         SYSTEM VELOCITY <br/>
-        <span class="accent-red">&amp; TELEMETRY</span>
+        <span class="glow-cyan">&amp; TELEMETRY</span>
       </h2>
-      <p class="card-body-text">
-        Every commit strictly follows the Single Responsibility Principle, zero technical debt, modular boundaries, and clean Git histories.
+      <p class="panel-synopsis">
+        Every commit strictly adheres to the Single Responsibility Principle, zero technical debt, modular boundaries, and clean Git histories.
       </p>
-      <div class="metrics-pill-grid">
-        <div class="metric-pill">
-          <div class="metric-num">100%</div>
-          <div class="metric-title">Clean Commits</div>
+      <div class="manga-metrics-grid">
+        <div class="manga-metric-cell">
+          <div class="metric-value">100%</div>
+          <div class="metric-caption">CLEAN REPO COMMITS</div>
         </div>
-        <div class="metric-pill">
-          <div class="metric-num">0 ms</div>
-          <div class="metric-title">Blocking Overhead</div>
+        <div class="manga-metric-cell">
+          <div class="metric-value">0 MS</div>
+          <div class="metric-caption">BLOCKING OVERHEAD</div>
         </div>
       </div>
-      <div class="card-action-row">
-        <button class="action-button-ghost" onclick="window.experience.flight.flyTo(0.50)">
+      <div class="manga-action-group">
+        <button class="manga-ghost-btn" onclick="window.experience.flight.flyTo(0.50)">
           <i class="fa-solid fa-arrow-left"></i>
           <span>BACK</span>
         </button>
-        <button class="action-button-primary" onclick="window.experience.flight.flyTo(1.0)">
-          <span>TRANSMIT SIGNAL</span>
+        <button class="manga-primary-btn" onclick="window.experience.flight.flyTo(1.0)">
+          <span>OPEN TRANSMIT</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
     </article>
 
-    <!-- Card 05: Direct Transmission -->
-    <article class="editorial-card pos-left" id="card4">
-      <div class="card-meta-bar">
-        <span class="card-sector-badge">
-          <i class="fa-solid fa-satellite-dish"></i> SPEC-05 // TRANSMIT
+    <!-- Panel 05: Direct Transmission -->
+    <article class="manga-card pos-left" id="panel4">
+      <div class="panel-chapter-strip">
+        <span class="chapter-badge">
+          CHAPTER 05 <span class="chapter-kanji">通信確立</span>
         </span>
-        <span class="card-cad-tag">DIRECT CHANNEL</span>
+        <span class="panel-cad-ref">SPEC_05 // DIRECT APEX</span>
       </div>
-      <h2 class="card-heading">
+      <h2 class="panel-headline">
         ESTABLISH <br/>
-        <span class="accent-red">DIRECT CONTACT</span>
+        <span class="glow-red">DIRECT SIGNAL</span>
       </h2>
-      <p class="card-body-text">
-        Ready to engineer automated backend systems, intelligent Telegram bot ecosystems, or creative 3D web experiences? Connect directly:
+      <p class="panel-synopsis">
+        Ready to engineer automated backend systems, intelligent Telegram bot ecosystems, or creative 3D web experiences? Establish contact:
       </p>
-      <div class="stack-tags-cloud" style="margin-bottom: 24px;">
-        <a href="https://t.me/MrTG_Coder" target="_blank" class="stack-tag" style="border-color: var(--spidey-red); text-decoration: none;">
-          <i class="fa-brands fa-telegram" style="color:var(--spidey-red);"></i> Telegram // @MrTG_Coder
+      <div class="manga-tags-row" style="margin-bottom: 24px;">
+        <a href="https://t.me/MrTG_Coder" target="_blank" class="manga-tag" style="border-color: var(--manga-red); text-decoration: none;">
+          <i class="fa-brands fa-telegram" style="color:var(--manga-red);"></i> Telegram // @MrTG_Coder
         </a>
-        <a href="https://discordapp.com/users/mr_.orion" target="_blank" class="stack-tag" style="border-color: #5865f2; text-decoration: none;">
+        <a href="https://discordapp.com/users/mr_.orion" target="_blank" class="manga-tag" style="border-color: #5865f2; text-decoration: none;">
           <i class="fa-brands fa-discord" style="color:#5865f2;"></i> Discord // mr_.orion
         </a>
-        <a href="mailto:amalnath0600@gmail.com" target="_blank" class="stack-tag" style="text-decoration: none;">
-          <i class="fa-solid fa-envelope" style="color:var(--spidey-red);"></i> amalnath0600@gmail.com
+        <a href="mailto:amalnath0600@gmail.com" target="_blank" class="manga-tag" style="text-decoration: none;">
+          <i class="fa-solid fa-envelope" style="color:var(--manga-red);"></i> amalnath0600@gmail.com
         </a>
       </div>
-      <div class="card-action-row">
-        <button class="action-button-primary" onclick="window.experience.flight.flyTo(0.0)">
+      <div class="manga-action-group">
+        <button class="manga-primary-btn" onclick="window.experience.flight.flyTo(0.0)">
           <i class="fa-solid fa-rotate-left"></i>
           <span>REPLAY EXPERIENCE</span>
         </button>
@@ -953,17 +1076,17 @@
 
   </div>
 
-  <!-- Bottom Flight Scrubber Control Deck -->
-  <div class="flight-control-deck">
-    <button class="flight-stepper-btn" onclick="window.experience.flight.step(-1)" title="Previous Sector">
+  <!-- Bottom Manga Scrolly Deck -->
+  <div class="manga-control-deck">
+    <button class="manga-stepper-btn" onclick="window.experience.flight.step(-1)" title="Previous Chapter">
       <i class="fa-solid fa-chevron-left"></i>
     </button>
-    <span class="flight-hint-text">SECTOR FLIGHT:</span>
-    <input type="range" class="flight-slider" id="flightSlider" min="0" max="100" value="0" />
-    <button class="flight-stepper-btn" onclick="window.experience.flight.step(1)" title="Next Sector">
+    <span class="deck-hint">MANGA FLIGHT:</span>
+    <input type="range" class="manga-slider" id="mangaSlider" min="0" max="100" value="0" />
+    <button class="manga-stepper-btn" onclick="window.experience.flight.step(1)" title="Next Chapter">
       <i class="fa-solid fa-chevron-right"></i>
     </button>
-    <span class="flight-hint-text" style="color:var(--cad-slate);">[ SCROLL TO FLY ]</span>
+    <span class="deck-hint" style="color:var(--manga-slate);">[ SCROLL TO FLY ]</span>
   </div>
 
   <!-- Embedded Zero-CORS Avatar Data -->
@@ -972,12 +1095,12 @@
   <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <!-- Senior 3D Architecture Script -->
+  <!-- Senior Dark Manga 3D Experience Architecture -->
   <script>
     /* =========================================================================
        1. SYNTHESIZED WEB AUDIO ENGINE (Procedural, 0 Dependencies, 100% Offline)
        ========================================================================= */
-    class AudioEngine {
+    class MangaAudioEngine {
       constructor() {
         this.ctx = null;
         this.enabled = true;
@@ -997,18 +1120,18 @@
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
           const now = this.ctx.currentTime;
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(1400, now);
-          osc.frequency.exponentialRampToValueAtTime(160, now + 0.16);
-          gain.gain.setValueAtTime(0.18, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(1200, now);
+          osc.frequency.exponentialRampToValueAtTime(140, now + 0.18);
+          gain.gain.setValueAtTime(0.20, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
           osc.start();
-          osc.stop(now + 0.16);
+          osc.stop(now + 0.18);
         } catch(e) {}
       }
-      playChime(freq = 640) {
+      playChime(freq = 660) {
         if (!this.enabled || !this.ctx) return;
         try {
           const osc = this.ctx.createOscillator();
@@ -1016,12 +1139,12 @@
           const now = this.ctx.currentTime;
           osc.type = 'triangle';
           osc.frequency.setValueAtTime(freq, now);
-          gain.gain.setValueAtTime(0.12, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
           osc.start();
-          osc.stop(now + 0.32);
+          osc.stop(now + 0.35);
         } catch(e) {}
       }
       playWebBlast() {
@@ -1030,15 +1153,15 @@
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
           const now = this.ctx.currentTime;
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(600, now);
-          osc.frequency.exponentialRampToValueAtTime(90, now + 0.28);
-          gain.gain.setValueAtTime(0.15, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(750, now);
+          osc.frequency.exponentialRampToValueAtTime(80, now + 0.30);
+          gain.gain.setValueAtTime(0.22, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.30);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
           osc.start();
-          osc.stop(now + 0.28);
+          osc.stop(now + 0.30);
         } catch(e) {}
       }
       toggle() {
@@ -1048,9 +1171,9 @@
     }
 
     /* =========================================================================
-       2. INPUT CONTROLLER (Mouse Parallax, Inertial Scrollytelling, Keyboard)
+       2. MANGA INPUT CONTROLLER (Dynamic Parallax & Inertial Scrollytelling)
        ========================================================================= */
-    class InputController {
+    class MangaInputController {
       constructor(experience) {
         this.exp = experience;
         this.mouse = { x: 0, y: 0, normX: 0, normY: 0 };
@@ -1063,7 +1186,6 @@
       }
 
       initEvents() {
-        // Cursor Parallax & Reticle Follower
         const cursorEl = document.getElementById('customCursor');
         window.addEventListener('mousemove', (e) => {
           this.mouse.x = e.clientX;
@@ -1077,8 +1199,7 @@
           }
         });
 
-        // Hover cursor expansion
-        document.querySelectorAll('a, button, .scrubber-item, input').forEach((el) => {
+        document.querySelectorAll('a, button, .chapter-node, input').forEach((el) => {
           el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
           el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
         });
@@ -1091,7 +1212,7 @@
           this.checkAudioTrigger();
         }, { passive: true });
 
-        // Touch Navigation
+        // Touch Swipe
         window.addEventListener('touchstart', (e) => {
           this.exp.audio.init();
           if (e.touches.length > 0) this.touchStartY = e.touches[0].clientY;
@@ -1122,7 +1243,7 @@
         });
 
         // Slider scrubbing
-        const slider = document.getElementById('flightSlider');
+        const slider = document.getElementById('mangaSlider');
         if (slider) {
           slider.addEventListener('input', (e) => {
             this.exp.audio.init();
@@ -1140,7 +1261,7 @@
       }
 
       syncSlider() {
-        const slider = document.getElementById('flightSlider');
+        const slider = document.getElementById('mangaSlider');
         if (slider) slider.value = Math.round(this.targetProgress * 100);
       }
 
@@ -1170,7 +1291,6 @@
       }
 
       update() {
-        // High-end smooth inertia damping
         this.currentProgress += (this.targetProgress - this.currentProgress) * 0.065;
         this.currentProgress = this.clamp(this.currentProgress);
         return this.currentProgress;
@@ -1178,98 +1298,111 @@
     }
 
     /* =========================================================================
-       3. ARCHITECTURAL SKY CITY ENVIRONMENT (Procedural Wireframe Skyscrapers)
+       3. DARK MANGA SKYLINE (Glowing Wireframes, Neon Beacons, Kanji Rings)
        ========================================================================= */
-    class SkyCity {
+    class DarkMangaCity {
       constructor(scene) {
         this.scene = scene;
         this.group = new THREE.Group();
         this.scene.add(this.group);
 
-        this.towers = [];
-        this.buildCity();
+        this.buildDarkCity();
         this.buildFloorGrid();
-        this.buildCompassRings();
+        this.buildHoloKanjiRings();
       }
 
-      buildCity() {
+      buildDarkCity() {
         const boxGeo = new THREE.BoxGeometry(1, 1, 1);
-        const solidMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-        const inkWireMat = new THREE.MeshBasicMaterial({ color: 0x0f172a, wireframe: true });
-        const redAccentWireMat = new THREE.MeshBasicMaterial({ color: 0xe11d48, wireframe: true });
-        const beaconMat = new THREE.MeshBasicMaterial({ color: 0xe11d48 });
+        // Midnight dark silhouette core
+        const coreMat = new THREE.MeshBasicMaterial({ color: 0x090d16 });
+        
+        // High-contrast glowing neon wireframe edges
+        const cyanWireMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
+        const redWireMat = new THREE.MeshBasicMaterial({ color: 0xff2a5f, wireframe: true });
+        const whiteWireMat = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
 
-        for (let i = 0; i < 90; i++) {
-          const isRed = Math.random() < 0.22;
+        const beaconGeo = new THREE.SphereGeometry(0.75, 8, 8);
+        const beaconRedMat = new THREE.MeshBasicMaterial({ color: 0xff2a5f });
+        const beaconCyanMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
+
+        for (let i = 0; i < 95; i++) {
+          const rand = Math.random();
+          const wireMat = rand < 0.45 ? cyanWireMat : (rand < 0.85 ? redWireMat : whiteWireMat);
+          const isCyan = rand < 0.45;
+
           const side = Math.random() < 0.5 ? -1 : 1;
           const x = side * (18 + Math.random() * 70);
           const z = (Math.random() - 0.5) * 400 - 120;
           const h = 26 + Math.random() * 95;
           const w = 12 + Math.random() * 22;
 
-          // Solid White Block Core
-          const core = new THREE.Mesh(boxGeo, solidMat);
+          // Silhouette Core
+          const core = new THREE.Mesh(boxGeo, coreMat);
           core.scale.set(w, h, w);
           core.position.set(x, h * 0.5 - 28, z);
           this.group.add(core);
 
-          // Cel-Shaded Line Art Wireframe
-          const wire = new THREE.Mesh(boxGeo, isRed ? redAccentWireMat : inkWireMat);
+          // Glowing Neon Edge Wireframe
+          const wire = new THREE.Mesh(boxGeo, wireMat);
           wire.scale.set(w * 1.002, h * 1.002, w * 1.002);
           wire.position.set(x, h * 0.5 - 28, z);
           this.group.add(wire);
 
-          // Antenna Spire with Flashing Red CAD Beacon
+          // Rooftop Antenna Spire & Flashing Safety Beacon
           if (h > 55) {
             const antennaGeo = new THREE.CylinderGeometry(0.15, 0.35, 14, 6);
-            const antenna = new THREE.Mesh(antennaGeo, isRed ? redAccentWireMat : inkWireMat);
+            const antenna = new THREE.Mesh(antennaGeo, wireMat);
             antenna.position.set(x, h - 28 + 7, z);
             this.group.add(antenna);
 
-            const beaconGeo = new THREE.SphereGeometry(0.7, 8, 8);
-            const beacon = new THREE.Mesh(beaconGeo, beaconMat);
+            const beacon = new THREE.Mesh(beaconGeo, isCyan ? beaconCyanMat : beaconRedMat);
             beacon.position.set(x, h - 28 + 14, z);
             this.group.add(beacon);
           }
-
-          this.towers.push({ x, z, h, w });
         }
       }
 
       buildFloorGrid() {
-        const grid = new THREE.GridHelper(700, 70, 0xe11d48, 0x94a3b8);
+        // High-contrast Cyberpunk Grid (Neon Cyan & Crimson)
+        const grid = new THREE.GridHelper(700, 70, 0x00f0ff, 0xff2a5f);
         grid.position.y = -27.9;
         this.group.add(grid);
       }
 
-      buildCompassRings() {
-        this.compass = new THREE.Group();
-        this.compass.position.set(0, 45, -170);
-        this.group.add(this.compass);
+      buildHoloKanjiRings() {
+        this.holoRings = new THREE.Group();
+        this.holoRings.position.set(0, 48, -170);
+        this.group.add(this.holoRings);
 
         const r1 = new THREE.Mesh(
-          new THREE.RingGeometry(20, 21.2, 64),
-          new THREE.MeshBasicMaterial({ color: 0x0284c7, side: THREE.DoubleSide, transparent: true, opacity: 0.55 })
+          new THREE.RingGeometry(22, 23.2, 64),
+          new THREE.MeshBasicMaterial({ color: 0x00f0ff, side: THREE.DoubleSide, transparent: true, opacity: 0.8 })
         );
         const r2 = new THREE.Mesh(
-          new THREE.RingGeometry(24, 24.8, 16),
-          new THREE.MeshBasicMaterial({ color: 0xe11d48, side: THREE.DoubleSide, transparent: true, opacity: 0.45 })
+          new THREE.RingGeometry(26, 27.2, 16),
+          new THREE.MeshBasicMaterial({ color: 0xff2a5f, side: THREE.DoubleSide, transparent: true, opacity: 0.75 })
         );
-        this.compass.add(r1);
-        this.compass.add(r2);
+        const r3 = new THREE.Mesh(
+          new THREE.RingGeometry(18, 18.8, 8),
+          new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide, transparent: true, opacity: 0.6 })
+        );
+        this.holoRings.add(r1);
+        this.holoRings.add(r2);
+        this.holoRings.add(r3);
       }
 
       update(elapsed) {
-        if (this.compass) {
-          this.compass.rotation.z = elapsed * 0.04;
+        if (this.holoRings) {
+          this.holoRings.rotation.z = elapsed * 0.06;
+          this.holoRings.rotation.x = Math.sin(elapsed * 0.5) * 0.15;
         }
       }
     }
 
     /* =========================================================================
-       4. HERO CHARACTER (Hooded Spider-Man, Dual Web Physics & Acrobatics)
+       4. HERO CHARACTER (Hooded Spider-Man with Glowing Crimson Laser Webs)
        ========================================================================= */
-    class HeroCharacter {
+    class DarkMangaHero {
       constructor(scene, experience) {
         this.scene = scene;
         this.exp = experience;
@@ -1280,9 +1413,9 @@
         this.isSpinning = false;
 
         this.initMesh();
-        this.initAura();
-        this.initWebLines();
-        this.initSpeedLines();
+        this.initScreentoneAura();
+        this.initLaserWebs();
+        this.initMangaSpeedLines();
       }
 
       initMesh() {
@@ -1292,7 +1425,6 @@
           : 'assets/spidey-cutout.png';
 
         const tex = texLoader.load(src);
-        // Calibrated aspect ratio for hooded Spider-Man
         const geo = new THREE.PlaneGeometry(9.4, 16);
         const mat = new THREE.MeshBasicMaterial({
           map: tex,
@@ -1305,12 +1437,13 @@
         this.group.add(this.mesh);
       }
 
-      initAura() {
-        const geo = new THREE.CircleGeometry(8.2, 48);
+      initScreentoneAura() {
+        // High-contrast Halftone Comic Aura
+        const geo = new THREE.CircleGeometry(8.6, 48);
         const mat = new THREE.MeshBasicMaterial({
-          color: 0xe11d48,
+          color: 0xff2a5f,
           transparent: true,
-          opacity: 0.18,
+          opacity: 0.28,
           side: THREE.DoubleSide
         });
         this.aura = new THREE.Mesh(geo, mat);
@@ -1318,39 +1451,40 @@
         this.group.add(this.aura);
       }
 
-      initWebLines() {
-        const createLine = () => {
+      initLaserWebs() {
+        const createWeb = (color = 0xff2a5f) => {
           const geo = new THREE.BufferGeometry();
           geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(6), 3));
           const mat = new THREE.LineBasicMaterial({
-            color: 0xe11d48,
+            color: color,
             linewidth: 3,
             transparent: true,
-            opacity: 0.85
+            opacity: 0.95
           });
           const line = new THREE.Line(geo, mat);
           this.scene.add(line);
           return line;
         };
 
-        this.leftWeb = createLine();
-        this.rightWeb = createLine();
+        this.leftWeb = createWeb(0xff2a5f);
+        this.rightWeb = createWeb(0x00f0ff);
       }
 
-      initSpeedLines() {
+      initMangaSpeedLines() {
         this.speedLines = [];
-        const geo = new THREE.CylinderGeometry(0.04, 0.04, 9, 4);
-        const mat = new THREE.MeshBasicMaterial({ color: 0x94a3b8, transparent: true, opacity: 0.45 });
+        const geo = new THREE.CylinderGeometry(0.04, 0.04, 11, 4);
+        const cyanMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.7 });
+        const redMat = new THREE.MeshBasicMaterial({ color: 0xff2a5f, transparent: true, opacity: 0.7 });
 
-        for (let i = 0; i < 28; i++) {
-          const m = new THREE.Mesh(geo, mat);
+        for (let i = 0; i < 32; i++) {
+          const m = new THREE.Mesh(geo, i % 2 === 0 ? cyanMat : redMat);
           m.rotation.x = Math.PI / 2;
           this.scene.add(m);
           this.speedLines.push({
             mesh: m,
-            angle: (i / 28) * Math.PI * 2,
-            radius: 8 + Math.random() * 12,
-            speed: 1.6 + Math.random() * 2.2
+            angle: (i / 32) * Math.PI * 2,
+            radius: 8 + Math.random() * 14,
+            speed: 1.8 + Math.random() * 2.4
           });
         }
       }
@@ -1363,11 +1497,9 @@
       }
 
       update(elapsed, camPos, lookPos, mouse) {
-        // Position Hero in front of camera along forward flight vector
         const forward = new THREE.Vector3().subVectors(lookPos, camPos).normalize();
         const targetPos = new THREE.Vector3().copy(camPos).add(forward.clone().multiplyScalar(14.5));
 
-        // Idle hover & banking physics
         const bobY = Math.sin(elapsed * 4.2) * 0.55;
         const bankX = Math.sin(elapsed * 2.1) * 0.75;
 
@@ -1377,7 +1509,6 @@
           targetPos.z
         );
 
-        // Click acrobatics corkscrew flip
         if (this.isSpinning) {
           this.spin += 0.38;
           this.mesh.rotation.z = this.spin;
@@ -1388,11 +1519,10 @@
           }
         }
 
-        // Camera orientation and mouse banking
         this.group.lookAt(camPos);
         this.group.rotation.z = Math.sin(elapsed * 2.4) * 0.07 - mouse.normX * 0.12;
 
-        // Dynamic Dual 3D Web Lines anchored to passing buildings
+        // Laser Web Lines Position Updating
         const lArr = this.leftWeb.geometry.attributes.position.array;
         lArr[0] = this.group.position.x - 1.2;
         lArr[1] = this.group.position.y + 0.4;
@@ -1411,7 +1541,7 @@
         rArr[5] = lookPos.z - 20;
         this.rightWeb.geometry.attributes.position.needsUpdate = true;
 
-        // Streaming Speed Lines
+        // Speed Lines Streaming
         this.speedLines.forEach((sl, idx) => {
           const th = sl.angle + elapsed * 0.2;
           sl.mesh.position.set(
@@ -1424,22 +1554,23 @@
     }
 
     /* =========================================================================
-       5. MASTER EXPERIENCE SINGLETON (Orchestrator, Render Loop, UI Sync)
+       5. MASTER MANGA EXPERIENCE SINGLETON (High-Contrast 3D Engine)
        ========================================================================= */
-    class Experience {
+    class MangaExperience {
       constructor() {
         this.canvas = document.getElementById('webgl-canvas');
         this.scene = new THREE.Scene();
-        this.scene.fog = new THREE.FogExp2(0xf8fafc, 0.011);
+        // Deep Midnight Fog
+        this.scene.fog = new THREE.FogExp2(0x070a12, 0.011);
 
         this.initRenderer();
         this.initCamera();
         this.initLights();
 
-        this.audio = new AudioEngine();
-        this.flight = new InputController(this);
-        this.city = new SkyCity(this.scene);
-        this.hero = new HeroCharacter(this.scene, this);
+        this.audio = new MangaAudioEngine();
+        this.flight = new MangaInputController(this);
+        this.city = new DarkMangaCity(this.scene);
+        this.hero = new DarkMangaHero(this.scene, this);
 
         this.clock = new THREE.Clock();
         this.activeCardIdx = -1;
@@ -1467,7 +1598,7 @@
       initCamera() {
         this.camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-        // 3D Flight Spline Path
+        // Dramatic Manga Flight Camera Spline Path
         const flightPoints = [
           new THREE.Vector3(0, 16, 75),
           new THREE.Vector3(26, 12, 10),
@@ -1490,17 +1621,23 @@
       }
 
       initLights() {
-        // High-end ambient & directional studio lighting
-        const ambient = new THREE.AmbientLight(0xffffff, 1.35);
+        // Dramatic Studio Lighting: High contrast rim & key
+        const ambient = new THREE.AmbientLight(0x0e1726, 1.2);
         this.scene.add(ambient);
 
-        const keyLight = new THREE.DirectionalLight(0xffffff, 1.45);
+        const keyLight = new THREE.DirectionalLight(0xffffff, 1.5);
         keyLight.position.set(20, 30, 20);
         this.scene.add(keyLight);
 
-        const rimLight = new THREE.DirectionalLight(0xe11d48, 1.15);
-        rimLight.position.set(-20, -10, 15);
-        this.scene.add(rimLight);
+        // Hot Crimson Rim Light
+        const rimLightRed = new THREE.DirectionalLight(0xff2a5f, 1.6);
+        rimLightRed.position.set(-20, -10, 15);
+        this.scene.add(rimLightRed);
+
+        // Neon Cyan Back Light
+        const cyanBackLight = new THREE.DirectionalLight(0x00f0ff, 1.3);
+        cyanBackLight.position.set(15, -15, -20);
+        this.scene.add(cyanBackLight);
       }
 
       initRaycaster() {
@@ -1508,7 +1645,7 @@
         this.mouseVec = new THREE.Vector2();
 
         window.addEventListener('click', (e) => {
-          if (e.target.closest('header, aside, .editorial-card, .flight-control-deck, .studio-btn')) return;
+          if (e.target.closest('header, aside, .manga-card, .manga-control-deck, .manga-btn')) return;
           this.mouseVec.x = (e.clientX / window.innerWidth) * 2 - 1;
           this.mouseVec.y = -(e.clientY / window.innerHeight) * 2 + 1;
           this.raycaster.setFromCamera(this.mouseVec, this.camera);
@@ -1521,7 +1658,6 @@
       }
 
       initUI() {
-        // Audio Toggle
         const audioBtn = document.getElementById('audioToggleBtn');
         const audioIcon = document.getElementById('audioIcon');
         const audioText = document.getElementById('audioText');
@@ -1535,21 +1671,19 @@
           });
         }
 
-        // Specs Toggle
         const specBtn = document.getElementById('specToggleBtn');
-        const specOverlay = document.getElementById('blueprintSpecs');
+        const specOverlay = document.getElementById('mangaSpecs');
         const specText = document.getElementById('specToggleText');
         if (specBtn) {
           specBtn.addEventListener('click', () => {
             this.specOverlayActive = !this.specOverlayActive;
             if (specOverlay) specOverlay.classList.toggle('hidden', !this.specOverlayActive);
             if (specText) specText.textContent = this.specOverlayActive ? 'SPECS: ON' : 'SPECS: OFF';
-            this.audio.playChime(580);
+            this.audio.playChime(620);
           });
         }
 
-        // Sector Scrubber Nodes
-        document.querySelectorAll('.scrubber-item').forEach(node => {
+        document.querySelectorAll('.chapter-node').forEach(node => {
           node.addEventListener('click', () => {
             const prog = parseFloat(node.getAttribute('data-progress'));
             this.flight.flyTo(prog);
@@ -1567,7 +1701,7 @@
       }
 
       triggerBurst(word) {
-        const el = document.getElementById('comicFx');
+        const el = document.getElementById('mangaShout');
         if (!el) return;
         el.textContent = word;
         el.style.left = `${this.flight.mouse.x || window.innerWidth / 2}px`;
@@ -1578,11 +1712,11 @@
 
       syncStoryCards(progress) {
         const thresholds = [
-          { id: 'card0', min: 0.00, max: 0.16, sector: 'SPEC-01' },
-          { id: 'card1', min: 0.17, max: 0.38, sector: 'SPEC-02' },
-          { id: 'card2', min: 0.39, max: 0.62, sector: 'SPEC-03' },
-          { id: 'card3', min: 0.63, max: 0.86, sector: 'SPEC-04' },
-          { id: 'card4', min: 0.87, max: 1.00, sector: 'SPEC-05' }
+          { id: 'panel0', min: 0.00, max: 0.16, chapter: 'CH.01' },
+          { id: 'panel1', min: 0.17, max: 0.38, chapter: 'CH.02' },
+          { id: 'panel2', min: 0.39, max: 0.62, chapter: 'CH.03' },
+          { id: 'panel3', min: 0.63, max: 0.86, chapter: 'CH.04' },
+          { id: 'panel4', min: 0.87, max: 1.00, chapter: 'CH.05' }
         ];
 
         let activeIdx = 0;
@@ -1593,25 +1727,22 @@
           if (isCurrent) activeIdx = idx;
         });
 
-        // Update right-hand scrubber dots
-        document.querySelectorAll('.scrubber-item').forEach((dot, idx) => {
+        document.querySelectorAll('.chapter-node').forEach((dot, idx) => {
           dot.classList.toggle('active', idx === activeIdx);
         });
 
-        // Audio chime on sector transitions
         if (activeIdx !== this.activeCardIdx) {
           if (this.activeCardIdx !== -1) {
-            this.audio.playChime(520 + activeIdx * 80);
+            this.audio.playChime(560 + activeIdx * 90);
           }
           this.activeCardIdx = activeIdx;
         }
 
-        // Update telemetry HUD
-        const secEl = document.getElementById('telemetrySector');
+        const chEl = document.getElementById('telemetryChapter');
         const progEl = document.getElementById('telemetryProgress');
         const altEl = document.getElementById('telemetryAltitude');
 
-        if (secEl) secEl.textContent = thresholds[activeIdx].sector;
+        if (chEl) chEl.textContent = thresholds[activeIdx].chapter;
         if (progEl) progEl.textContent = Math.round(progress * 100).toString().padStart(2, '0') + '%';
         if (altEl) altEl.textContent = Math.round(this.camera.position.y * 11 + 95) + 'm';
       }
@@ -1652,7 +1783,6 @@
         const lookPos = this.lookSpline.getPointAt(progress);
 
         if (camPos && lookPos && !isNaN(camPos.x)) {
-          // Camera position with mouse parallax
           this.camera.position.set(
             camPos.x + this.flight.mouse.normX * 1.5,
             camPos.y + this.flight.mouse.normY * 1.2,
@@ -1666,13 +1796,9 @@
           );
           this.camera.lookAt(targetLook);
 
-          // Update Hero
           this.hero.update(elapsed, camPos, lookPos, this.flight.mouse);
-
-          // Update Environment
           this.city.update(elapsed);
 
-          // Sync UI & Screen Annotations
           this.syncStoryCards(progress);
           this.syncScreenSpecs();
         }
@@ -1683,7 +1809,7 @@
 
     // Launch Experience
     window.addEventListener('DOMContentLoaded', () => {
-      window.experience = new Experience();
+      window.experience = new MangaExperience();
     });
   </script>
 </body>
