@@ -29,7 +29,6 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      user-select: none;
     }
 
     html, body {
@@ -38,22 +37,10 @@
       background-color: var(--bg-dark);
       color: var(--text-main);
       font-family: var(--font-body);
-      overflow-x: hidden;
-      overflow-y: auto;
+      overflow: hidden; /* App runs in fixed 3D viewport */
     }
 
-    /* Virtual scroll height to drive 3D flight trajectory */
-    #scrollTrack {
-      height: 600vh;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    /* Fixed Viewport & WebGL Canvas */
+    /* Fixed 3D Viewport & WebGL Canvas */
     #viewport3d {
       position: fixed;
       top: 0;
@@ -61,7 +48,6 @@
       width: 100vw;
       height: 100vh;
       z-index: 1;
-      pointer-events: auto;
     }
 
     #webglCanvas {
@@ -70,7 +56,7 @@
       display: block;
     }
 
-    /* Sci-Fi Scanlines & Vignette */
+    /* Sci-Fi Vignette and Scanlines */
     .screen-fx {
       position: fixed;
       top: 0;
@@ -80,7 +66,7 @@
       pointer-events: none;
       z-index: 2;
       background: 
-        radial-gradient(circle at center, transparent 40%, rgba(6, 8, 13, 0.85) 95%),
+        radial-gradient(circle at center, transparent 40%, rgba(6, 8, 13, 0.88) 95%),
         repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 3px);
     }
 
@@ -95,7 +81,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: linear-gradient(180deg, rgba(6, 8, 13, 0.9) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(6, 8, 13, 0.95) 0%, transparent 100%);
       pointer-events: auto;
     }
 
@@ -122,7 +108,7 @@
       color: var(--cyber-cyan);
       display: flex;
       gap: 20px;
-      background: rgba(15, 20, 31, 0.65);
+      background: rgba(15, 20, 31, 0.75);
       border: 1px solid var(--cyber-cyan-glow);
       padding: 6px 14px;
       border-radius: 6px;
@@ -148,10 +134,11 @@
       align-items: center;
       gap: 6px;
       transition: all 0.25s ease;
+      text-decoration: none;
     }
 
     .hud-btn:hover {
-      background: rgba(255, 42, 85, 0.3);
+      background: rgba(255, 42, 85, 0.35);
       box-shadow: 0 0 14px var(--spidey-glow);
       color: #fff;
     }
@@ -165,7 +152,7 @@
       z-index: 50;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
       pointer-events: auto;
     }
 
@@ -175,12 +162,11 @@
       gap: 12px;
       cursor: pointer;
       flex-direction: row-reverse;
-      group: true;
     }
 
     .node-dot {
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.25);
       border: 1.5px solid rgba(255, 255, 255, 0.4);
@@ -189,16 +175,16 @@
 
     .node-label {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       opacity: 0;
       transform: translateX(10px);
       transition: all 0.25s ease;
       white-space: nowrap;
-      background: rgba(10, 14, 22, 0.85);
-      padding: 4px 10px;
-      border-radius: 4px;
-      border: 1px solid rgba(255, 42, 85, 0.3);
+      background: rgba(10, 14, 22, 0.9);
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 42, 85, 0.35);
     }
 
     .waypoint-node:hover .node-label {
@@ -210,8 +196,8 @@
     .waypoint-node.active .node-dot {
       background: var(--spidey-red);
       border-color: #fff;
-      box-shadow: 0 0 14px var(--spidey-red);
-      transform: scale(1.4);
+      box-shadow: 0 0 16px var(--spidey-red);
+      transform: scale(1.45);
     }
 
     .waypoint-node.active .node-label {
@@ -221,7 +207,7 @@
       border-color: var(--spidey-red);
     }
 
-    /* Center Scrollytelling Story Overlay Cards */
+    /* Story Overlay Cards */
     .story-overlay-container {
       position: fixed;
       top: 0;
@@ -240,15 +226,15 @@
       max-width: 580px;
       width: 90%;
       padding: 32px;
-      background: rgba(10, 14, 22, 0.82);
+      background: rgba(10, 14, 22, 0.88);
       border: 1.5px solid var(--spidey-glow);
       border-radius: 18px;
       backdrop-filter: blur(20px);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 42, 85, 0.25);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 42, 85, 0.3);
       opacity: 0;
       visibility: hidden;
       transform: translateY(40px) scale(0.95);
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
     }
 
@@ -281,11 +267,12 @@
     }
 
     .story-chapter-tag .pulse-dot {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--spidey-red);
       box-shadow: 0 0 8px var(--spidey-red);
+      animation: pulseDot 1.5s infinite ease-in-out;
     }
 
     .story-title {
@@ -307,7 +294,7 @@
       color: var(--text-muted);
       font-size: 0.96rem;
       line-height: 1.65;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .story-interactive-grid {
@@ -321,9 +308,9 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      padding: 6px 12px;
-      background: rgba(18, 24, 38, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 7px 12px;
+      background: rgba(18, 24, 38, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 8px;
       color: #fff;
       font-family: var(--font-mono);
@@ -334,14 +321,14 @@
 
     .badge-pill:hover {
       border-color: var(--spidey-red);
-      background: rgba(255, 42, 85, 0.15);
+      background: rgba(255, 42, 85, 0.2);
       box-shadow: 0 0 14px var(--spidey-glow);
       transform: translateY(-2px);
     }
 
     .badge-pill img {
-      width: 17px;
-      height: 17px;
+      width: 18px;
+      height: 18px;
       border-radius: 3px;
     }
 
@@ -349,6 +336,7 @@
       display: flex;
       gap: 12px;
       margin-top: 24px;
+      flex-wrap: wrap;
     }
 
     .action-btn {
@@ -371,103 +359,115 @@
     }
 
     .action-btn:hover {
-      box-shadow: 0 0 30px rgba(255, 42, 85, 0.9);
+      box-shadow: 0 0 30px rgba(255, 42, 85, 0.95);
       transform: translateY(-2px);
     }
 
     .action-btn.secondary {
-      background: rgba(15, 20, 31, 0.8);
+      background: rgba(15, 20, 31, 0.85);
       border-color: var(--cyber-cyan-glow);
       color: var(--cyber-cyan);
       box-shadow: none;
     }
 
     .action-btn.secondary:hover {
-      background: rgba(0, 242, 254, 0.15);
+      background: rgba(0, 242, 254, 0.18);
       box-shadow: 0 0 20px var(--cyber-cyan-glow);
     }
 
-    /* Scroll Prompt Indicator at Bottom */
-    .scroll-indicator-bar {
+    /* Bottom Interactive Flight Throttle Bar */
+    .flight-throttle-bar {
       position: fixed;
-      bottom: 24px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 50;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 8px;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
+      gap: 16px;
+      background: rgba(10, 14, 22, 0.88);
+      border: 1px solid var(--spidey-glow);
+      padding: 10px 22px;
+      border-radius: 30px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      pointer-events: auto;
     }
 
-    .scroll-mouse-icon {
-      width: 22px;
-      height: 36px;
-      border: 2px solid var(--spidey-red);
-      border-radius: 18px;
-      position: relative;
-    }
-
-    .scroll-wheel-dot {
-      width: 4px;
-      height: 8px;
-      background: #fff;
-      border-radius: 2px;
-      position: absolute;
-      top: 6px;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: wheelRoll 1.6s infinite ease-in-out;
-    }
-
-    .scroll-hint-text {
+    .throttle-label {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 2px;
+      font-size: 0.75rem;
       color: var(--spidey-red);
-      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
     }
 
-    /* Animations */
+    .throttle-slider {
+      width: 220px;
+      accent-color: var(--spidey-red);
+      cursor: pointer;
+    }
+
+    .throttle-nav-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.75rem;
+      transition: all 0.2s ease;
+    }
+
+    .throttle-nav-btn:hover {
+      border-color: var(--spidey-red);
+      color: var(--spidey-red);
+      box-shadow: 0 0 10px var(--spidey-glow);
+    }
+
     @keyframes spiderGlow {
       0%, 100% { filter: drop-shadow(0 0 6px var(--spidey-glow)); transform: scale(1); }
       50% { filter: drop-shadow(0 0 16px var(--spidey-red)); transform: scale(1.1); }
     }
 
-    @keyframes wheelRoll {
-      0% { opacity: 1; transform: translate(-50%, 0); }
-      100% { opacity: 0; transform: translate(-50%, 14px); }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.8); }
     }
 
-    /* Mobile Responsive */
     @media (max-width: 860px) {
       .story-card {
-        max-width: 90% !important;
-        left: 5% !important;
-        right: 5% !important;
-        padding: 24px;
+        max-width: 92% !important;
+        left: 4% !important;
+        right: 4% !important;
+        padding: 22px;
       }
       .story-title {
-        font-size: 1.6rem;
+        font-size: 1.55rem;
       }
       .telemetry-hud {
         display: none;
       }
       aside.flight-scrubber {
-        right: 14px;
+        right: 12px;
       }
       .node-label {
         display: none;
+      }
+      .throttle-slider {
+        width: 120px;
       }
     }
   </style>
 </head>
 <body>
-
-  <!-- Hidden Virtual Scroll Track for 3D Camera Flight -->
-  <div id="scrollTrack"></div>
 
   <!-- 3D WebGL Canvas Viewport -->
   <div id="viewport3d">
@@ -485,9 +485,9 @@
     </div>
 
     <div class="telemetry-hud">
-      <span>FLIGHT_MODE: 3D_SCROLL</span>
+      <span>FLIGHT_MODE: 3D_FPV</span>
       <span>ALT: <span id="altMeter" style="color:#fff">240m</span></span>
-      <span>TRAJECTORY: <span id="trackMeter" style="color:var(--spidey-red)">00%</span></span>
+      <span>PROGRESS: <span id="trackMeter" style="color:var(--spidey-red)">00%</span></span>
     </div>
 
     <div class="hud-controls">
@@ -508,25 +508,25 @@
       <div class="node-dot"></div>
       <div class="node-label">01 // ORIGIN &amp; AVATAR</div>
     </div>
-    <div class="waypoint-node" data-progress="0.22">
+    <div class="waypoint-node" data-progress="0.25">
       <div class="node-dot"></div>
       <div class="node-label">02 // BOT ARCHITECTURE</div>
     </div>
-    <div class="waypoint-node" data-progress="0.45">
+    <div class="waypoint-node" data-progress="0.50">
       <div class="node-dot"></div>
       <div class="node-label">03 // TECH MATRIX</div>
     </div>
-    <div class="waypoint-node" data-progress="0.68">
+    <div class="waypoint-node" data-progress="0.75">
       <div class="node-dot"></div>
       <div class="node-label">04 // TELEMETRY &amp; STATS</div>
     </div>
-    <div class="waypoint-node" data-progress="0.92">
+    <div class="waypoint-node" data-progress="1.0">
       <div class="node-dot"></div>
       <div class="node-label">05 // TRANSMISSION GATE</div>
     </div>
   </aside>
 
-  <!-- Story Overlay Cards (Fade In/Out synchronized with 3D camera waypoints) -->
+  <!-- Story Overlay Cards (Synchronized with 3D camera waypoints) -->
   <div class="story-overlay-container">
 
     <!-- Chapter 1: Origin -->
@@ -540,12 +540,12 @@
         <span class="gradient-text">Architect</span>
       </h1>
       <p class="story-desc">
-        Welcome to the 3D cyberdeck of <b>MrTG-CodeBot</b>. As you scroll, fly through the cybernetic city and explore Telegram bot systems, asynchronous MTProto pipelines, and high-concurrency cloud architectures.
+        Welcome to the 3D cyberdeck of <b>MrTG-CodeBot</b>. Scroll with your mouse wheel, drag the throttle below, or swipe to pilot through the cybernetic city and explore bot architectures and microservices.
       </p>
       <div class="cta-btn-row">
-        <button class="action-btn" onclick="scrollToWaypoint(0.22)">
+        <button class="action-btn" onclick="flyToWaypoint(0.25)">
           <span>ENGAGE FLIGHT</span>
-          <i class="fa-solid fa-arrow-down"></i>
+          <i class="fa-solid fa-arrow-right"></i>
         </button>
         <a href="https://t.me/MrTG_Coder" target="_blank" class="action-btn secondary">
           <i class="fa-brands fa-telegram"></i>
@@ -586,6 +586,16 @@
         <a href="https://en.wikipedia.org/wiki/Webhook" target="_blank" class="badge-pill">
           <i class="fa-solid fa-satellite-dish" style="color: #ff6c37;"></i> Webhooks
         </a>
+      </div>
+      <div class="cta-btn-row">
+        <button class="action-btn secondary" onclick="flyToWaypoint(0.0)">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>PREV</span>
+        </button>
+        <button class="action-btn" onclick="flyToWaypoint(0.50)">
+          <span>NEXT: TECH MATRIX</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
       </div>
     </div>
 
@@ -631,6 +641,16 @@
           <img src="https://skillicons.dev/icons?i=docker&theme=dark" alt="Docker" /> Docker
         </a>
       </div>
+      <div class="cta-btn-row">
+        <button class="action-btn secondary" onclick="flyToWaypoint(0.25)">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>PREV</span>
+        </button>
+        <button class="action-btn" onclick="flyToWaypoint(0.75)">
+          <span>NEXT: TELEMETRY</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
     </div>
 
     <!-- Chapter 4: Telemetry & GitHub Activity -->
@@ -652,10 +672,14 @@
         </a>
       </div>
       <div class="cta-btn-row">
-        <a href="https://github.com/MrTG-CodeBot" target="_blank" class="action-btn">
-          <i class="fa-brands fa-github"></i>
-          <span>VIEW ALL REPOSITORIES</span>
-        </a>
+        <button class="action-btn secondary" onclick="flyToWaypoint(0.50)">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>PREV</span>
+        </button>
+        <button class="action-btn" onclick="flyToWaypoint(1.0)">
+          <span>NEXT: TRANSMISSION</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
       </div>
     </div>
 
@@ -684,7 +708,7 @@
         </a>
       </div>
       <div class="cta-btn-row">
-        <button class="action-btn" onclick="scrollToWaypoint(0.0)">
+        <button class="action-btn" onclick="flyToWaypoint(0.0)">
           <i class="fa-solid fa-rotate-left"></i>
           <span>REPLAY FLIGHT</span>
         </button>
@@ -693,13 +717,23 @@
 
   </div>
 
-  <!-- Bottom Scroll Hint -->
-  <div class="scroll-indicator-bar" id="scrollIndicator">
-    <div class="scroll-mouse-icon">
-      <div class="scroll-wheel-dot"></div>
+  <!-- Bottom Interactive Flight Throttle Bar -->
+  <div class="flight-throttle-bar">
+    <button class="throttle-nav-btn" onclick="stepWaypoint(-1)" title="Previous Sector">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <div class="throttle-label">
+      <i class="fa-solid fa-jet-fighter-up"></i>
+      <span>THROTTLE:</span>
     </div>
-    <span class="scroll-hint-text">SCROLL TO FLY THROUGH WORLD</span>
+    <input type="range" class="throttle-slider" id="throttleSlider" min="0" max="100" value="0" />
+    <button class="throttle-nav-btn" onclick="stepWaypoint(1)" title="Next Sector">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
   </div>
+
+  <!-- Embedded Local Avatar Data -->
+  <script src="assets/avatar-data.js"></script>
 
   <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -716,12 +750,15 @@
       init() {
         if (!this.ctx) {
           const AudioContext = window.AudioContext || window.webkitAudioContext;
-          this.ctx = new AudioContext();
+          if (AudioContext) {
+            this.ctx = new AudioContext();
+          }
         }
       }
       playChime(freq = 520) {
         if (!this.enabled) return;
         this.init();
+        if (!this.ctx) return;
         try {
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
@@ -811,7 +848,7 @@
       color: 0xff2a55,
       wireframe: true,
       transparent: true,
-      opacity: 0.18
+      opacity: 0.2
     });
 
     // Populate futuristic wireframe towers along the flight valley
@@ -857,8 +894,13 @@
     scene.add(particleCloud);
 
     // Floating Hologram Spidey Avatar Panel (Waypoint 0)
+    // Uses embedded base64 to completely eliminate file:/// CORS errors!
     const textureLoader = new THREE.TextureLoader();
-    const avatarTexture = textureLoader.load('assets/spidey-avatar.jpg');
+    const avatarSrc = (window.SPIDEY_AVATAR_B64 && window.SPIDEY_AVATAR_B64.length > 50) 
+      ? window.SPIDEY_AVATAR_B64 
+      : 'assets/spidey-avatar.jpg';
+
+    const avatarTexture = textureLoader.load(avatarSrc);
     const avatarPanelGeo = new THREE.PlaneGeometry(9.5, 13.5);
     const avatarPanelMat = new THREE.MeshBasicMaterial({
       map: avatarTexture,
@@ -914,49 +956,108 @@
     scene.add(beacon);
 
     /* ==========================================================
-       3. SMOOTH CAMERA FLIGHT DRIVEN BY SCROLL
+       3. BULLETPROOF MULTI-INPUT FLIGHT CONTROLLER
        ========================================================== */
     let targetProgress = 0;
     let currentProgress = 0;
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
 
-    function onScroll() {
-      const scrollY = window.scrollY || window.pageYOffset;
-      targetProgress = Math.min(Math.max(scrollY / (document.body.scrollHeight - window.innerHeight), 0), 1);
+    const throttleSlider = document.getElementById('throttleSlider');
+    const altMeter = document.getElementById('altMeter');
+    const trackMeter = document.getElementById('trackMeter');
+
+    // Clamp helper to ensure NaN is never possible
+    function clamp(val, min = 0, max = 1) {
+      if (isNaN(val)) return min;
+      return Math.min(Math.max(val, min), max);
     }
-    window.addEventListener('scroll', onScroll, { passive: true });
 
-    // Click waypoint nodes in scrubber
+    // A. Mouse Wheel & Trackpad Listener (Works regardless of body height!)
+    window.addEventListener('wheel', (e) => {
+      sfx.init();
+      const delta = e.deltaY;
+      targetProgress = clamp(targetProgress + delta * 0.0006);
+      throttleSlider.value = Math.round(targetProgress * 100);
+    }, { passive: true });
+
+    // B. Touch Gestures for Mobile
+    let touchStartY = 0;
+    window.addEventListener('touchstart', (e) => {
+      sfx.init();
+      if (e.touches.length > 0) touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        const touchY = e.touches[0].clientY;
+        const delta = touchStartY - touchY;
+        touchStartY = touchY;
+        targetProgress = clamp(targetProgress + delta * 0.0018);
+        throttleSlider.value = Math.round(targetProgress * 100);
+      }
+    }, { passive: true });
+
+    // C. Keyboard Arrow Keys
+    window.addEventListener('keydown', (e) => {
+      sfx.init();
+      if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ' || e.key === 'ArrowRight') {
+        targetProgress = clamp(targetProgress + 0.08);
+        throttleSlider.value = Math.round(targetProgress * 100);
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp' || e.key === 'ArrowLeft') {
+        targetProgress = clamp(targetProgress - 0.08);
+        throttleSlider.value = Math.round(targetProgress * 100);
+      }
+    });
+
+    // D. On-Screen Throttle Slider
+    throttleSlider.addEventListener('input', (e) => {
+      sfx.init();
+      targetProgress = clamp(parseFloat(e.target.value) / 100);
+    });
+
+    // E. Waypoint Functions for Buttons & Scrubber
+    const waypoints = [0.0, 0.25, 0.50, 0.75, 1.0];
+
+    window.flyToWaypoint = function(p) {
+      sfx.init();
+      sfx.playChime(640);
+      targetProgress = clamp(p);
+      throttleSlider.value = Math.round(targetProgress * 100);
+    };
+
+    window.stepWaypoint = function(direction) {
+      sfx.init();
+      // Find current closest waypoint index
+      let closestIdx = 0;
+      let minDiff = 999;
+      waypoints.forEach((w, i) => {
+        const diff = Math.abs(currentProgress - w);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIdx = i;
+        }
+      });
+      const nextIdx = clamp(closestIdx + direction, 0, waypoints.length - 1);
+      flyToWaypoint(waypoints[nextIdx]);
+    };
+
     const waypointNodes = document.querySelectorAll('.waypoint-node');
     waypointNodes.forEach(node => {
       node.addEventListener('click', () => {
         const p = parseFloat(node.getAttribute('data-progress'));
-        scrollToWaypoint(p);
+        flyToWaypoint(p);
       });
     });
 
-    window.scrollToWaypoint = function(p) {
-      sfx.playChime(640);
-      const totalH = document.body.scrollHeight - window.innerHeight;
-      window.scrollTo({
-        top: p * totalH,
-        behavior: 'smooth'
-      });
-    };
-
-    // Story Cards configuration matching flight progress milestones
+    // Story Cards thresholds
     const storyCards = [
       { id: 'card0', min: 0.00, max: 0.16 },
       { id: 'card1', min: 0.17, max: 0.38 },
-      { id: 'card2', min: 0.39, max: 0.60 },
-      { id: 'card3', min: 0.61, max: 0.82 },
-      { id: 'card4', min: 0.83, max: 1.00 }
+      { id: 'card2', min: 0.39, max: 0.62 },
+      { id: 'card3', min: 0.63, max: 0.86 },
+      { id: 'card4', min: 0.87, max: 1.00 }
     ];
 
     let lastActiveIdx = 0;
-    const altMeter = document.getElementById('altMeter');
-    const trackMeter = document.getElementById('trackMeter');
-    const scrollIndicator = document.getElementById('scrollIndicator');
 
     function updateStoryOverlays(progress) {
       let activeIdx = 0;
@@ -980,13 +1081,6 @@
       if (activeIdx !== lastActiveIdx) {
         sfx.playChime(500 + activeIdx * 80);
         lastActiveIdx = activeIdx;
-      }
-
-      // Hide scroll hint once user started scrolling
-      if (progress > 0.03) {
-        scrollIndicator.style.opacity = '0';
-      } else {
-        scrollIndicator.style.opacity = '1';
       }
 
       // Telemetry HUD numbers
@@ -1017,20 +1111,23 @@
 
       // Smooth interpolation for cinematic flight inertia
       currentProgress += (targetProgress - currentProgress) * 0.06;
+      currentProgress = clamp(currentProgress, 0, 1);
 
       // Calculate camera position along spline
       const camPos = flightCurve.getPointAt(currentProgress);
       const lookPos = lookCurve.getPointAt(currentProgress);
 
-      // Apply subtle mouse parallax
-      camera.position.x = camPos.x + mouseX * 2.2;
-      camera.position.y = camPos.y + mouseY * 1.8;
-      camera.position.z = camPos.z;
+      if (camPos && lookPos && !isNaN(camPos.x)) {
+        // Apply subtle mouse parallax
+        camera.position.x = camPos.x + mouseX * 2.2;
+        camera.position.y = camPos.y + mouseY * 1.8;
+        camera.position.z = camPos.z;
 
-      tempLookAt.x = lookPos.x + mouseX * 1.2;
-      tempLookAt.y = lookPos.y + mouseY * 0.8;
-      tempLookAt.z = lookPos.z;
-      camera.lookAt(tempLookAt);
+        tempLookAt.x = lookPos.x + mouseX * 1.2;
+        tempLookAt.y = lookPos.y + mouseY * 0.8;
+        tempLookAt.z = lookPos.z;
+        camera.lookAt(tempLookAt);
+      }
 
       // Rotate decorative 3D assets
       ring1.rotation.z += 0.008;
