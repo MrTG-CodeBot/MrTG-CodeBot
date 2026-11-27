@@ -3,6 +3,12 @@
   <h1>Hey 👨‍💻 I’m MrTG-CodeBot</h1>
 
   <img src="./assets/header.gif" width="750" alt="MrTG-CodeBot Pixel Art Coding GIF" />
+
+  <br/><br/>
+
+  <a href="https://mrtg-codebot.github.io/MrTG-CodeBot/portfolio/" target="_blank"><img src="https://img.shields.io/badge/🌐_LAUNCH_3D_PORTFOLIO-FF2A55?style=for-the-badge&logo=three.js&logoColor=white&labelColor=0d1117" alt="Launch 3D Portfolio" /></a>
+  &nbsp;&nbsp;
+  <a href="./portfolio/" target="_blank"><img src="https://img.shields.io/badge/📁_EXPLORE_PORTFOLIO-00F2FE?style=for-the-badge&logo=github&logoColor=white&labelColor=0d1117" alt="Explore Portfolio" /></a>
 </div>
 
 ---

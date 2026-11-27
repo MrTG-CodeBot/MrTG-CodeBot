@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MrTG-CodeBot // 3D Cyberdeck Portfolio</title>
+  <meta name="description" content="Interactive 3D Cyber-Spidey Portfolio for MrTG-CodeBot - Telegram Bot Architect & Full-Stack Developer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --bg-card: rgba(15, 20, 31, 0.72);
+      --bg-card-hover: rgba(22, 30, 48, 0.85);
+      --border-color: rgba(255, 42, 85, 0.28);
+      --border-cyan: rgba(0, 242, 254, 0.35);
+      --spidey-red: #ff2a55;
+      --spidey-crimson: #d90429;
+      --spidey-glow: rgba(255, 42, 85, 0.55);
+      --cyber-cyan: #00f2fe;
+      --cyber-blue: #4facfe;
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --accent-white: #ffffff;
+      --font-display: 'Orbitron', monospace;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+      selection-background-color: var(--spidey-red);
+      selection-color: #fff;
+    }
+
+    ::selection {
+      background: var(--spidey-red);
+      color: #fff;
+    }
+
+    /* 3D WebGL Background Canvas */
+    #canvas3d {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Subtle Cyber Grid Overlay */
+    .cyber-grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      background-image: 
+        linear-gradient(rgba(255, 42, 85, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    /* Sci-fi Scanline effect */
+    .scanlines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.12),
+        rgba(0, 0, 0, 0.12) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      opacity: 0.6;
+    }
+
+    /* Navigation Bar */
+    nav.cyber-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 9, 14, 0.75);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 36px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
+
+    .nav-logo .spidey-icon {
+      color: var(--spidey-red);
+      font-size: 1.4rem;
+      filter: drop-shadow(0 0 10px var(--spidey-glow));
+      animation: pulseSpider 2.5s infinite ease-in-out;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      transition: all 0.25s ease;
+      position: relative;
+      padding: 6px 0;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--spidey-red);
+      text-shadow: 0 0 10px var(--spidey-glow);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--spidey-red);
+      box-shadow: 0 0 8px var(--spidey-red);
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .audio-btn {
+      background: rgba(255, 42, 85, 0.12);
+      border: 1px solid var(--border-color);
+      color: var(--spidey-red);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .audio-btn:hover {
+      background: rgba(255, 42, 85, 0.25);
+      box-shadow: 0 0 15px var(--spidey-glow);
+    }
+
+    /* Content Wrapper */
+    main.content-container {
+      position: relative;
+      z-index: 10;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+
+    /* Hero Section */
+    section.hero-section {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 50px;
+      padding-bottom: 60px;
+    }
+
+    .hero-text {
+      flex: 1.1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px;
+      background: rgba(255, 42, 85, 0.08);
+      border: 1px solid var(--border-color);
+      border-radius: 30px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--spidey-red);
+      margin-bottom: 24px;
+      box-shadow: 0 0 15px rgba(255, 42, 85, 0.15);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--spidey-red);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--spidey-red);
+      animation: blinkDot 1.6s infinite ease-in-out;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 3.4rem;
+      line-height: 1.15;
+      font-weight: 900;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+    }
+
+    .hero-title .text-gradient {
+      background: linear-gradient(135deg, #ffffff 30%, var(--spidey-red) 85%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      color: var(--cyber-cyan);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 32px;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1.25rem;
+      background-color: var(--cyber-cyan);
+      animation: cursorBlink 0.9s infinite;
+    }
+
+    .hero-desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 580px;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .btn-cyber {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-decoration: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--spidey-crimson), var(--spidey-red));
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 24px var(--spidey-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 0 35px rgba(255, 42, 85, 0.85);
+    }
+
+    .btn-secondary {
+      background: rgba(15, 20, 31, 0.8);
+      color: var(--text-main);
+      border: 1px solid var(--border-cyan);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0, 242, 254, 0.12);
+      border-color: var(--cyber-cyan);
+      color: var(--cyber-cyan);
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+      transform: translateY(-3px);
+    }
+
+    /* 3D Holographic Spidey Avatar Card */
+    .hero-avatar-wrapper {
+      flex: 0.9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1200px;
+    }
+
+    .cyber-avatar-card {
+      position: relative;
+      width: 380px;
+      height: 520px;
+      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(25, 30, 45, 0.7), rgba(10, 14, 22, 0.85));
+      border: 1.5px solid var(--border-color);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px var(--spidey-glow);
+      backdrop-filter: blur(20px);
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .cyber-avatar-card:hover {
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 45px rgba(255, 42, 85, 0.75);
+    }
+
+    .card-glare {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.22), transparent 60%);
+      mix-blend-mode: overlay;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 5;
+    }
+
+    .cyber-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      border-radius: 18px;
+      filter: contrast(1.08) saturate(1.1);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cyber-avatar-card:hover .cyber-avatar-img {
+      transform: scale(1.04);
+    }
+
+    /* Futuristic HUD Reticle Overlays on Avatar */
+    .hud-corners {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      border: 1px dashed rgba(255, 42, 85, 0.4);
+      border-radius: 12px;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .hud-tag {
+      position: absolute;
+      bottom: 22px;
+      left: 22px;
+      right: 22px;
+      background: rgba(7, 9, 14, 0.88);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 18px;
+      backdrop-filter: blur(12px);
+      z-index: 6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transform: translateZ(40px);
+    }
+
+    .hud-tag-title {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .hud-tag-sub {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--cyber-cyan);
+    }
+
+    /* Section Headings */
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--spidey-red);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    /* Interactive 3D Skills Matrix Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 26px;
+      margin-bottom: 90px;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 42, 85, 0.2);
+      border-radius: 16px;
+      padding: 26px;
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--spidey-red), var(--cyber-cyan));
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .skill-card:hover {
+      border-color: var(--spidey-red);
+      background: var(--bg-card-hover);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 42, 85, 0.35);
+      transform: translateY(-6px);
+    }
+
+    .skill-card-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .skill-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(255, 42, 85, 0.12);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--spidey-red);
+      font-size: 1.3rem;
+      box-shadow: 0 0 15px rgba(255, 42, 85, 0.2);
+    }
+
+    .skill-card-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .skill-items-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      background: rgba(10, 14, 22, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .skill-pill:hover {
+      border-color: var(--cyber-cyan);
+      color: var(--cyber-cyan);
+      background: rgba(0, 242, 254, 0.1);
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .skill-pill img {
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
+    }
+
+    /* Cyberdeck Interactive Terminal */
+    .terminal-section {
+      margin-bottom: 90px;
+    }
+
+    .cyber-terminal {
+      background: #090c13;
+      border: 1.5px solid var(--border-cyan);
+      border-radius: 14px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.2);
+      overflow: hidden;
+      font-family: var(--font-mono);
+    }
+
+    .terminal-header {
+      background: #121824;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+    }
+
+    .term-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .term-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .term-dot.red { background: #ff5f56; }
+    .term-dot.yellow { background: #ffbd2e; }
+    .term-dot.green { background: #27c93f; }
+
+    .term-title {
+      font-size: 0.85rem;
+      color: var(--cyber-cyan);
+      letter-spacing: 1px;
+    }
+
+    .terminal-body {
+      padding: 24px;
+      min-height: 280px;
+      max-height: 420px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .term-output {
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .term-highlight {
+      color: var(--spidey-red);
+      font-weight: 600;
+    }
+
+    .term-cyan {
+      color: var(--cyber-cyan);
+    }
+
+    .term-input-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .term-prompt {
+      color: var(--spidey-red);
+      font-weight: 700;
+    }
+
+    .term-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      flex: 1;
+    }
+
+    /* GitHub Stats Showcase */
+    .stats-section {
+      margin-bottom: 90px;
+    }
+
+    .stats-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .stat-card-link {
+      display: block;
+      transition: transform 0.3s ease, filter 0.3s ease;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 42, 85, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .stat-card-link:hover {
+      transform: translateY(-5px);
+      filter: drop-shadow(0 0 20px var(--spidey-glow));
+      border-color: var(--spidey-red);
+    }
+
+    .stat-card-link img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Connect Section */
+    .connect-section {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .social-btn-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .social-cyber-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 30px;
+      background: rgba(15, 20, 31, 0.85);
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      color: #fff;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .social-cyber-btn:hover {
+      border-color: var(--spidey-red);
+      background: rgba(255, 42, 85, 0.15);
+      box-shadow: 0 0 30px var(--spidey-glow);
+      transform: translateY(-4px);
+    }
+
+    .social-cyber-btn i {
+      font-size: 1.4rem;
+      color: var(--spidey-red);
+    }
+
+    /* Footer */
+    footer.cyber-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 36px 20px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 10;
+    }
+
+    footer a {
+      color: var(--spidey-red);
+      text-decoration: none;
+    }
+
+    /* Animations */
+    @keyframes pulseSpider {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px var(--spidey-glow)); }
+      50% { transform: scale(1.15); filter: drop-shadow(0 0 18px var(--spidey-red)); }
+    }
+
+    @keyframes blinkDot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes cursorBlink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      section.hero-section {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 40px;
+      }
+      .hero-desc {
+        margin: 0 auto 30px;
+      }
+      .hero-subtitle {
+        justify-content: center;
+      }
+      .hero-cta {
+        justify-content: center;
+      }
+      .cyber-avatar-card {
+        width: 320px;
+        height: 440px;
+      }
+      .hero-title {
+        font-size: 2.6rem;
+      }
+      nav.cyber-nav {
+        padding: 14px 20px;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- WebGL 3D Canvas -->
+  <canvas id="canvas3d"></canvas>
+
+  <!-- Cyber Grid Background Overlay -->
+  <div class="cyber-grid-overlay"></div>
+  <div class="scanlines"></div>
+
+  <!-- Navigation -->
+  <nav class="cyber-nav">
+    <a href="#" class="nav-logo">
+      <i class="fa-solid fa-spider spidey-icon"></i>
+      <span>MrTG-CodeBot</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Tech Matrix</a></li>
+      <li><a href="#terminal">Cyberdeck</a></li>
+      <li><a href="#stats">Activity</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+    <button class="audio-btn" id="audioToggle">
+      <i class="fa-solid fa-volume-high" id="audioIcon"></i>
+      <span id="audioText">SFX: ON</span>
+    </button>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="content-container">
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="about">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span class="status-dot"></span>
+          <span>SPIDEY-CYBERNETIC SYSTEM // ONLINE</span>
+        </div>
+        <h1 class="hero-title">
+          Hey, I'm <br/>
+          <span class="text-gradient">MrTG-CodeBot</span>
+        </h1>
+        <div class="hero-subtitle">
+          <i class="fa-solid fa-terminal" style="font-size: 1rem; color: var(--spidey-red);"></i>
+          <span id="typewriterText"></span>
+          <span class="cursor"></span>
+        </div>
+        <p class="hero-desc">
+          Crafting high-performance Telegram bot infrastructure, asynchronous MTProto architectures, and modern cloud microservices wrapped in a sleek cybernetic aesthetic.
+        </p>
+        <div class="hero-cta">
+          <a href="#skills" class="btn-cyber btn-primary">
+            <i class="fa-solid fa-microchip"></i>
+            <span>EXPLORE MATRIX</span>
+          </a>
+          <a href="#terminal" class="btn-cyber btn-secondary">
+            <i class="fa-solid fa-terminal"></i>
+            <span>OPEN CYBERDECK</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 3D Interactive Tilt Hologram Avatar -->
+      <div class="hero-avatar-wrapper">
+        <div class="cyber-avatar-card" id="tiltAvatar">
+          <div class="card-glare" id="avatarGlare"></div>
+          <div class="hud-corners"></div>
+          <img src="assets/spidey-avatar.jpg" alt="MrTG-CodeBot Cyber Spidey Avatar" class="cyber-avatar-img" />
+          <div class="hud-tag">
+            <div>
+              <div class="hud-tag-title">MRTG-CODEBOT</div>
+              <div class="hud-tag-sub">SYS_ID: #0600 // ARCHITECT</div>
+            </div>
+            <i class="fa-solid fa-shield-halved" style="color: var(--spidey-red); font-size: 1.2rem;"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Matrix Section -->
+    <section class="skills-section" id="skills">
+      <div class="section-header">
+        <span class="section-eyebrow">// OPERATIONAL ARSENAL</span>
+        <h2 class="section-title">Tech Matrix &amp; Skills</h2>
+      </div>
+
+      <div class="skills-grid">
+
+        <!-- Category 1: Telegram & Bots -->
+        <div class="skill-card">
+          <div class="skill-card-head">
+            <div class="skill-card-icon"><i class="fa-brands fa-telegram"></i></div>
+            <h3 class="skill-card-title">Telegram &amp; Bots</h3>
+          </div>
+          <div class="skill-items-container">
+            <a href="https://core.telegram.org/bots/api" target="_blank" class="skill-pill">
+              <i class="fa-solid fa-robot" style="color: #26a5e4;"></i> Telegram API
+            </a>
+            <a href="https://docs.pyrogram.org" target="_blank" class="skill-pill">
+              <i class="fa-solid fa-fire" style="color: #ff9800;"></i> Pyrogram
+            </a>
+            <a href="https://docs.telethon.dev" target="_blank" class="skill-pill">
+              <i class="fa-solid fa-bolt" style="color: #0088cc;"></i> Telethon
+            </a>
+            <a href="https://docs.aiogram.dev" target="_blank" class="skill-pill">
+              <i class="fa-solid fa-brain" style="color: #2ca5e0;"></i> aiogram
+            </a>
+            <a href="https://discordpy.readthedocs.io" target="_blank" class="skill-pill">
+              <i class="fa-brands fa-discord" style="color: #5865f2;"></i> Discord.py
+            </a>
+            <a href="https://en.wikipedia.org/wiki/Webhook" target="_blank" class="skill-pill">
+              <i class="fa-solid fa-satellite-dish" style="color: #ff6c37;"></i> Webhooks
+            </a>
+          </div>
+        </div>
+
+        <!-- Category 2: Programming Languages -->
+        <div class="skill-card">
+          <div class="skill-card-head">
+            <div class="skill-card-icon"><i class="fa-solid fa-code"></i></div>
+            <h3 class="skill-card-title">Core Languages</h3>
+          </div>
+          <div class="skill-items-container">
+            <a href="https://www.python.org" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=py&theme=dark" alt="Python" /> Python
+            </a>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=js&theme=dark" alt="JavaScript" /> JavaScript
+            </a>
+            <a href="https://www.typescriptlang.org" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=ts&theme=dark" alt="TypeScript" /> TypeScript
+            </a>
+            <a href="https://go.dev" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=go&theme=dark" alt="Golang" /> Golang
+            </a>
+            <a href="https://www.gnu.org/software/bash" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=bash&theme=dark" alt="Bash" /> Bash Shell
+            </a>
+          </div>
+        </div>
+
+        <!-- Category 3: Backend & APIs -->
+        <div class="skill-card">
+          <div class="skill-card-head">
+            <div class="skill-card-icon"><i class="fa-solid fa-server"></i></div>
+            <h3 class="skill-card-title">Backend &amp; APIs</h3>
+          </div>
+          <div class="skill-items-container">
+            <a href="https://fastapi.tiangolo.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=fastapi&theme=dark" alt="FastAPI" /> FastAPI
+            </a>
+            <a href="https://flask.palletsprojects.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=flask&theme=dark" alt="Flask" /> Flask
+            </a>
+            <a href="https://www.djangoproject.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=django&theme=dark" alt="Django" /> Django
+            </a>
+            <a href="https://nodejs.org" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=nodejs&theme=dark" alt="Node.js" /> Node.js
+            </a>
+            <a href="https://expressjs.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=express&theme=dark" alt="Express" /> Express.js
+            </a>
+          </div>
+        </div>
+
+        <!-- Category 4: Databases -->
+        <div class="skill-card">
+          <div class="skill-card-head">
+            <div class="skill-card-icon"><i class="fa-solid fa-database"></i></div>
+            <h3 class="skill-card-title">Databases &amp; Storage</h3>
+          </div>
+          <div class="skill-items-container">
+            <a href="https://www.mongodb.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=mongodb&theme=dark" alt="MongoDB" /> MongoDB
+            </a>
+            <a href="https://www.postgresql.org" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=postgres&theme=dark" alt="PostgreSQL" /> PostgreSQL
+            </a>
+            <a href="https://www.mysql.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=mysql&theme=dark" alt="MySQL" /> MySQL
+            </a>
+            <a href="https://www.sqlite.org" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=sqlite&theme=dark" alt="SQLite" /> SQLite
+            </a>
+            <a href="https://supabase.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=supabase&theme=dark" alt="Supabase" /> Supabase
+            </a>
+            <a href="https://firebase.google.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=firebase&theme=dark" alt="Firebase" /> Firebase
+            </a>
+          </div>
+        </div>
+
+        <!-- Category 5: DevOps & Cloud -->
+        <div class="skill-card">
+          <div class="skill-card-head">
+            <div class="skill-card-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+            <h3 class="skill-card-title">DevOps &amp; Cloud</h3>
+          </div>
+          <div class="skill-items-container">
+            <a href="https://www.docker.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=docker&theme=dark" alt="Docker" /> Docker
+            </a>
+            <a href="https://www.linux.org" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=linux&theme=dark" alt="Linux" /> Linux
+            </a>
+            <a href="https://ubuntu.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=ubuntu&theme=dark" alt="Ubuntu" /> Ubuntu
+            </a>
+            <a href="https://github.com/features/actions" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=githubactions&theme=dark" alt="GitHub Actions" /> Actions
+            </a>
+            <a href="https://www.heroku.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=heroku&theme=dark" alt="Heroku" /> Heroku
+            </a>
+            <a href="https://vercel.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=vercel&theme=dark" alt="Vercel" /> Vercel
+            </a>
+          </div>
+        </div>
+
+        <!-- Category 6: Developer Tooling -->
+        <div class="skill-card">
+          <div class="skill-card-head">
+            <div class="skill-card-icon"><i class="fa-solid fa-wrench"></i></div>
+            <h3 class="skill-card-title">Tooling &amp; Workflow</h3>
+          </div>
+          <div class="skill-items-container">
+            <a href="https://code.visualstudio.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=vscode&theme=dark" alt="VS Code" /> VS Code
+            </a>
+            <a href="https://git-scm.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=git&theme=dark" alt="Git" /> Git
+            </a>
+            <a href="https://www.postman.com" target="_blank" class="skill-pill">
+              <img src="https://skillicons.dev/icons?i=postman&theme=dark" alt="Postman" /> Postman
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Interactive Cyberdeck Terminal Section -->
+    <section class="terminal-section" id="terminal">
+      <div class="section-header">
+        <span class="section-eyebrow">// DIRECT INTERFACE</span>
+        <h2 class="section-title">Cyberdeck Terminal</h2>
+      </div>
+
+      <div class="cyber-terminal">
+        <div class="terminal-header">
+          <div class="term-dots">
+            <span class="term-dot red"></span>
+            <span class="term-dot yellow"></span>
+            <span class="term-dot green"></span>
+          </div>
+          <div class="term-title">mrtg@spidey-cyberdeck:~ (zsh)</div>
+          <i class="fa-solid fa-terminal" style="color: var(--cyber-cyan);"></i>
+        </div>
+        <div class="terminal-body" id="termBody">
+          <div class="term-output">
+            [SPIDEY-OS v4.2.0 initialized]<br/>
+            Connected to node: <span class="term-cyan">mrtg-cyberdeck.local</span><br/>
+            Type <span class="term-highlight">'help'</span> to view available system commands.
+          </div>
+          <div class="term-input-row">
+            <span class="term-prompt">visitor@mrtg-cyberdeck:~$</span>
+            <input type="text" class="term-input" id="termInput" placeholder="Type a command (e.g. help, skills, contact)..." autofocus />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GitHub Activity & Stats -->
+    <section class="stats-section" id="stats">
+      <div class="section-header">
+        <span class="section-eyebrow">// TELEMETRY</span>
+        <h2 class="section-title">Live GitHub Activity</h2>
+      </div>
+
+      <div class="stats-container">
+        <a href="https://gitshine.com/stats/MrTG-CodeBot" target="_blank" class="stat-card-link">
+          <img src="https://gitshine.com/card/MrTG-CodeBot?layout=repos" alt="MrTG-CodeBot's Repositories Stats" />
+        </a>
+
+        <a href="https://gitshine.com/stats/MrTG-CodeBot" target="_blank" class="stat-card-link">
+          <img src="https://gitshine.com/card/MrTG-CodeBot?theme=dark" alt="MrTG-CodeBot's GitHub Stats" />
+        </a>
+
+        <a href="https://gitshine.com/stats/MrTG-CodeBot#badges" target="_blank" class="stat-card-link">
+          <img src="https://gitshine.com/badges/MrTG-CodeBot?theme=dark" alt="MrTG-CodeBot's GitHub Badges" />
+        </a>
+      </div>
+    </section>
+
+    <!-- Connect Section -->
+    <section class="connect-section" id="connect">
+      <div class="section-header">
+        <span class="section-eyebrow">// ENCRYPTED TRANSMISSION</span>
+        <h2 class="section-title">Connect With Me</h2>
+      </div>
+
+      <div class="social-btn-grid">
+        <a href="https://t.me/MrTG_Coder" target="_blank" class="social-cyber-btn">
+          <i class="fa-brands fa-telegram"></i>
+          <span>Telegram // @MrTG_Coder</span>
+        </a>
+
+        <a href="https://discordapp.com/users/mr_.orion" target="_blank" class="social-cyber-btn">
+          <i class="fa-brands fa-discord"></i>
+          <span>Discord // mr_.orion</span>
+        </a>
+
+        <a href="mailto:amalnath0600@gmail.com" target="_blank" class="social-cyber-btn">
+          <i class="fa-solid fa-envelope"></i>
+          <span>Email // Direct Link</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="cyber-footer">
+    <p>⚡ Engineered with Cyber-Spidey Tech by <a href="https://github.com/MrTG-CodeBot">MrTG-CodeBot</a> &copy; 2026. All rights reserved.</p>
+  </footer>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    /* ==========================================================
+       1. SYNTHESIZED AUDIO FX (Web Audio API - Zero External Files)
+       ========================================================== */
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+      }
+      playBlip(freq = 600, duration = 0.06, type = 'sine') {
+        if (!this.enabled) return;
+        this.init();
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(freq * 1.5, this.ctx.currentTime + duration);
+          gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch(e) {}
+      }
+      playCyberClick() {
+        this.playBlip(880, 0.08, 'triangle');
+      }
+      playHover() {
+        this.playBlip(440, 0.04, 'sine');
+      }
+      toggle() {
+        this.enabled = !this.enabled;
+        return this.enabled;
+      }
+    }
+
+    const sound = new SoundEngine();
+    const audioBtn = document.getElementById('audioToggle');
+    const audioIcon = document.getElementById('audioIcon');
+    const audioText = document.getElementById('audioText');
+
+    audioBtn.addEventListener('click', () => {
+      sound.init();
+      const isOn = sound.toggle();
+      audioIcon.className = isOn ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+      audioText.textContent = isOn ? 'SFX: ON' : 'SFX: OFF';
+      if (isOn) sound.playCyberClick();
+    });
+
+    document.querySelectorAll('a, button, .skill-pill, .skill-card').forEach(el => {
+      el.addEventListener('mouseenter', () => sound.playHover());
+      el.addEventListener('click', () => sound.playCyberClick());
+    });
+
+    /* ==========================================================
+       2. THREE.JS INTERACTIVE 3D WEB-SLINGING SPIDER PARTICLE WEB
+       ========================================================== */
+    const canvas = document.getElementById('canvas3d');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 24;
+
+    // Node & Spider-Web particles
+    const particleCount = window.innerWidth < 768 ? 60 : 120;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const velocities = [];
+
+    for (let i = 0; i < particleCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 45;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 35;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 25;
+      velocities.push({
+        x: (Math.random() - 0.5) * 0.025,
+        y: (Math.random() - 0.5) * 0.025,
+        z: (Math.random() - 0.5) * 0.025
+      });
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    // Particle texture / point material (Spidey Crimson & Cyan)
+    const pMaterial = new THREE.PointsMaterial({
+      color: 0xff2a55,
+      size: 0.35,
+      transparent: true,
+      opacity: 0.85
+    });
+
+    const particlesMesh = new THREE.Points(geometry, pMaterial);
+    scene.add(particlesMesh);
+
+    // Dynamic Line connecting particles (Spider-Web effect)
+    const linesMaterial = new THREE.LineBasicMaterial({
+      color: 0x00f2fe,
+      transparent: true,
+      opacity: 0.16
+    });
+
+    const linesMesh = new THREE.LineSegments(new THREE.BufferGeometry(), linesMaterial);
+    scene.add(linesMesh);
+
+    // Rotating 3D Cyber Polyhedron Wireframe Orb
+    const orbGeo = new THREE.IcosahedronGeometry(7, 1);
+    const orbMat = new THREE.MeshBasicMaterial({
+      color: 0xff2a55,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.18
+    });
+    const orb = new THREE.Mesh(orbGeo, orbMat);
+    orb.position.set(12, 0, -5);
+    scene.add(orb);
+
+    // Mouse Tracking for Parallax
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseY = -(e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Animation Loop
+    function animate() {
+      requestAnimationFrame(animate);
+
+      targetX += (mouseX - targetX) * 0.04;
+      targetY += (mouseY - targetY) * 0.04;
+
+      camera.position.x = targetX * 3.5;
+      camera.position.y = targetY * 3;
+      camera.lookAt(scene.position);
+
+      orb.rotation.x += 0.003;
+      orb.rotation.y += 0.004;
+
+      // Update particles
+      const pos = geometry.attributes.position.array;
+      const linePositions = [];
+
+      for (let i = 0; i < particleCount; i++) {
+        pos[i * 3] += velocities[i].x;
+        pos[i * 3 + 1] += velocities[i].y;
+        pos[i * 3 + 2] += velocities[i].z;
+
+        // Bounce bounds
+        if (Math.abs(pos[i * 3]) > 25) velocities[i].x *= -1;
+        if (Math.abs(pos[i * 3 + 1]) > 20) velocities[i].y *= -1;
+        if (Math.abs(pos[i * 3 + 2]) > 15) velocities[i].z *= -1;
+
+        // Connect nearby points like a spider web
+        for (let j = i + 1; j < particleCount; j++) {
+          const dx = pos[i * 3] - pos[j * 3];
+          const dy = pos[i * 3 + 1] - pos[j * 3 + 1];
+          const dz = pos[i * 3 + 2] - pos[j * 3 + 2];
+          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+          if (dist < 6.5) {
+            linePositions.push(
+              pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2],
+              pos[j * 3], pos[j * 3 + 1], pos[j * 3 + 2]
+            );
+          }
+        }
+      }
+
+      geometry.attributes.position.needsUpdate = true;
+      linesMesh.geometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    /* ==========================================================
+       3. 3D CARD TILT FOR SPIDEY AVATAR (Pure JS)
+       ========================================================== */
+    const tiltCard = document.getElementById('tiltAvatar');
+    const glare = document.getElementById('avatarGlare');
+
+    if (tiltCard) {
+      tiltCard.addEventListener('mousemove', (e) => {
+        const rect = tiltCard.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -16;
+        const rotateY = ((x - centerX) / centerX) * 16;
+
+        tiltCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+
+        if (glare) {
+          glare.style.opacity = '1';
+          glare.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(255,255,255,0.3), transparent 60%)`;
+        }
+      });
+
+      tiltCard.addEventListener('mouseleave', () => {
+        tiltCard.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        if (glare) glare.style.opacity = '0';
+      });
+    }
+
+    /* ==========================================================
+       4. TYPEWRITER EFFECT
+       ========================================================== */
+    const phrases = [
+      "Telegram Bot Architect & MTProto Specialist",
+      "Python / TypeScript / Golang Developer",
+      "Backend API & Async Engine Engineer",
+      "Spider-Tech Cybernetic Coder"
+    ];
+
+    let phraseIdx = 0;
+    let letterIdx = 0;
+    let isDeleting = false;
+    const typeTarget = document.getElementById('typewriterText');
+
+    function typeWriterLoop() {
+      const current = phrases[phraseIdx];
+      if (isDeleting) {
+        typeTarget.textContent = current.substring(0, letterIdx - 1);
+        letterIdx--;
+      } else {
+        typeTarget.textContent = current.substring(0, letterIdx + 1);
+        letterIdx++;
+      }
+
+      let speed = isDeleting ? 30 : 65;
+
+      if (!isDeleting && letterIdx === current.length) {
+        speed = 2000;
+        isDeleting = true;
+      } else if (isDeleting && letterIdx === 0) {
+        isDeleting = false;
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        speed = 400;
+      }
+
+      setTimeout(typeWriterLoop, speed);
+    }
+    typeWriterLoop();
+
+    /* ==========================================================
+       5. INTERACTIVE CYBERDECK TERMINAL
+       ========================================================== */
+    const termInput = document.getElementById('termInput');
+    const termBody = document.getElementById('termBody');
+
+    const commands = {
+      help: () => `Available commands:<br/>
+        &nbsp;&nbsp;<span class="term-cyan">skills</span>&nbsp;&nbsp;&nbsp;&nbsp;- Show full technology &amp; bot arsenal<br/>
+        &nbsp;&nbsp;<span class="term-cyan">bots</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Telegram bot frameworks &amp; MTProto tools<br/>
+        &nbsp;&nbsp;<span class="term-cyan">contact</span>&nbsp;&nbsp;&nbsp;- Display encrypted contact frequencies<br/>
+        &nbsp;&nbsp;<span class="term-cyan">github</span>&nbsp;&nbsp;&nbsp;&nbsp;- Open GitHub Profile<br/>
+        &nbsp;&nbsp;<span class="term-cyan">theme</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Spidey-Cyberdeck HUD status<br/>
+        &nbsp;&nbsp;<span class="term-cyan">clear</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Purge terminal output buffer`,
+      skills: () => `[OPERATIONAL ARSENAL]<br/>
+        &bull; Bots: <span class="term-cyan">Telegram API, Pyrogram, Telethon, aiogram, Discord.py</span><br/>
+        &bull; Languages: <span class="term-highlight">Python, JavaScript, TypeScript, Golang, Bash</span><br/>
+        &bull; Backends: <span class="term-cyan">FastAPI, Flask, Django, Node.js, Express.js</span><br/>
+        &bull; Databases: <span class="term-highlight">MongoDB, PostgreSQL, MySQL, SQLite, Supabase, Firebase</span><br/>
+        &bull; Cloud/DevOps: <span class="term-cyan">Docker, Linux, Ubuntu, GitHub Actions, Heroku, Vercel</span>`,
+      bots: () => `[BOT CAPABILITIES]<br/>
+        &bull; High-concurrency async event handlers (aiogram / Pyrogram)<br/>
+        &bull; Raw MTProto userbot &amp; client automation (Telethon)<br/>
+        &bull; Secure Webhook pipelines with FastAPI &amp; Docker`,
+      contact: () => `[COMMUNICATION FREQUENCIES]<br/>
+        &bull; Telegram: <a href="https://t.me/MrTG_Coder" target="_blank" style="color:var(--spidey-red)">@MrTG_Coder</a><br/>
+        &bull; Discord: <span class="term-cyan">mr_.orion</span><br/>
+        &bull; Email: <a href="mailto:amalnath0600@gmail.com" style="color:var(--spidey-red)">amalnath0600@gmail.com</a>`,
+      github: () => {
+        window.open('https://github.com/MrTG-CodeBot', '_blank');
+        return `Redirecting to <a href="https://github.com/MrTG-CodeBot" target="_blank" style="color:var(--cyber-cyan)">github.com/MrTG-CodeBot</a>...`;
+      },
+      theme: () => `[THEME DIAGNOSTICS]<br/>
+        &bull; Avatar: Spider-Man Urban Cyber Hooded Suit<br/>
+        &bull; Engine: Three.js WebGL Particle Network<br/>
+        &bull; Audio: Web Audio API Synthesizer (Active)<br/>
+        &bull; Status: 100% OPERATIONAL`,
+      clear: () => {
+        termBody.innerHTML = `
+          <div class="term-input-row">
+            <span class="term-prompt">visitor@mrtg-cyberdeck:~$</span>
+            <input type="text" class="term-input" id="termInput" placeholder="Type a command (e.g. help, skills, contact)..." autofocus />
+          </div>`;
+        attachTerminalListener();
+        return '';
+      }
+    };
+
+    function attachTerminalListener() {
+      const input = document.getElementById('termInput');
+      input.focus();
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const val = input.value.trim().toLowerCase();
+          if (!val) return;
+          sound.playCyberClick();
+
+          // Append past input line
+          const line = document.createElement('div');
+          line.className = 'term-output';
+          line.innerHTML = `<span class="term-prompt">visitor@mrtg-cyberdeck:~$</span> ${input.value}`;
+          termBody.insertBefore(line, input.parentElement);
+
+          // Handle command
+          let response = `Command not recognized: '<span class="term-highlight">${val}</span>'. Type '<span class="term-cyan">help</span>' for manual.`;
+          if (commands[val]) {
+            response = commands[val]();
+          }
+
+          if (val !== 'clear') {
+            const respLine = document.createElement('div');
+            respLine.className = 'term-output';
+            respLine.innerHTML = response;
+            termBody.insertBefore(respLine, input.parentElement);
+            input.value = '';
+            termBody.scrollTop = termBody.scrollHeight;
+          }
+        }
+      });
+    }
+    attachTerminalListener();
+  </script>
+</body>
+</html>
