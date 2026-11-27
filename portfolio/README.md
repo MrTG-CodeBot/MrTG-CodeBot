@@ -2,51 +2,50 @@
 
 <img src="./assets/spidey-avatar.jpg" width="280" alt="MrTG-CodeBot Cyber-Spidey Avatar" style="border-radius: 16px; border: 2px solid #ff2a55;" />
 
-# 🕷️ MrTG-CodeBot // 3D Cyberdeck Portfolio
+# 🕷️ MrTG-CodeBot // 3D Camera-Flight Cyberdeck
 
 <p align="center">
-  <b>A 3D Interactive WebGL Cyberdeck Portfolio themed around Urban Cyber-Spidey Aesthetics</b>
+  <b>An Immersive 3D Scrollytelling Experience — Scrolling pilots the 3D camera through a Cybernetic Spidey Cityscape</b>
 </p>
 
 <p align="center">
-  <a href="https://mrtg-codebot.github.io/MrTG-CodeBot/portfolio/" target="_blank"><img src="https://img.shields.io/badge/🌐_LAUNCH_3D_PORTFOLIO-FF2A55?style=for-the-badge&logoColor=white&labelColor=0d1117" alt="Launch 3D Portfolio" /></a>
+  <a href="https://mrtg-codebot.github.io/MrTG-CodeBot/portfolio/" target="_blank"><img src="https://img.shields.io/badge/🌐_LAUNCH_3D_CAMERA_FLIGHT-FF2A55?style=for-the-badge&logo=three.js&logoColor=white&labelColor=0d1117" alt="Launch 3D Camera Flight" /></a>
 </p>
 
 </div>
 
 ---
 
-### ⚡ Highlights & Key Features
+### 🎮 The 3D Flight Experience
 
-- **🕸️ 3D Interactive WebGL Particle Web**: Built with Three.js featuring interconnected node physics, kinetic spider-web lines, and real-time mouse parallax.
-- **🎴 Hologram 3D Tilt Avatar**: Gyroscopic and cursor-tracking 3D perspective card with dynamic specular light glare.
-- **💻 Cyberdeck Interactive Terminal**: Working command-line terminal directly in the browser supporting commands: `help`, `skills`, `bots`, `contact`, `github`, `theme`, and `clear`.
-- **🔊 Synthesized Sci-Fi Audio FX**: Powered by pure Web Audio API oscillator synthesis (zero external audio file dependencies) with an instant mute/unmute toggle.
-- **🚀 Zero Build Step**: 100% vanilla HTML5, CSS3, and JavaScript—loads in milliseconds with 60 FPS performance on both desktop and mobile.
+Instead of a standard scrolling webpage, this is an **interactive 3D camera-flight**:
+- **Drone / Flight Controls**: Scrolling the mouse wheel (or dragging on mobile) propels the 3D camera through a smooth CatmullRom spline path across a futuristic cyber-city.
+- **Flight Waypoints**:
+  1. **Waypoint 01 // Origin & Avatar**: Approach the floating 3D holographic Cyber-Spidey avatar framed by dual rotating cyan & crimson rings.
+  2. **Waypoint 02 // Bot Architecture**: Bank into the bot engineering sector showcasing Telegram API, Pyrogram, Telethon, aiogram, and webhook infrastructures.
+  3. **Waypoint 03 // Tech Matrix**: Fly through floating 3D toruses and wireframe towers exploring the full-stack programming and database arsenal.
+  4. **Waypoint 04 // Telemetry & Activity**: Glide over real-time GitHub activity metrics and repository telemetry.
+  5. **Waypoint 05 // Transmission Gate**: Reach the apex beacon to establish encrypted transmissions over Telegram, Discord, and Email.
+- **Side Scrubber Navigation**: Jump directly to any waypoint with a single click.
+- **Synthesized Audio Engine**: Real-time Web Audio API frequency shifts that react to camera movement and waypoint arrivals.
 
 ---
 
-### 🌐 How to Enable GitHub Pages (Free Instant Hosting)
+### 🌐 Enabling Free Live 3D Hosting via GitHub Pages
 
-1. Go to your repository settings on GitHub: `https://github.com/MrTG-CodeBot/MrTG-CodeBot/settings/pages`
-2. Under **Build and deployment** > **Source**, select **Deploy from a branch**.
-3. Choose the `main` branch and `/ (root)` folder, then click **Save**.
-4. Your 3D interactive portfolio will be live at:
+1. Navigate to: `https://github.com/MrTG-CodeBot/MrTG-CodeBot/settings/pages`
+2. Under **Build and deployment** > **Source**, choose **Deploy from a branch**.
+3. Select `main` branch and `/ (root)` folder, then save.
+4. Your live 3D camera flight will be accessible at:
    👉 **`https://mrtg-codebot.github.io/MrTG-CodeBot/portfolio/`**
 
 ---
 
-### 💻 Running Locally
-
-To run and preview the 3D interactive site on your computer:
+### 💻 Local Preview
 
 ```bash
-# Option 1: Open directly in your default browser
+# Launch directly in your default browser:
 start portfolio/index.html
-
-# Option 2: Run a quick local server
-python -m http.server 8000
-# Then visit: http://localhost:8000/portfolio/
 ```
 
 ---

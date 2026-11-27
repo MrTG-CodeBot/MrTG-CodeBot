@@ -3,28 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MrTG-CodeBot // 3D Cyberdeck Portfolio</title>
-  <meta name="description" content="Interactive 3D Cyber-Spidey Portfolio for MrTG-CodeBot - Telegram Bot Architect & Full-Stack Developer." />
+  <title>MrTG-CodeBot // 3D Camera-Flight Cyberdeck Experience</title>
+  <meta name="description" content="3D Scrollytelling Camera-Flight Portfolio for MrTG-CodeBot - Telegram Bot Architect & Full-Stack Developer." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
     :root {
-      --bg-dark: #07090e;
-      --bg-card: rgba(15, 20, 31, 0.72);
-      --bg-card-hover: rgba(22, 30, 48, 0.85);
-      --border-color: rgba(255, 42, 85, 0.28);
-      --border-cyan: rgba(0, 242, 254, 0.35);
+      --bg-dark: #06080d;
       --spidey-red: #ff2a55;
       --spidey-crimson: #d90429;
-      --spidey-glow: rgba(255, 42, 85, 0.55);
+      --spidey-glow: rgba(255, 42, 85, 0.65);
       --cyber-cyan: #00f2fe;
-      --cyber-blue: #4facfe;
+      --cyber-cyan-glow: rgba(0, 242, 254, 0.45);
       --text-main: #f0f6fc;
       --text-muted: #8b949e;
-      --accent-white: #ffffff;
       --font-display: 'Orbitron', monospace;
       --font-mono: 'JetBrains Mono', monospace;
       --font-body: 'Plus Jakarta Sans', sans-serif;
@@ -34,755 +29,436 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      scroll-behavior: smooth;
+      user-select: none;
     }
 
-    body {
+    html, body {
+      width: 100%;
+      height: 100%;
       background-color: var(--bg-dark);
       color: var(--text-main);
       font-family: var(--font-body);
       overflow-x: hidden;
-      min-height: 100vh;
-      position: relative;
-      selection-background-color: var(--spidey-red);
-      selection-color: #fff;
+      overflow-y: auto;
     }
 
-    ::selection {
-      background: var(--spidey-red);
-      color: #fff;
+    /* Virtual scroll height to drive 3D flight trajectory */
+    #scrollTrack {
+      height: 600vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      pointer-events: none;
+      z-index: -1;
     }
 
-    /* 3D WebGL Background Canvas */
-    #canvas3d {
+    /* Fixed Viewport & WebGL Canvas */
+    #viewport3d {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* Subtle Cyber Grid Overlay */
-    .cyber-grid-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
       z-index: 1;
-      pointer-events: none;
-      background-image: 
-        linear-gradient(rgba(255, 42, 85, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
-      background-size: 50px 50px;
+      pointer-events: auto;
     }
 
-    /* Sci-fi Scanline effect */
-    .scanlines {
+    #webglCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Sci-Fi Scanlines & Vignette */
+    .screen-fx {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: 2;
       pointer-events: none;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.12),
-        rgba(0, 0, 0, 0.12) 1px,
-        transparent 1px,
-        transparent 3px
-      );
-      opacity: 0.6;
+      z-index: 2;
+      background: 
+        radial-gradient(circle at center, transparent 40%, rgba(6, 8, 13, 0.85) 95%),
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 3px);
     }
 
-    /* Navigation Bar */
-    nav.cyber-nav {
+    /* HUD Top Bar */
+    header.hud-header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      z-index: 100;
-      backdrop-filter: blur(16px);
-      background: rgba(7, 9, 14, 0.75);
-      border-bottom: 1px solid var(--border-color);
+      z-index: 50;
+      padding: 16px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 36px;
-      transition: all 0.3s ease;
+      background: linear-gradient(180deg, rgba(6, 8, 13, 0.9) 0%, transparent 100%);
+      pointer-events: auto;
     }
 
-    .nav-logo {
+    .brand-hud {
       display: flex;
       align-items: center;
       gap: 12px;
-      text-decoration: none;
-      color: var(--text-main);
       font-family: var(--font-display);
       font-size: 1.15rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #fff;
     }
 
-    .nav-logo .spidey-icon {
+    .brand-hud .spider-badge {
       color: var(--spidey-red);
-      font-size: 1.4rem;
-      filter: drop-shadow(0 0 10px var(--spidey-glow));
-      animation: pulseSpider 2.5s infinite ease-in-out;
+      font-size: 1.35rem;
+      animation: spiderGlow 2.5s infinite ease-in-out;
     }
 
-    .nav-links {
+    .telemetry-hud {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--cyber-cyan);
       display: flex;
-      gap: 28px;
-      list-style: none;
+      gap: 20px;
+      background: rgba(15, 20, 31, 0.65);
+      border: 1px solid var(--cyber-cyan-glow);
+      padding: 6px 14px;
+      border-radius: 6px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hud-controls {
+      display: flex;
+      gap: 12px;
       align-items: center;
     }
 
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      transition: all 0.25s ease;
-      position: relative;
-      padding: 6px 0;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--spidey-red);
-      text-shadow: 0 0 10px var(--spidey-glow);
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background: var(--spidey-red);
-      box-shadow: 0 0 8px var(--spidey-red);
-      transition: width 0.25s ease;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .audio-btn {
+    .hud-btn {
       background: rgba(255, 42, 85, 0.12);
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--spidey-glow);
       color: var(--spidey-red);
-      padding: 8px 14px;
+      padding: 7px 14px;
       border-radius: 6px;
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
-      transition: all 0.3s ease;
+      gap: 6px;
+      transition: all 0.25s ease;
     }
 
-    .audio-btn:hover {
-      background: rgba(255, 42, 85, 0.25);
-      box-shadow: 0 0 15px var(--spidey-glow);
+    .hud-btn:hover {
+      background: rgba(255, 42, 85, 0.3);
+      box-shadow: 0 0 14px var(--spidey-glow);
+      color: #fff;
     }
 
-    /* Content Wrapper */
-    main.content-container {
-      position: relative;
-      z-index: 10;
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 120px 24px 80px;
+    /* Side Flight Chapter Waypoint Scrubber */
+    aside.flight-scrubber {
+      position: fixed;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      pointer-events: auto;
     }
 
-    /* Hero Section */
-    section.hero-section {
-      min-height: 85vh;
+    .waypoint-node {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 50px;
-      padding-bottom: 60px;
+      gap: 12px;
+      cursor: pointer;
+      flex-direction: row-reverse;
+      group: true;
     }
 
-    .hero-text {
-      flex: 1.1;
+    .node-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .hero-badge {
+    .node-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.25s ease;
+      white-space: nowrap;
+      background: rgba(10, 14, 22, 0.85);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 42, 85, 0.3);
+    }
+
+    .waypoint-node:hover .node-label {
+      opacity: 1;
+      transform: translateX(0);
+      color: #fff;
+    }
+
+    .waypoint-node.active .node-dot {
+      background: var(--spidey-red);
+      border-color: #fff;
+      box-shadow: 0 0 14px var(--spidey-red);
+      transform: scale(1.4);
+    }
+
+    .waypoint-node.active .node-label {
+      opacity: 1;
+      transform: translateX(0);
+      color: var(--spidey-red);
+      border-color: var(--spidey-red);
+    }
+
+    /* Center Scrollytelling Story Overlay Cards */
+    .story-overlay-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 40;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .story-card {
+      position: absolute;
+      max-width: 580px;
+      width: 90%;
+      padding: 32px;
+      background: rgba(10, 14, 22, 0.82);
+      border: 1.5px solid var(--spidey-glow);
+      border-radius: 18px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 42, 85, 0.25);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(40px) scale(0.95);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .story-card.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .story-card.left-aligned {
+      left: 6%;
+      right: auto;
+    }
+
+    .story-card.right-aligned {
+      right: 6%;
+      left: auto;
+    }
+
+    .story-chapter-tag {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 6px 14px;
-      background: rgba(255, 42, 85, 0.08);
-      border: 1px solid var(--border-color);
-      border-radius: 30px;
+      gap: 8px;
       font-family: var(--font-mono);
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       color: var(--spidey-red);
-      margin-bottom: 24px;
-      box-shadow: 0 0 15px rgba(255, 42, 85, 0.15);
+      letter-spacing: 2px;
+      margin-bottom: 12px;
     }
 
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      background-color: var(--spidey-red);
+    .story-chapter-tag .pulse-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
+      background: var(--spidey-red);
       box-shadow: 0 0 8px var(--spidey-red);
-      animation: blinkDot 1.6s infinite ease-in-out;
     }
 
-    .hero-title {
+    .story-title {
       font-family: var(--font-display);
-      font-size: 3.4rem;
-      line-height: 1.15;
-      font-weight: 900;
-      margin-bottom: 18px;
-      letter-spacing: 1px;
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      color: #fff;
     }
 
-    .hero-title .text-gradient {
-      background: linear-gradient(135deg, #ffffff 30%, var(--spidey-red) 85%);
+    .story-title .gradient-text {
+      background: linear-gradient(135deg, #fff 40%, var(--spidey-red) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .hero-subtitle {
-      font-family: var(--font-mono);
-      font-size: 1.25rem;
-      color: var(--cyber-cyan);
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-height: 32px;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 10px;
-      height: 1.25rem;
-      background-color: var(--cyber-cyan);
-      animation: cursorBlink 0.9s infinite;
-    }
-
-    .hero-desc {
+    .story-desc {
       color: var(--text-muted);
-      font-size: 1.05rem;
-      line-height: 1.7;
-      margin-bottom: 36px;
-      max-width: 580px;
+      font-size: 0.96rem;
+      line-height: 1.65;
+      margin-bottom: 22px;
     }
 
-    .hero-cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-    }
-
-    .btn-cyber {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 28px;
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-decoration: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      overflow: hidden;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--spidey-crimson), var(--spidey-red));
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 0 24px var(--spidey-glow);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 0 35px rgba(255, 42, 85, 0.85);
-    }
-
-    .btn-secondary {
-      background: rgba(15, 20, 31, 0.8);
-      color: var(--text-main);
-      border: 1px solid var(--border-cyan);
-      backdrop-filter: blur(10px);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(0, 242, 254, 0.12);
-      border-color: var(--cyber-cyan);
-      color: var(--cyber-cyan);
-      box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-      transform: translateY(-3px);
-    }
-
-    /* 3D Holographic Spidey Avatar Card */
-    .hero-avatar-wrapper {
-      flex: 0.9;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      perspective: 1200px;
-    }
-
-    .cyber-avatar-card {
-      position: relative;
-      width: 380px;
-      height: 520px;
-      border-radius: 20px;
-      background: linear-gradient(145deg, rgba(25, 30, 45, 0.7), rgba(10, 14, 22, 0.85));
-      border: 1.5px solid var(--border-color);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px var(--spidey-glow);
-      backdrop-filter: blur(20px);
-      transform-style: preserve-3d;
-      transition: transform 0.15s ease-out, box-shadow 0.3s ease;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .cyber-avatar-card:hover {
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 45px rgba(255, 42, 85, 0.75);
-    }
-
-    .card-glare {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.22), transparent 60%);
-      mix-blend-mode: overlay;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 5;
-    }
-
-    .cyber-avatar-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 20%;
-      border-radius: 18px;
-      filter: contrast(1.08) saturate(1.1);
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .cyber-avatar-card:hover .cyber-avatar-img {
-      transform: scale(1.04);
-    }
-
-    /* Futuristic HUD Reticle Overlays on Avatar */
-    .hud-corners {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      right: 14px;
-      bottom: 14px;
-      border: 1px dashed rgba(255, 42, 85, 0.4);
-      border-radius: 12px;
-      pointer-events: none;
-      z-index: 4;
-    }
-
-    .hud-tag {
-      position: absolute;
-      bottom: 22px;
-      left: 22px;
-      right: 22px;
-      background: rgba(7, 9, 14, 0.88);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 12px 18px;
-      backdrop-filter: blur(12px);
-      z-index: 6;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transform: translateZ(40px);
-    }
-
-    .hud-tag-title {
-      font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .hud-tag-sub {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--cyber-cyan);
-    }
-
-    /* Section Headings */
-    .section-header {
-      text-align: center;
-      margin-bottom: 50px;
-      position: relative;
-    }
-
-    .section-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: var(--spidey-red);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-      display: inline-block;
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: 2.4rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-
-    /* Interactive 3D Skills Matrix Grid */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap: 26px;
-      margin-bottom: 90px;
-    }
-
-    .skill-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 42, 85, 0.2);
-      border-radius: 16px;
-      padding: 26px;
-      backdrop-filter: blur(16px);
-      position: relative;
-      overflow: hidden;
-      transform-style: preserve-3d;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: pointer;
-    }
-
-    .skill-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--spidey-red), var(--cyber-cyan));
-      opacity: 0.7;
-      transition: opacity 0.3s ease;
-    }
-
-    .skill-card:hover {
-      border-color: var(--spidey-red);
-      background: var(--bg-card-hover);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 42, 85, 0.35);
-      transform: translateY(-6px);
-    }
-
-    .skill-card-head {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-
-    .skill-card-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      background: rgba(255, 42, 85, 0.12);
-      border: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--spidey-red);
-      font-size: 1.3rem;
-      box-shadow: 0 0 15px rgba(255, 42, 85, 0.2);
-    }
-
-    .skill-card-title {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .skill-items-container {
+    .story-interactive-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+      margin-top: 14px;
     }
 
-    .skill-pill {
+    .badge-pill {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 7px 12px;
-      background: rgba(10, 14, 22, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 7px;
+      padding: 6px 12px;
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 8px;
-      color: var(--text-main);
+      color: #fff;
       font-family: var(--font-mono);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       text-decoration: none;
       transition: all 0.25s ease;
     }
 
-    .skill-pill:hover {
-      border-color: var(--cyber-cyan);
-      color: var(--cyber-cyan);
-      background: rgba(0, 242, 254, 0.1);
-      box-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
+    .badge-pill:hover {
+      border-color: var(--spidey-red);
+      background: rgba(255, 42, 85, 0.15);
+      box-shadow: 0 0 14px var(--spidey-glow);
       transform: translateY(-2px);
     }
 
-    .skill-pill img {
-      width: 18px;
-      height: 18px;
+    .badge-pill img {
+      width: 17px;
+      height: 17px;
       border-radius: 3px;
     }
 
-    /* Cyberdeck Interactive Terminal */
-    .terminal-section {
-      margin-bottom: 90px;
-    }
-
-    .cyber-terminal {
-      background: #090c13;
-      border: 1.5px solid var(--border-cyan);
-      border-radius: 14px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.2);
-      overflow: hidden;
-      font-family: var(--font-mono);
-    }
-
-    .terminal-header {
-      background: #121824;
-      padding: 12px 18px;
+    .cta-btn-row {
       display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .action-btn {
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(0, 242, 254, 0.2);
-    }
-
-    .term-dots {
-      display: flex;
       gap: 8px;
-    }
-
-    .term-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-    }
-
-    .term-dot.red { background: #ff5f56; }
-    .term-dot.yellow { background: #ffbd2e; }
-    .term-dot.green { background: #27c93f; }
-
-    .term-title {
-      font-size: 0.85rem;
-      color: var(--cyber-cyan);
-      letter-spacing: 1px;
-    }
-
-    .terminal-body {
-      padding: 24px;
-      min-height: 280px;
-      max-height: 420px;
-      overflow-y: auto;
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    .term-output {
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-
-    .term-highlight {
-      color: var(--spidey-red);
-      font-weight: 600;
-    }
-
-    .term-cyan {
-      color: var(--cyber-cyan);
-    }
-
-    .term-input-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .term-prompt {
-      color: var(--spidey-red);
-      font-weight: 700;
-    }
-
-    .term-input {
-      background: transparent;
-      border: none;
-      outline: none;
+      padding: 12px 22px;
+      background: linear-gradient(135deg, var(--spidey-crimson), var(--spidey-red));
+      border: 1px solid rgba(255, 255, 255, 0.3);
       color: #fff;
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      flex: 1;
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-decoration: none;
+      border-radius: 8px;
+      box-shadow: 0 0 20px var(--spidey-glow);
+      transition: all 0.25s ease;
+      cursor: pointer;
     }
 
-    /* GitHub Stats Showcase */
-    .stats-section {
-      margin-bottom: 90px;
+    .action-btn:hover {
+      box-shadow: 0 0 30px rgba(255, 42, 85, 0.9);
+      transform: translateY(-2px);
     }
 
-    .stats-container {
+    .action-btn.secondary {
+      background: rgba(15, 20, 31, 0.8);
+      border-color: var(--cyber-cyan-glow);
+      color: var(--cyber-cyan);
+      box-shadow: none;
+    }
+
+    .action-btn.secondary:hover {
+      background: rgba(0, 242, 254, 0.15);
+      box-shadow: 0 0 20px var(--cyber-cyan-glow);
+    }
+
+    /* Scroll Prompt Indicator at Bottom */
+    .scroll-indicator-bar {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 28px;
+      gap: 8px;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
     }
 
-    .stat-card-link {
-      display: block;
-      transition: transform 0.3s ease, filter 0.3s ease;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 42, 85, 0.2);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .stat-card-link:hover {
-      transform: translateY(-5px);
-      filter: drop-shadow(0 0 20px var(--spidey-glow));
-      border-color: var(--spidey-red);
-    }
-
-    .stat-card-link img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* Connect Section */
-    .connect-section {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .social-btn-grid {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 24px;
-      margin-top: 36px;
-    }
-
-    .social-cyber-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-      padding: 16px 30px;
-      background: rgba(15, 20, 31, 0.85);
-      border: 1.5px solid var(--border-color);
-      border-radius: 12px;
-      color: #fff;
-      text-decoration: none;
-      font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 700;
-      backdrop-filter: blur(12px);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    }
-
-    .social-cyber-btn:hover {
-      border-color: var(--spidey-red);
-      background: rgba(255, 42, 85, 0.15);
-      box-shadow: 0 0 30px var(--spidey-glow);
-      transform: translateY(-4px);
-    }
-
-    .social-cyber-btn i {
-      font-size: 1.4rem;
-      color: var(--spidey-red);
-    }
-
-    /* Footer */
-    footer.cyber-footer {
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 36px 20px;
-      text-align: center;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: var(--text-muted);
+    .scroll-mouse-icon {
+      width: 22px;
+      height: 36px;
+      border: 2px solid var(--spidey-red);
+      border-radius: 18px;
       position: relative;
-      z-index: 10;
     }
 
-    footer a {
+    .scroll-wheel-dot {
+      width: 4px;
+      height: 8px;
+      background: #fff;
+      border-radius: 2px;
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: wheelRoll 1.6s infinite ease-in-out;
+    }
+
+    .scroll-hint-text {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 2px;
       color: var(--spidey-red);
-      text-decoration: none;
+      text-transform: uppercase;
     }
 
     /* Animations */
-    @keyframes pulseSpider {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px var(--spidey-glow)); }
-      50% { transform: scale(1.15); filter: drop-shadow(0 0 18px var(--spidey-red)); }
+    @keyframes spiderGlow {
+      0%, 100% { filter: drop-shadow(0 0 6px var(--spidey-glow)); transform: scale(1); }
+      50% { filter: drop-shadow(0 0 16px var(--spidey-red)); transform: scale(1.1); }
     }
 
-    @keyframes blinkDot {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+    @keyframes wheelRoll {
+      0% { opacity: 1; transform: translate(-50%, 0); }
+      100% { opacity: 0; transform: translate(-50%, 14px); }
     }
 
-    @keyframes cursorBlink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
-    }
-
-    /* Responsive */
-    @media (max-width: 960px) {
-      section.hero-section {
-        flex-direction: column-reverse;
-        text-align: center;
-        gap: 40px;
+    /* Mobile Responsive */
+    @media (max-width: 860px) {
+      .story-card {
+        max-width: 90% !important;
+        left: 5% !important;
+        right: 5% !important;
+        padding: 24px;
       }
-      .hero-desc {
-        margin: 0 auto 30px;
+      .story-title {
+        font-size: 1.6rem;
       }
-      .hero-subtitle {
-        justify-content: center;
+      .telemetry-hud {
+        display: none;
       }
-      .hero-cta {
-        justify-content: center;
+      aside.flight-scrubber {
+        right: 14px;
       }
-      .cyber-avatar-card {
-        width: 320px;
-        height: 440px;
-      }
-      .hero-title {
-        font-size: 2.6rem;
-      }
-      nav.cyber-nav {
-        padding: 14px 20px;
-      }
-      .nav-links {
+      .node-label {
         display: none;
       }
     }
@@ -790,341 +466,249 @@
 </head>
 <body>
 
-  <!-- WebGL 3D Canvas -->
-  <canvas id="canvas3d"></canvas>
+  <!-- Hidden Virtual Scroll Track for 3D Camera Flight -->
+  <div id="scrollTrack"></div>
 
-  <!-- Cyber Grid Background Overlay -->
-  <div class="cyber-grid-overlay"></div>
-  <div class="scanlines"></div>
+  <!-- 3D WebGL Canvas Viewport -->
+  <div id="viewport3d">
+    <canvas id="webglCanvas"></canvas>
+  </div>
 
-  <!-- Navigation -->
-  <nav class="cyber-nav">
-    <a href="#" class="nav-logo">
-      <i class="fa-solid fa-spider spidey-icon"></i>
-      <span>MrTG-CodeBot</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Tech Matrix</a></li>
-      <li><a href="#terminal">Cyberdeck</a></li>
-      <li><a href="#stats">Activity</a></li>
-      <li><a href="#connect">Connect</a></li>
-    </ul>
-    <button class="audio-btn" id="audioToggle">
-      <i class="fa-solid fa-volume-high" id="audioIcon"></i>
-      <span id="audioText">SFX: ON</span>
-    </button>
-  </nav>
+  <!-- Sci-Fi Vignette and Scanlines -->
+  <div class="screen-fx"></div>
 
-  <!-- Main Container -->
-  <main class="content-container">
+  <!-- Top HUD Bar -->
+  <header class="hud-header">
+    <div class="brand-hud">
+      <i class="fa-solid fa-spider spider-badge"></i>
+      <span>MRTG-CODEBOT</span>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero-section" id="about">
-      <div class="hero-text">
-        <div class="hero-badge">
-          <span class="status-dot"></span>
-          <span>SPIDEY-CYBERNETIC SYSTEM // ONLINE</span>
-        </div>
-        <h1 class="hero-title">
-          Hey, I'm <br/>
-          <span class="text-gradient">MrTG-CodeBot</span>
-        </h1>
-        <div class="hero-subtitle">
-          <i class="fa-solid fa-terminal" style="font-size: 1rem; color: var(--spidey-red);"></i>
-          <span id="typewriterText"></span>
-          <span class="cursor"></span>
-        </div>
-        <p class="hero-desc">
-          Crafting high-performance Telegram bot infrastructure, asynchronous MTProto architectures, and modern cloud microservices wrapped in a sleek cybernetic aesthetic.
-        </p>
-        <div class="hero-cta">
-          <a href="#skills" class="btn-cyber btn-primary">
-            <i class="fa-solid fa-microchip"></i>
-            <span>EXPLORE MATRIX</span>
-          </a>
-          <a href="#terminal" class="btn-cyber btn-secondary">
-            <i class="fa-solid fa-terminal"></i>
-            <span>OPEN CYBERDECK</span>
-          </a>
-        </div>
+    <div class="telemetry-hud">
+      <span>FLIGHT_MODE: 3D_SCROLL</span>
+      <span>ALT: <span id="altMeter" style="color:#fff">240m</span></span>
+      <span>TRAJECTORY: <span id="trackMeter" style="color:var(--spidey-red)">00%</span></span>
+    </div>
+
+    <div class="hud-controls">
+      <button class="hud-btn" id="sfxToggle">
+        <i class="fa-solid fa-volume-high" id="sfxIcon"></i>
+        <span id="sfxText">SFX: ON</span>
+      </button>
+      <a href="https://github.com/MrTG-CodeBot" target="_blank" class="hud-btn">
+        <i class="fa-brands fa-github"></i>
+        <span>GITHUB</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Side Flight Scrubber Navigation -->
+  <aside class="flight-scrubber">
+    <div class="waypoint-node active" data-progress="0.0">
+      <div class="node-dot"></div>
+      <div class="node-label">01 // ORIGIN &amp; AVATAR</div>
+    </div>
+    <div class="waypoint-node" data-progress="0.22">
+      <div class="node-dot"></div>
+      <div class="node-label">02 // BOT ARCHITECTURE</div>
+    </div>
+    <div class="waypoint-node" data-progress="0.45">
+      <div class="node-dot"></div>
+      <div class="node-label">03 // TECH MATRIX</div>
+    </div>
+    <div class="waypoint-node" data-progress="0.68">
+      <div class="node-dot"></div>
+      <div class="node-label">04 // TELEMETRY &amp; STATS</div>
+    </div>
+    <div class="waypoint-node" data-progress="0.92">
+      <div class="node-dot"></div>
+      <div class="node-label">05 // TRANSMISSION GATE</div>
+    </div>
+  </aside>
+
+  <!-- Story Overlay Cards (Fade In/Out synchronized with 3D camera waypoints) -->
+  <div class="story-overlay-container">
+
+    <!-- Chapter 1: Origin -->
+    <div class="story-card left-aligned visible" id="card0">
+      <div class="story-chapter-tag">
+        <span class="pulse-dot"></span>
+        <span>WAYPOINT 01 // SECTOR_ORIGIN</span>
       </div>
-
-      <!-- 3D Interactive Tilt Hologram Avatar -->
-      <div class="hero-avatar-wrapper">
-        <div class="cyber-avatar-card" id="tiltAvatar">
-          <div class="card-glare" id="avatarGlare"></div>
-          <div class="hud-corners"></div>
-          <img src="assets/spidey-avatar.jpg" alt="MrTG-CodeBot Cyber Spidey Avatar" class="cyber-avatar-img" />
-          <div class="hud-tag">
-            <div>
-              <div class="hud-tag-title">MRTG-CODEBOT</div>
-              <div class="hud-tag-sub">SYS_ID: #0600 // ARCHITECT</div>
-            </div>
-            <i class="fa-solid fa-shield-halved" style="color: var(--spidey-red); font-size: 1.2rem;"></i>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills Matrix Section -->
-    <section class="skills-section" id="skills">
-      <div class="section-header">
-        <span class="section-eyebrow">// OPERATIONAL ARSENAL</span>
-        <h2 class="section-title">Tech Matrix &amp; Skills</h2>
-      </div>
-
-      <div class="skills-grid">
-
-        <!-- Category 1: Telegram & Bots -->
-        <div class="skill-card">
-          <div class="skill-card-head">
-            <div class="skill-card-icon"><i class="fa-brands fa-telegram"></i></div>
-            <h3 class="skill-card-title">Telegram &amp; Bots</h3>
-          </div>
-          <div class="skill-items-container">
-            <a href="https://core.telegram.org/bots/api" target="_blank" class="skill-pill">
-              <i class="fa-solid fa-robot" style="color: #26a5e4;"></i> Telegram API
-            </a>
-            <a href="https://docs.pyrogram.org" target="_blank" class="skill-pill">
-              <i class="fa-solid fa-fire" style="color: #ff9800;"></i> Pyrogram
-            </a>
-            <a href="https://docs.telethon.dev" target="_blank" class="skill-pill">
-              <i class="fa-solid fa-bolt" style="color: #0088cc;"></i> Telethon
-            </a>
-            <a href="https://docs.aiogram.dev" target="_blank" class="skill-pill">
-              <i class="fa-solid fa-brain" style="color: #2ca5e0;"></i> aiogram
-            </a>
-            <a href="https://discordpy.readthedocs.io" target="_blank" class="skill-pill">
-              <i class="fa-brands fa-discord" style="color: #5865f2;"></i> Discord.py
-            </a>
-            <a href="https://en.wikipedia.org/wiki/Webhook" target="_blank" class="skill-pill">
-              <i class="fa-solid fa-satellite-dish" style="color: #ff6c37;"></i> Webhooks
-            </a>
-          </div>
-        </div>
-
-        <!-- Category 2: Programming Languages -->
-        <div class="skill-card">
-          <div class="skill-card-head">
-            <div class="skill-card-icon"><i class="fa-solid fa-code"></i></div>
-            <h3 class="skill-card-title">Core Languages</h3>
-          </div>
-          <div class="skill-items-container">
-            <a href="https://www.python.org" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=py&theme=dark" alt="Python" /> Python
-            </a>
-            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=js&theme=dark" alt="JavaScript" /> JavaScript
-            </a>
-            <a href="https://www.typescriptlang.org" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=ts&theme=dark" alt="TypeScript" /> TypeScript
-            </a>
-            <a href="https://go.dev" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=go&theme=dark" alt="Golang" /> Golang
-            </a>
-            <a href="https://www.gnu.org/software/bash" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=bash&theme=dark" alt="Bash" /> Bash Shell
-            </a>
-          </div>
-        </div>
-
-        <!-- Category 3: Backend & APIs -->
-        <div class="skill-card">
-          <div class="skill-card-head">
-            <div class="skill-card-icon"><i class="fa-solid fa-server"></i></div>
-            <h3 class="skill-card-title">Backend &amp; APIs</h3>
-          </div>
-          <div class="skill-items-container">
-            <a href="https://fastapi.tiangolo.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=fastapi&theme=dark" alt="FastAPI" /> FastAPI
-            </a>
-            <a href="https://flask.palletsprojects.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=flask&theme=dark" alt="Flask" /> Flask
-            </a>
-            <a href="https://www.djangoproject.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=django&theme=dark" alt="Django" /> Django
-            </a>
-            <a href="https://nodejs.org" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=nodejs&theme=dark" alt="Node.js" /> Node.js
-            </a>
-            <a href="https://expressjs.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=express&theme=dark" alt="Express" /> Express.js
-            </a>
-          </div>
-        </div>
-
-        <!-- Category 4: Databases -->
-        <div class="skill-card">
-          <div class="skill-card-head">
-            <div class="skill-card-icon"><i class="fa-solid fa-database"></i></div>
-            <h3 class="skill-card-title">Databases &amp; Storage</h3>
-          </div>
-          <div class="skill-items-container">
-            <a href="https://www.mongodb.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=mongodb&theme=dark" alt="MongoDB" /> MongoDB
-            </a>
-            <a href="https://www.postgresql.org" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=postgres&theme=dark" alt="PostgreSQL" /> PostgreSQL
-            </a>
-            <a href="https://www.mysql.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=mysql&theme=dark" alt="MySQL" /> MySQL
-            </a>
-            <a href="https://www.sqlite.org" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=sqlite&theme=dark" alt="SQLite" /> SQLite
-            </a>
-            <a href="https://supabase.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=supabase&theme=dark" alt="Supabase" /> Supabase
-            </a>
-            <a href="https://firebase.google.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=firebase&theme=dark" alt="Firebase" /> Firebase
-            </a>
-          </div>
-        </div>
-
-        <!-- Category 5: DevOps & Cloud -->
-        <div class="skill-card">
-          <div class="skill-card-head">
-            <div class="skill-card-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-            <h3 class="skill-card-title">DevOps &amp; Cloud</h3>
-          </div>
-          <div class="skill-items-container">
-            <a href="https://www.docker.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=docker&theme=dark" alt="Docker" /> Docker
-            </a>
-            <a href="https://www.linux.org" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=linux&theme=dark" alt="Linux" /> Linux
-            </a>
-            <a href="https://ubuntu.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=ubuntu&theme=dark" alt="Ubuntu" /> Ubuntu
-            </a>
-            <a href="https://github.com/features/actions" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=githubactions&theme=dark" alt="GitHub Actions" /> Actions
-            </a>
-            <a href="https://www.heroku.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=heroku&theme=dark" alt="Heroku" /> Heroku
-            </a>
-            <a href="https://vercel.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=vercel&theme=dark" alt="Vercel" /> Vercel
-            </a>
-          </div>
-        </div>
-
-        <!-- Category 6: Developer Tooling -->
-        <div class="skill-card">
-          <div class="skill-card-head">
-            <div class="skill-card-icon"><i class="fa-solid fa-wrench"></i></div>
-            <h3 class="skill-card-title">Tooling &amp; Workflow</h3>
-          </div>
-          <div class="skill-items-container">
-            <a href="https://code.visualstudio.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=vscode&theme=dark" alt="VS Code" /> VS Code
-            </a>
-            <a href="https://git-scm.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=git&theme=dark" alt="Git" /> Git
-            </a>
-            <a href="https://www.postman.com" target="_blank" class="skill-pill">
-              <img src="https://skillicons.dev/icons?i=postman&theme=dark" alt="Postman" /> Postman
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Interactive Cyberdeck Terminal Section -->
-    <section class="terminal-section" id="terminal">
-      <div class="section-header">
-        <span class="section-eyebrow">// DIRECT INTERFACE</span>
-        <h2 class="section-title">Cyberdeck Terminal</h2>
-      </div>
-
-      <div class="cyber-terminal">
-        <div class="terminal-header">
-          <div class="term-dots">
-            <span class="term-dot red"></span>
-            <span class="term-dot yellow"></span>
-            <span class="term-dot green"></span>
-          </div>
-          <div class="term-title">mrtg@spidey-cyberdeck:~ (zsh)</div>
-          <i class="fa-solid fa-terminal" style="color: var(--cyber-cyan);"></i>
-        </div>
-        <div class="terminal-body" id="termBody">
-          <div class="term-output">
-            [SPIDEY-OS v4.2.0 initialized]<br/>
-            Connected to node: <span class="term-cyan">mrtg-cyberdeck.local</span><br/>
-            Type <span class="term-highlight">'help'</span> to view available system commands.
-          </div>
-          <div class="term-input-row">
-            <span class="term-prompt">visitor@mrtg-cyberdeck:~$</span>
-            <input type="text" class="term-input" id="termInput" placeholder="Type a command (e.g. help, skills, contact)..." autofocus />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- GitHub Activity & Stats -->
-    <section class="stats-section" id="stats">
-      <div class="section-header">
-        <span class="section-eyebrow">// TELEMETRY</span>
-        <h2 class="section-title">Live GitHub Activity</h2>
-      </div>
-
-      <div class="stats-container">
-        <a href="https://gitshine.com/stats/MrTG-CodeBot" target="_blank" class="stat-card-link">
-          <img src="https://gitshine.com/card/MrTG-CodeBot?layout=repos" alt="MrTG-CodeBot's Repositories Stats" />
-        </a>
-
-        <a href="https://gitshine.com/stats/MrTG-CodeBot" target="_blank" class="stat-card-link">
-          <img src="https://gitshine.com/card/MrTG-CodeBot?theme=dark" alt="MrTG-CodeBot's GitHub Stats" />
-        </a>
-
-        <a href="https://gitshine.com/stats/MrTG-CodeBot#badges" target="_blank" class="stat-card-link">
-          <img src="https://gitshine.com/badges/MrTG-CodeBot?theme=dark" alt="MrTG-CodeBot's GitHub Badges" />
-        </a>
-      </div>
-    </section>
-
-    <!-- Connect Section -->
-    <section class="connect-section" id="connect">
-      <div class="section-header">
-        <span class="section-eyebrow">// ENCRYPTED TRANSMISSION</span>
-        <h2 class="section-title">Connect With Me</h2>
-      </div>
-
-      <div class="social-btn-grid">
-        <a href="https://t.me/MrTG_Coder" target="_blank" class="social-cyber-btn">
+      <h1 class="story-title">
+        The Cyber-Spidey <br/>
+        <span class="gradient-text">Architect</span>
+      </h1>
+      <p class="story-desc">
+        Welcome to the 3D cyberdeck of <b>MrTG-CodeBot</b>. As you scroll, fly through the cybernetic city and explore Telegram bot systems, asynchronous MTProto pipelines, and high-concurrency cloud architectures.
+      </p>
+      <div class="cta-btn-row">
+        <button class="action-btn" onclick="scrollToWaypoint(0.22)">
+          <span>ENGAGE FLIGHT</span>
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+        <a href="https://t.me/MrTG_Coder" target="_blank" class="action-btn secondary">
           <i class="fa-brands fa-telegram"></i>
-          <span>Telegram // @MrTG_Coder</span>
-        </a>
-
-        <a href="https://discordapp.com/users/mr_.orion" target="_blank" class="social-cyber-btn">
-          <i class="fa-brands fa-discord"></i>
-          <span>Discord // mr_.orion</span>
-        </a>
-
-        <a href="mailto:amalnath0600@gmail.com" target="_blank" class="social-cyber-btn">
-          <i class="fa-solid fa-envelope"></i>
-          <span>Email // Direct Link</span>
+          <span>TELEGRAM</span>
         </a>
       </div>
-    </section>
+    </div>
 
-  </main>
+    <!-- Chapter 2: Telegram & Bots -->
+    <div class="story-card right-aligned" id="card1">
+      <div class="story-chapter-tag">
+        <span class="pulse-dot"></span>
+        <span>WAYPOINT 02 // BOT_ENGINEERING</span>
+      </div>
+      <h2 class="story-title">
+        Telegram &amp; <br/>
+        <span class="gradient-text">MTProto Cores</span>
+      </h2>
+      <p class="story-desc">
+        Architecting robust, fault-tolerant Telegram bots, raw MTProto automation engines, and webhook ingestion systems capable of handling thousands of concurrent user interactions.
+      </p>
+      <div class="story-interactive-grid">
+        <a href="https://core.telegram.org/bots/api" target="_blank" class="badge-pill">
+          <i class="fa-solid fa-robot" style="color: #26a5e4;"></i> Telegram API
+        </a>
+        <a href="https://docs.pyrogram.org" target="_blank" class="badge-pill">
+          <i class="fa-solid fa-fire" style="color: #ff9800;"></i> Pyrogram
+        </a>
+        <a href="https://docs.telethon.dev" target="_blank" class="badge-pill">
+          <i class="fa-solid fa-bolt" style="color: #0088cc;"></i> Telethon
+        </a>
+        <a href="https://docs.aiogram.dev" target="_blank" class="badge-pill">
+          <i class="fa-solid fa-brain" style="color: #2ca5e0;"></i> aiogram
+        </a>
+        <a href="https://discordpy.readthedocs.io" target="_blank" class="badge-pill">
+          <i class="fa-brands fa-discord" style="color: #5865f2;"></i> Discord.py
+        </a>
+        <a href="https://en.wikipedia.org/wiki/Webhook" target="_blank" class="badge-pill">
+          <i class="fa-solid fa-satellite-dish" style="color: #ff6c37;"></i> Webhooks
+        </a>
+      </div>
+    </div>
 
-  <!-- Footer -->
-  <footer class="cyber-footer">
-    <p>⚡ Engineered with Cyber-Spidey Tech by <a href="https://github.com/MrTG-CodeBot">MrTG-CodeBot</a> &copy; 2026. All rights reserved.</p>
-  </footer>
+    <!-- Chapter 3: Tech Matrix & Languages -->
+    <div class="story-card left-aligned" id="card2">
+      <div class="story-chapter-tag">
+        <span class="pulse-dot"></span>
+        <span>WAYPOINT 03 // FULLSTACK_MATRIX</span>
+      </div>
+      <h2 class="story-title">
+        Full-Stack <br/>
+        <span class="gradient-text">Operational Arsenal</span>
+      </h2>
+      <p class="story-desc">
+        Multi-language engineering tuned for speed, zero memory leaks, and enterprise-grade uptime across backend microservices and databases.
+      </p>
+      <div class="story-interactive-grid">
+        <a href="https://www.python.org" target="_blank" class="badge-pill">
+          <img src="https://skillicons.dev/icons?i=py&theme=dark" alt="Python" /> Python
+        </a>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="badge-pill">
+          <img src="https://skillicons.dev/icons?i=js&theme=dark" alt="JavaScript" /> JavaScript
+        </a>
+        <a href="https://www.typescriptlang.org" target="_blank" class="badge-pill">
+          <img src="https://skillicons.dev/icons?i=ts&theme=dark" alt="TypeScript" /> TypeScript
+        </a>
+        <a href="https://go.dev" target="_blank" class="badge-pill">
+          <img src="https://skillicons.dev/icons?i=go&theme=dark" alt="Golang" /> Golang
+        </a>
+        <a href="https://fastapi.tiangolo.com" target="_blank" class="badge-pill">
+          <img src="https://skillicons.dev/icons?i=fastapi&theme=dark" alt="FastAPI" /> FastAPI
+        </a>
+        <a href="https://nodejs.org" target="_blank" class="badge-pill">
+          <img src="https://skillicons.dev/icons?i=nodejs&theme=dark" alt="Node.js" /> Node.js
+        </a>
+        <a href="https://www.mongodb.com" target="_blank" class="badge-pill">
+          <img src="https://skillicons.dev/icons?i=mongodb&theme=dark" alt="MongoDB" /> MongoDB
+        </a>
+        <a href="https://www.postgresql.org" target="_blank" class="badge-pill">
+          <img src="https://skillicons.dev/icons?i=postgres&theme=dark" alt="PostgreSQL" /> PostgreSQL
+        </a>
+        <a href="https://www.docker.com" target="_blank" class="badge-pill">
+          <img src="https://skillicons.dev/icons?i=docker&theme=dark" alt="Docker" /> Docker
+        </a>
+      </div>
+    </div>
+
+    <!-- Chapter 4: Telemetry & GitHub Activity -->
+    <div class="story-card right-aligned" id="card3">
+      <div class="story-chapter-tag">
+        <span class="pulse-dot"></span>
+        <span>WAYPOINT 04 // LIVE_TELEMETRY</span>
+      </div>
+      <h2 class="story-title">
+        GitHub Stats &amp; <br/>
+        <span class="gradient-text">Activity Metrics</span>
+      </h2>
+      <p class="story-desc">
+        Real-time metrics, contributions, and repositories tracked across open-source and bot development projects.
+      </p>
+      <div style="margin: 14px 0;">
+        <a href="https://gitshine.com/stats/MrTG-CodeBot" target="_blank">
+          <img src="https://gitshine.com/card/MrTG-CodeBot?theme=dark" alt="GitShine Stats" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,42,85,0.3);" />
+        </a>
+      </div>
+      <div class="cta-btn-row">
+        <a href="https://github.com/MrTG-CodeBot" target="_blank" class="action-btn">
+          <i class="fa-brands fa-github"></i>
+          <span>VIEW ALL REPOSITORIES</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Chapter 5: Transmission & Contact -->
+    <div class="story-card left-aligned" id="card4">
+      <div class="story-chapter-tag">
+        <span class="pulse-dot"></span>
+        <span>WAYPOINT 05 // TRANSMISSION_APEX</span>
+      </div>
+      <h2 class="story-title">
+        Encrypted <br/>
+        <span class="gradient-text">Communication Gate</span>
+      </h2>
+      <p class="story-desc">
+        Ready to collaborate on Telegram bots, API backends, or custom software solutions? Send a direct transmission across any channel:
+      </p>
+      <div class="story-interactive-grid">
+        <a href="https://t.me/MrTG_Coder" target="_blank" class="badge-pill" style="border-color: var(--spidey-red); color: #fff;">
+          <i class="fa-brands fa-telegram" style="color: var(--spidey-red);"></i> Telegram // @MrTG_Coder
+        </a>
+        <a href="https://discordapp.com/users/mr_.orion" target="_blank" class="badge-pill" style="border-color: var(--cyber-cyan); color: #fff;">
+          <i class="fa-brands fa-discord" style="color: var(--cyber-cyan);"></i> Discord // mr_.orion
+        </a>
+        <a href="mailto:amalnath0600@gmail.com" target="_blank" class="badge-pill">
+          <i class="fa-solid fa-envelope"></i> Email // amalnath0600@gmail.com
+        </a>
+      </div>
+      <div class="cta-btn-row">
+        <button class="action-btn" onclick="scrollToWaypoint(0.0)">
+          <i class="fa-solid fa-rotate-left"></i>
+          <span>REPLAY FLIGHT</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Scroll Hint -->
+  <div class="scroll-indicator-bar" id="scrollIndicator">
+    <div class="scroll-mouse-icon">
+      <div class="scroll-wheel-dot"></div>
+    </div>
+    <span class="scroll-hint-text">SCROLL TO FLY THROUGH WORLD</span>
+  </div>
 
   <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <script>
     /* ==========================================================
-       1. SYNTHESIZED AUDIO FX (Web Audio API - Zero External Files)
+       1. SYNTHESIZED AUDIO FX (Web Audio API)
        ========================================================== */
-    class SoundEngine {
+    class SFXEngine {
       constructor() {
         this.ctx = null;
         this.enabled = true;
@@ -1135,28 +719,22 @@
           this.ctx = new AudioContext();
         }
       }
-      playBlip(freq = 600, duration = 0.06, type = 'sine') {
+      playChime(freq = 520) {
         if (!this.enabled) return;
         this.init();
         try {
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
-          osc.type = type;
+          osc.type = 'sine';
           osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(freq * 1.5, this.ctx.currentTime + duration);
-          gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+          osc.frequency.exponentialRampToValueAtTime(freq * 1.8, this.ctx.currentTime + 0.12);
+          gain.gain.setValueAtTime(0.05, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.12);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
           osc.start();
-          osc.stop(this.ctx.currentTime + duration);
+          osc.stop(this.ctx.currentTime + 0.12);
         } catch(e) {}
-      }
-      playCyberClick() {
-        this.playBlip(880, 0.08, 'triangle');
-      }
-      playHover() {
-        this.playBlip(440, 0.04, 'sine');
       }
       toggle() {
         this.enabled = !this.enabled;
@@ -1164,309 +742,309 @@
       }
     }
 
-    const sound = new SoundEngine();
-    const audioBtn = document.getElementById('audioToggle');
-    const audioIcon = document.getElementById('audioIcon');
-    const audioText = document.getElementById('audioText');
+    const sfx = new SFXEngine();
+    const sfxToggle = document.getElementById('sfxToggle');
+    const sfxIcon = document.getElementById('sfxIcon');
+    const sfxText = document.getElementById('sfxText');
 
-    audioBtn.addEventListener('click', () => {
-      sound.init();
-      const isOn = sound.toggle();
-      audioIcon.className = isOn ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
-      audioText.textContent = isOn ? 'SFX: ON' : 'SFX: OFF';
-      if (isOn) sound.playCyberClick();
-    });
-
-    document.querySelectorAll('a, button, .skill-pill, .skill-card').forEach(el => {
-      el.addEventListener('mouseenter', () => sound.playHover());
-      el.addEventListener('click', () => sound.playCyberClick());
+    sfxToggle.addEventListener('click', () => {
+      sfx.init();
+      const on = sfx.toggle();
+      sfxIcon.className = on ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+      sfxText.textContent = on ? 'SFX: ON' : 'SFX: OFF';
+      if (on) sfx.playChime(700);
     });
 
     /* ==========================================================
-       2. THREE.JS INTERACTIVE 3D WEB-SLINGING SPIDER PARTICLE WEB
+       2. THREE.JS 3D SCENE & PROCEDURAL CYBER-CITY & SPIDEY WORLD
        ========================================================== */
-    const canvas = document.getElementById('canvas3d');
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    const canvas = document.getElementById('webglCanvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x06080d, 1);
 
     const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x06080d, 0.015);
+
     const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 24;
 
-    // Node & Spider-Web particles
-    const particleCount = window.innerWidth < 768 ? 60 : 120;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const velocities = [];
+    // 3D Flight Camera Curve Path (Smooth CatmullRom Spline through 3D world)
+    const curvePoints = [
+      new THREE.Vector3(0, 8, 38),     // Waypoint 0: Origin (Facing Floating Hologram Avatar)
+      new THREE.Vector3(12, 18, 5),    // Curve banking right
+      new THREE.Vector3(26, 4, -30),   // Waypoint 1: Bot Architecture Core
+      new THREE.Vector3(0, -6, -70),   // Curve diving through cyber arches
+      new THREE.Vector3(-24, 6, -110), // Waypoint 2: Code Matrix Ring
+      new THREE.Vector3(-10, 16, -150),// Curve rising
+      new THREE.Vector3(18, 2, -190),  // Waypoint 3: Telemetry Deck
+      new THREE.Vector3(0, 22, -230),  // Curve swooping high
+      new THREE.Vector3(0, 6, -270)    // Waypoint 4: Apex Transmission Gateway
+    ];
 
-    for (let i = 0; i < particleCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 45;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 35;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 25;
-      velocities.push({
-        x: (Math.random() - 0.5) * 0.025,
-        y: (Math.random() - 0.5) * 0.025,
-        z: (Math.random() - 0.5) * 0.025
-      });
-    }
+    const flightCurve = new THREE.CatmullRomCurve3(curvePoints);
 
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    // Look-Ahead Target Curve for Camera Orientation
+    const lookTargetPoints = curvePoints.map((pt, i) => {
+      const next = curvePoints[Math.min(i + 1, curvePoints.length - 1)];
+      return new THREE.Vector3(
+        (pt.x + next.x) * 0.5,
+        (pt.y + next.y) * 0.5 - 1.5,
+        (pt.z + next.z) * 0.5 - 15
+      );
+    });
+    const lookCurve = new THREE.CatmullRomCurve3(lookTargetPoints);
 
-    // Particle texture / point material (Spidey Crimson & Cyan)
-    const pMaterial = new THREE.PointsMaterial({
-      color: 0xff2a55,
-      size: 0.35,
+    // Add 3D Cyber City Wireframe Skyscraper Grid
+    const cityGroup = new THREE.Group();
+    scene.add(cityGroup);
+
+    const buildingBoxGeo = new THREE.BoxGeometry(1, 1, 1);
+    const buildingWireMat = new THREE.MeshBasicMaterial({
+      color: 0x162035,
+      wireframe: true,
       transparent: true,
-      opacity: 0.85
+      opacity: 0.35
     });
 
-    const particlesMesh = new THREE.Points(geometry, pMaterial);
-    scene.add(particlesMesh);
-
-    // Dynamic Line connecting particles (Spider-Web effect)
-    const linesMaterial = new THREE.LineBasicMaterial({
-      color: 0x00f2fe,
-      transparent: true,
-      opacity: 0.16
-    });
-
-    const linesMesh = new THREE.LineSegments(new THREE.BufferGeometry(), linesMaterial);
-    scene.add(linesMesh);
-
-    // Rotating 3D Cyber Polyhedron Wireframe Orb
-    const orbGeo = new THREE.IcosahedronGeometry(7, 1);
-    const orbMat = new THREE.MeshBasicMaterial({
+    const buildingRedGlowMat = new THREE.MeshBasicMaterial({
       color: 0xff2a55,
       wireframe: true,
       transparent: true,
       opacity: 0.18
     });
-    const orb = new THREE.Mesh(orbGeo, orbMat);
-    orb.position.set(12, 0, -5);
-    scene.add(orb);
 
-    // Mouse Tracking for Parallax
-    let mouseX = 0;
-    let mouseY = 0;
-    let targetX = 0;
-    let targetY = 0;
+    // Populate futuristic wireframe towers along the flight valley
+    for (let i = 0; i < 90; i++) {
+      const isRed = Math.random() < 0.25;
+      const bMesh = new THREE.Mesh(buildingBoxGeo, isRed ? buildingRedGlowMat : buildingWireMat);
 
+      const side = Math.random() < 0.5 ? -1 : 1;
+      const x = side * (25 + Math.random() * 60);
+      const z = (Math.random() - 0.5) * 360 - 120;
+      const h = 25 + Math.random() * 80;
+      const w = 12 + Math.random() * 18;
+
+      bMesh.scale.set(w, h, w);
+      bMesh.position.set(x, h * 0.5 - 25, z);
+      cityGroup.add(bMesh);
+    }
+
+    // Ground Cyber Grid
+    const gridHelper = new THREE.GridHelper(600, 80, 0xff2a55, 0x0f172a);
+    gridHelper.position.y = -25;
+    scene.add(gridHelper);
+
+    // Glowing Spider-Web Particle Cloud
+    const particleCount = 600;
+    const pGeometry = new THREE.BufferGeometry();
+    const pPositions = new Float32Array(particleCount * 3);
+
+    for (let i = 0; i < particleCount; i++) {
+      pPositions[i * 3] = (Math.random() - 0.5) * 160;
+      pPositions[i * 3 + 1] = (Math.random() - 0.5) * 80;
+      pPositions[i * 3 + 2] = (Math.random() - 0.5) * 340 - 120;
+    }
+
+    pGeometry.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
+    const pMaterial = new THREE.PointsMaterial({
+      color: 0xff2a55,
+      size: 0.45,
+      transparent: true,
+      opacity: 0.75
+    });
+    const particleCloud = new THREE.Points(pGeometry, pMaterial);
+    scene.add(particleCloud);
+
+    // Floating Hologram Spidey Avatar Panel (Waypoint 0)
+    const textureLoader = new THREE.TextureLoader();
+    const avatarTexture = textureLoader.load('assets/spidey-avatar.jpg');
+    const avatarPanelGeo = new THREE.PlaneGeometry(9.5, 13.5);
+    const avatarPanelMat = new THREE.MeshBasicMaterial({
+      map: avatarTexture,
+      transparent: true,
+      opacity: 0.95,
+      side: THREE.DoubleSide
+    });
+    const avatarMesh = new THREE.Mesh(avatarPanelGeo, avatarPanelMat);
+    avatarMesh.position.set(0, 8, 16);
+    scene.add(avatarMesh);
+
+    // Rotating Holographic Cyber-Rings around Avatar
+    const ringGeo = new THREE.RingGeometry(8, 8.3, 48);
+    const ringMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe, side: THREE.DoubleSide, transparent: true, opacity: 0.6 });
+    const ring1 = new THREE.Mesh(ringGeo, ringMat);
+    ring1.position.copy(avatarMesh.position);
+    scene.add(ring1);
+
+    const ringRedGeo = new THREE.RingGeometry(9.2, 9.4, 6);
+    const ringRedMat = new THREE.MeshBasicMaterial({ color: 0xff2a55, side: THREE.DoubleSide, transparent: true, opacity: 0.7 });
+    const ring2 = new THREE.Mesh(ringRedGeo, ringRedMat);
+    ring2.position.copy(avatarMesh.position);
+    scene.add(ring2);
+
+    // Waypoint 1: Floating 3D Bot Hub Orbs
+    const botHubGroup = new THREE.Group();
+    botHubGroup.position.set(26, 4, -30);
+    scene.add(botHubGroup);
+
+    const botCoreGeo = new THREE.IcosahedronGeometry(4.5, 1);
+    const botCoreMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe, wireframe: true, transparent: true, opacity: 0.7 });
+    const botCore = new THREE.Mesh(botCoreGeo, botCoreMat);
+    botHubGroup.add(botCore);
+
+    // Waypoint 2: Floating 3D Code Torus Tunnel
+    const torusTunnelGroup = new THREE.Group();
+    torusTunnelGroup.position.set(-24, 6, -110);
+    scene.add(torusTunnelGroup);
+
+    const torusGeo = new THREE.TorusGeometry(8, 0.4, 16, 64);
+    const torusMat = new THREE.MeshBasicMaterial({ color: 0xff2a55, wireframe: true, transparent: true, opacity: 0.5 });
+    for (let k = 0; k < 4; k++) {
+      const ringT = new THREE.Mesh(torusGeo, torusMat);
+      ringT.position.z = (k - 2) * 8;
+      torusTunnelGroup.add(ringT);
+    }
+
+    // Waypoint 4: Glowing Apex Beacon Tower
+    const beaconGeo = new THREE.CylinderGeometry(0.3, 4, 40, 16);
+    const beaconMat = new THREE.MeshBasicMaterial({ color: 0xff2a55, wireframe: true, transparent: true, opacity: 0.8 });
+    const beacon = new THREE.Mesh(beaconGeo, beaconMat);
+    beacon.position.set(0, 15, -270);
+    scene.add(beacon);
+
+    /* ==========================================================
+       3. SMOOTH CAMERA FLIGHT DRIVEN BY SCROLL
+       ========================================================== */
+    let targetProgress = 0;
+    let currentProgress = 0;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+
+    function onScroll() {
+      const scrollY = window.scrollY || window.pageYOffset;
+      targetProgress = Math.min(Math.max(scrollY / (document.body.scrollHeight - window.innerHeight), 0), 1);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Click waypoint nodes in scrubber
+    const waypointNodes = document.querySelectorAll('.waypoint-node');
+    waypointNodes.forEach(node => {
+      node.addEventListener('click', () => {
+        const p = parseFloat(node.getAttribute('data-progress'));
+        scrollToWaypoint(p);
+      });
+    });
+
+    window.scrollToWaypoint = function(p) {
+      sfx.playChime(640);
+      const totalH = document.body.scrollHeight - window.innerHeight;
+      window.scrollTo({
+        top: p * totalH,
+        behavior: 'smooth'
+      });
+    };
+
+    // Story Cards configuration matching flight progress milestones
+    const storyCards = [
+      { id: 'card0', min: 0.00, max: 0.16 },
+      { id: 'card1', min: 0.17, max: 0.38 },
+      { id: 'card2', min: 0.39, max: 0.60 },
+      { id: 'card3', min: 0.61, max: 0.82 },
+      { id: 'card4', min: 0.83, max: 1.00 }
+    ];
+
+    let lastActiveIdx = 0;
+    const altMeter = document.getElementById('altMeter');
+    const trackMeter = document.getElementById('trackMeter');
+    const scrollIndicator = document.getElementById('scrollIndicator');
+
+    function updateStoryOverlays(progress) {
+      let activeIdx = 0;
+      storyCards.forEach((c, idx) => {
+        const el = document.getElementById(c.id);
+        const isActive = progress >= c.min && progress <= c.max;
+        if (isActive) {
+          activeIdx = idx;
+          el.classList.add('visible');
+        } else {
+          el.classList.remove('visible');
+        }
+      });
+
+      // Update Waypoint Scrubber Nodes
+      waypointNodes.forEach((node, idx) => {
+        node.classList.toggle('active', idx === activeIdx);
+      });
+
+      // Sound chime on chapter entry
+      if (activeIdx !== lastActiveIdx) {
+        sfx.playChime(500 + activeIdx * 80);
+        lastActiveIdx = activeIdx;
+      }
+
+      // Hide scroll hint once user started scrolling
+      if (progress > 0.03) {
+        scrollIndicator.style.opacity = '0';
+      } else {
+        scrollIndicator.style.opacity = '1';
+      }
+
+      // Telemetry HUD numbers
+      trackMeter.textContent = Math.round(progress * 100).toString().padStart(2, '0') + '%';
+      const altitude = Math.round(camera.position.y * 12 + 100);
+      altMeter.textContent = altitude + 'm';
+    }
+
+    // Mouse Parallax Offset
+    let mouseX = 0, mouseY = 0;
     window.addEventListener('mousemove', (e) => {
       mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
       mouseY = -(e.clientY / window.innerHeight - 0.5) * 2;
     });
 
-    // Resize handler
+    // Window Resize
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // Animation Loop
+    // Main 60 FPS Render Loop
+    const tempLookAt = new THREE.Vector3();
+
     function animate() {
       requestAnimationFrame(animate);
 
-      targetX += (mouseX - targetX) * 0.04;
-      targetY += (mouseY - targetY) * 0.04;
+      // Smooth interpolation for cinematic flight inertia
+      currentProgress += (targetProgress - currentProgress) * 0.06;
 
-      camera.position.x = targetX * 3.5;
-      camera.position.y = targetY * 3;
-      camera.lookAt(scene.position);
+      // Calculate camera position along spline
+      const camPos = flightCurve.getPointAt(currentProgress);
+      const lookPos = lookCurve.getPointAt(currentProgress);
 
-      orb.rotation.x += 0.003;
-      orb.rotation.y += 0.004;
+      // Apply subtle mouse parallax
+      camera.position.x = camPos.x + mouseX * 2.2;
+      camera.position.y = camPos.y + mouseY * 1.8;
+      camera.position.z = camPos.z;
 
-      // Update particles
-      const pos = geometry.attributes.position.array;
-      const linePositions = [];
+      tempLookAt.x = lookPos.x + mouseX * 1.2;
+      tempLookAt.y = lookPos.y + mouseY * 0.8;
+      tempLookAt.z = lookPos.z;
+      camera.lookAt(tempLookAt);
 
-      for (let i = 0; i < particleCount; i++) {
-        pos[i * 3] += velocities[i].x;
-        pos[i * 3 + 1] += velocities[i].y;
-        pos[i * 3 + 2] += velocities[i].z;
+      // Rotate decorative 3D assets
+      ring1.rotation.z += 0.008;
+      ring2.rotation.z -= 0.006;
+      botHubGroup.rotation.y += 0.012;
+      torusTunnelGroup.rotation.z += 0.007;
+      beacon.rotation.y += 0.015;
 
-        // Bounce bounds
-        if (Math.abs(pos[i * 3]) > 25) velocities[i].x *= -1;
-        if (Math.abs(pos[i * 3 + 1]) > 20) velocities[i].y *= -1;
-        if (Math.abs(pos[i * 3 + 2]) > 15) velocities[i].z *= -1;
-
-        // Connect nearby points like a spider web
-        for (let j = i + 1; j < particleCount; j++) {
-          const dx = pos[i * 3] - pos[j * 3];
-          const dy = pos[i * 3 + 1] - pos[j * 3 + 1];
-          const dz = pos[i * 3 + 2] - pos[j * 3 + 2];
-          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
-          if (dist < 6.5) {
-            linePositions.push(
-              pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2],
-              pos[j * 3], pos[j * 3 + 1], pos[j * 3 + 2]
-            );
-          }
-        }
-      }
-
-      geometry.attributes.position.needsUpdate = true;
-      linesMesh.geometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+      // Update story HUD cards & telemetry
+      updateStoryOverlays(currentProgress);
 
       renderer.render(scene, camera);
     }
     animate();
-
-    /* ==========================================================
-       3. 3D CARD TILT FOR SPIDEY AVATAR (Pure JS)
-       ========================================================== */
-    const tiltCard = document.getElementById('tiltAvatar');
-    const glare = document.getElementById('avatarGlare');
-
-    if (tiltCard) {
-      tiltCard.addEventListener('mousemove', (e) => {
-        const rect = tiltCard.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = ((y - centerY) / centerY) * -16;
-        const rotateY = ((x - centerX) / centerX) * 16;
-
-        tiltCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-
-        if (glare) {
-          glare.style.opacity = '1';
-          glare.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(255,255,255,0.3), transparent 60%)`;
-        }
-      });
-
-      tiltCard.addEventListener('mouseleave', () => {
-        tiltCard.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-        if (glare) glare.style.opacity = '0';
-      });
-    }
-
-    /* ==========================================================
-       4. TYPEWRITER EFFECT
-       ========================================================== */
-    const phrases = [
-      "Telegram Bot Architect & MTProto Specialist",
-      "Python / TypeScript / Golang Developer",
-      "Backend API & Async Engine Engineer",
-      "Spider-Tech Cybernetic Coder"
-    ];
-
-    let phraseIdx = 0;
-    let letterIdx = 0;
-    let isDeleting = false;
-    const typeTarget = document.getElementById('typewriterText');
-
-    function typeWriterLoop() {
-      const current = phrases[phraseIdx];
-      if (isDeleting) {
-        typeTarget.textContent = current.substring(0, letterIdx - 1);
-        letterIdx--;
-      } else {
-        typeTarget.textContent = current.substring(0, letterIdx + 1);
-        letterIdx++;
-      }
-
-      let speed = isDeleting ? 30 : 65;
-
-      if (!isDeleting && letterIdx === current.length) {
-        speed = 2000;
-        isDeleting = true;
-      } else if (isDeleting && letterIdx === 0) {
-        isDeleting = false;
-        phraseIdx = (phraseIdx + 1) % phrases.length;
-        speed = 400;
-      }
-
-      setTimeout(typeWriterLoop, speed);
-    }
-    typeWriterLoop();
-
-    /* ==========================================================
-       5. INTERACTIVE CYBERDECK TERMINAL
-       ========================================================== */
-    const termInput = document.getElementById('termInput');
-    const termBody = document.getElementById('termBody');
-
-    const commands = {
-      help: () => `Available commands:<br/>
-        &nbsp;&nbsp;<span class="term-cyan">skills</span>&nbsp;&nbsp;&nbsp;&nbsp;- Show full technology &amp; bot arsenal<br/>
-        &nbsp;&nbsp;<span class="term-cyan">bots</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Telegram bot frameworks &amp; MTProto tools<br/>
-        &nbsp;&nbsp;<span class="term-cyan">contact</span>&nbsp;&nbsp;&nbsp;- Display encrypted contact frequencies<br/>
-        &nbsp;&nbsp;<span class="term-cyan">github</span>&nbsp;&nbsp;&nbsp;&nbsp;- Open GitHub Profile<br/>
-        &nbsp;&nbsp;<span class="term-cyan">theme</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Spidey-Cyberdeck HUD status<br/>
-        &nbsp;&nbsp;<span class="term-cyan">clear</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Purge terminal output buffer`,
-      skills: () => `[OPERATIONAL ARSENAL]<br/>
-        &bull; Bots: <span class="term-cyan">Telegram API, Pyrogram, Telethon, aiogram, Discord.py</span><br/>
-        &bull; Languages: <span class="term-highlight">Python, JavaScript, TypeScript, Golang, Bash</span><br/>
-        &bull; Backends: <span class="term-cyan">FastAPI, Flask, Django, Node.js, Express.js</span><br/>
-        &bull; Databases: <span class="term-highlight">MongoDB, PostgreSQL, MySQL, SQLite, Supabase, Firebase</span><br/>
-        &bull; Cloud/DevOps: <span class="term-cyan">Docker, Linux, Ubuntu, GitHub Actions, Heroku, Vercel</span>`,
-      bots: () => `[BOT CAPABILITIES]<br/>
-        &bull; High-concurrency async event handlers (aiogram / Pyrogram)<br/>
-        &bull; Raw MTProto userbot &amp; client automation (Telethon)<br/>
-        &bull; Secure Webhook pipelines with FastAPI &amp; Docker`,
-      contact: () => `[COMMUNICATION FREQUENCIES]<br/>
-        &bull; Telegram: <a href="https://t.me/MrTG_Coder" target="_blank" style="color:var(--spidey-red)">@MrTG_Coder</a><br/>
-        &bull; Discord: <span class="term-cyan">mr_.orion</span><br/>
-        &bull; Email: <a href="mailto:amalnath0600@gmail.com" style="color:var(--spidey-red)">amalnath0600@gmail.com</a>`,
-      github: () => {
-        window.open('https://github.com/MrTG-CodeBot', '_blank');
-        return `Redirecting to <a href="https://github.com/MrTG-CodeBot" target="_blank" style="color:var(--cyber-cyan)">github.com/MrTG-CodeBot</a>...`;
-      },
-      theme: () => `[THEME DIAGNOSTICS]<br/>
-        &bull; Avatar: Spider-Man Urban Cyber Hooded Suit<br/>
-        &bull; Engine: Three.js WebGL Particle Network<br/>
-        &bull; Audio: Web Audio API Synthesizer (Active)<br/>
-        &bull; Status: 100% OPERATIONAL`,
-      clear: () => {
-        termBody.innerHTML = `
-          <div class="term-input-row">
-            <span class="term-prompt">visitor@mrtg-cyberdeck:~$</span>
-            <input type="text" class="term-input" id="termInput" placeholder="Type a command (e.g. help, skills, contact)..." autofocus />
-          </div>`;
-        attachTerminalListener();
-        return '';
-      }
-    };
-
-    function attachTerminalListener() {
-      const input = document.getElementById('termInput');
-      input.focus();
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          const val = input.value.trim().toLowerCase();
-          if (!val) return;
-          sound.playCyberClick();
-
-          // Append past input line
-          const line = document.createElement('div');
-          line.className = 'term-output';
-          line.innerHTML = `<span class="term-prompt">visitor@mrtg-cyberdeck:~$</span> ${input.value}`;
-          termBody.insertBefore(line, input.parentElement);
-
-          // Handle command
-          let response = `Command not recognized: '<span class="term-highlight">${val}</span>'. Type '<span class="term-cyan">help</span>' for manual.`;
-          if (commands[val]) {
-            response = commands[val]();
-          }
-
-          if (val !== 'clear') {
-            const respLine = document.createElement('div');
-            respLine.className = 'term-output';
-            respLine.innerHTML = response;
-            termBody.insertBefore(respLine, input.parentElement);
-            input.value = '';
-            termBody.scrollTop = termBody.scrollHeight;
-          }
-        }
-      });
-    }
-    attachTerminalListener();
   </script>
 </body>
 </html>
