@@ -3,81 +3,105 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MrTG-CodeBot // 3D Cyber-Spidey Megalopolis</title>
-  <meta name="description" content="Award-winning 3D Scrollytelling Cyberpunk Portfolio for MrTG-CodeBot - Telegram Bot Architect & Full-Stack Developer." />
+  <title>MrTG-CodeBot // Spider-Verse 3D Architectural Blueprint</title>
+  <meta name="description" content="Comic Cel-Shaded 3D Scrollytelling Experience for MrTG-CodeBot - Telegram Bot Architect & Full-Stack Developer." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@700;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
     :root {
-      --bg-dark: #04060a;
-      --spidey-red: #ff1e4a;
-      --spidey-crimson: #c9002b;
-      --spidey-glow: rgba(255, 30, 74, 0.7);
-      --cyber-cyan: #00f2fe;
-      --cyber-cyan-glow: rgba(0, 242, 254, 0.55);
-      --neon-gold: #ffbe0b;
-      --text-main: #f0f6fc;
-      --text-muted: #8b9bb4;
+      --bg-blueprint: #f4f6fb;
+      --paper-white: #ffffff;
+      --ink-black: #0d121f;
+      --ink-dark: #1e293b;
+      --spidey-red: #e11d48;
+      --spidey-crimson: #be123c;
+      --spidey-glow: rgba(225, 29, 72, 0.4);
+      --cad-blue: #0284c7;
+      --cad-grid: rgba(148, 163, 184, 0.28);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --font-comic: 'Bangers', cursive;
       --font-display: 'Orbitron', monospace;
-      --font-tech: 'Rajdhani', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      cursor: none; /* Replaced by custom cyber crosshair */
     }
 
     html, body {
       width: 100%;
       height: 100%;
-      background-color: var(--bg-dark);
+      background-color: var(--bg-blueprint);
       color: var(--text-main);
-      font-family: var(--font-tech);
+      font-family: var(--font-body);
       overflow: hidden;
     }
 
-    /* Custom Cyber Reticle Cursor */
-    #cyberCursor {
+    /* Architectural Blueprint Grid Pattern */
+    .blueprint-grid-overlay {
       position: fixed;
       top: 0;
       left: 0;
-      width: 28px;
-      height: 28px;
-      border: 1.5px solid var(--spidey-red);
-      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
       pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, transform 0.05s ease-out;
-      box-shadow: 0 0 10px var(--spidey-glow);
+      background-image: 
+        linear-gradient(var(--cad-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--cad-grid) 1px, transparent 1px);
+      background-size: 32px 32px;
     }
 
-    #cursorDot {
+    /* Halftone Comic Dots Overlay */
+    .halftone-overlay {
       position: fixed;
       top: 0;
       left: 0;
-      width: 4px;
-      height: 4px;
-      background: #fff;
-      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
       pointer-events: none;
-      z-index: 10000;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 6px #fff;
+      background-image: radial-gradient(rgba(15, 23, 42, 0.04) 1.5px, transparent 1.5px);
+      background-size: 14px 14px;
     }
 
-    body.hovering #cyberCursor {
-      width: 44px;
-      height: 44px;
-      border-color: var(--cyber-cyan);
-      box-shadow: 0 0 16px var(--cyber-cyan-glow);
-      border-width: 2px;
+    /* Technical CAD Measurement Crop Marks */
+    .cad-crop-marks {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 4;
+      pointer-events: none;
+      border: 18px solid transparent;
+    }
+
+    .cad-tag-tl {
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+    }
+
+    .cad-tag-br {
+      position: absolute;
+      bottom: 20px;
+      right: 24px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
     }
 
     /* 3D WebGL Canvas Viewport */
@@ -96,22 +120,8 @@
       display: block;
     }
 
-    /* Atmospheric Scanlines & Chromatic Vignette */
-    .screen-fx {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 2;
-      background: 
-        radial-gradient(circle at center, transparent 35%, rgba(4, 6, 10, 0.92) 98%),
-        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18) 1px, transparent 1px, transparent 3px);
-    }
-
-    /* Top Cyber HUD Bar */
-    header.hud-header {
+    /* Top Navigation Header */
+    header.comic-header {
       position: fixed;
       top: 0;
       left: 0;
@@ -121,74 +131,94 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: linear-gradient(180deg, rgba(4, 6, 10, 0.96) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(244, 246, 251, 0.95) 0%, transparent 100%);
       pointer-events: auto;
     }
 
-    .brand-hud {
+    .comic-logo {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       font-family: var(--font-display);
       font-size: 1.25rem;
       font-weight: 900;
-      letter-spacing: 2.5px;
-      color: #fff;
-      text-shadow: 0 0 12px var(--spidey-glow);
+      letter-spacing: 2px;
+      color: var(--ink-black);
     }
 
-    .brand-hud .spider-badge {
+    .comic-logo .spider-icon {
       color: var(--spidey-red);
-      font-size: 1.5rem;
-      filter: drop-shadow(0 0 10px var(--spidey-red));
-      animation: spiderPulse 2s infinite ease-in-out;
+      font-size: 1.6rem;
+      animation: spiderPop 2s infinite ease-in-out;
     }
 
-    .telemetry-hud {
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      color: var(--cyber-cyan);
+    .comic-telemetry {
       display: flex;
-      gap: 22px;
-      background: rgba(10, 16, 28, 0.85);
-      border: 1px solid var(--cyber-cyan-glow);
+      gap: 20px;
+      background: #ffffff;
+      border: 2px solid var(--ink-black);
+      box-shadow: 4px 4px 0px var(--spidey-red);
       padding: 8px 18px;
       border-radius: 8px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink-black);
     }
 
-    .hud-controls {
+    .comic-controls {
       display: flex;
       gap: 12px;
       align-items: center;
     }
 
-    .hud-btn {
-      background: rgba(255, 30, 74, 0.15);
-      border: 1px solid var(--spidey-glow);
-      color: var(--spidey-red);
+    .comic-btn {
+      background: #ffffff;
+      border: 2px solid var(--ink-black);
+      box-shadow: 3px 3px 0px var(--ink-black);
+      color: var(--ink-black);
       padding: 8px 16px;
       border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 700;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 800;
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.25s ease;
+      cursor: pointer;
       text-decoration: none;
+      transition: all 0.2s ease;
     }
 
-    .hud-btn:hover {
+    .comic-btn:hover {
       background: var(--spidey-red);
       color: #fff;
-      box-shadow: 0 0 22px var(--spidey-glow);
-      transform: translateY(-2px);
+      border-color: var(--ink-black);
+      box-shadow: 5px 5px 0px var(--ink-black);
+      transform: translate(-2px, -2px);
     }
 
-    /* Right-Side Flight Scrubber */
-    aside.flight-scrubber {
+    /* Comic Sound Effect Popups (THWIP! POW!) */
+    .comic-sound-fx {
+      position: fixed;
+      font-family: var(--font-comic);
+      font-size: 2.8rem;
+      color: var(--spidey-red);
+      text-shadow: 3px 3px 0px var(--ink-black), -1px -1px 0px var(--ink-black), 1px -1px 0px var(--ink-black), -1px 1px 0px var(--ink-black);
+      z-index: 45;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.4) rotate(-14deg);
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .comic-sound-fx.show {
+      opacity: 1;
+      transform: scale(1.15) rotate(-8deg);
+    }
+
+    /* Right-Side Blueprint Scrubber */
+    aside.blueprint-scrubber {
       position: fixed;
       right: 28px;
       top: 50%;
@@ -196,62 +226,66 @@
       z-index: 50;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 18px;
       pointer-events: auto;
     }
 
-    .waypoint-node {
+    .scrubber-node {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       flex-direction: row-reverse;
+      cursor: pointer;
     }
 
     .node-dot {
       width: 14px;
       height: 14px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      background: #ffffff;
+      border: 2px solid var(--ink-black);
+      box-shadow: 2px 2px 0px var(--ink-black);
+      transition: all 0.25s ease;
     }
 
     .node-label {
-      font-family: var(--font-display);
-      font-size: 0.72rem;
-      letter-spacing: 1.5px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
       color: var(--text-muted);
       opacity: 0;
-      transform: translateX(12px);
+      transform: translateX(10px);
       transition: all 0.25s ease;
       white-space: nowrap;
-      background: rgba(8, 12, 20, 0.92);
+      background: #ffffff;
       padding: 6px 14px;
       border-radius: 6px;
-      border: 1px solid rgba(255, 30, 74, 0.4);
+      border: 2px solid var(--ink-black);
+      box-shadow: 3px 3px 0px var(--ink-black);
     }
 
-    .waypoint-node:hover .node-label {
+    .scrubber-node:hover .node-label {
       opacity: 1;
       transform: translateX(0);
-      color: #fff;
+      color: var(--ink-black);
     }
 
-    .waypoint-node.active .node-dot {
+    .scrubber-node.active .node-dot {
       background: var(--spidey-red);
-      border-color: #fff;
-      box-shadow: 0 0 20px var(--spidey-red);
-      transform: scale(1.5);
+      border-color: var(--ink-black);
+      box-shadow: 3px 3px 0px var(--ink-black);
+      transform: scale(1.4);
     }
 
-    .waypoint-node.active .node-label {
+    .scrubber-node.active .node-label {
       opacity: 1;
       transform: translateX(0);
       color: var(--spidey-red);
-      border-color: var(--spidey-red);
+      border-color: var(--ink-black);
+      box-shadow: 3px 3px 0px var(--spidey-red);
     }
 
-    /* Story Overlay Cards (Cyberpunk Angled Glassmorphism) */
+    /* Comic Book Story Panels / Blueprint Cards */
     .story-overlay-container {
       position: fixed;
       top: 0;
@@ -265,166 +299,182 @@
       justify-content: center;
     }
 
-    .story-card {
+    .comic-card {
       position: absolute;
-      max-width: 600px;
+      max-width: 580px;
       width: 90%;
-      padding: 36px;
-      background: linear-gradient(135deg, rgba(14, 20, 34, 0.92) 0%, rgba(6, 9, 16, 0.96) 100%);
-      border: 1.5px solid var(--spidey-glow);
-      clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
-      backdrop-filter: blur(24px);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 45px rgba(255, 30, 74, 0.35);
+      padding: 34px;
+      background: #ffffff;
+      border: 3px solid var(--ink-black);
+      box-shadow: 8px 8px 0px var(--ink-black), 14px 14px 0px var(--spidey-red);
+      border-radius: 14px;
       opacity: 0;
       visibility: hidden;
-      transform: translateY(45px) scale(0.94);
-      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(35px) rotate(1deg);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
     }
 
-    .story-card.visible {
+    .comic-card.visible {
       opacity: 1;
       visibility: visible;
-      transform: translateY(0) scale(1);
+      transform: translateY(0) rotate(0deg);
       pointer-events: auto;
     }
 
-    .story-card.left-aligned {
-      left: 7%;
+    .comic-card.left-aligned {
+      left: 6%;
       right: auto;
     }
 
-    .story-card.right-aligned {
-      right: 7%;
+    .comic-card.right-aligned {
+      right: 6%;
       left: auto;
     }
 
-    .story-chapter-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
+    .card-tape {
+      position: absolute;
+      top: -12px;
+      left: 36px;
+      width: 90px;
+      height: 24px;
+      background: rgba(225, 29, 72, 0.85);
+      border: 1.5px solid var(--ink-black);
+      box-shadow: 2px 2px 0px var(--ink-black);
+      transform: rotate(-3deg);
       font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--spidey-red);
-      letter-spacing: 2px;
-      margin-bottom: 14px;
-    }
-
-    .story-chapter-tag .pulse-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--spidey-red);
-      box-shadow: 0 0 10px var(--spidey-red);
-      animation: pulseDot 1.4s infinite ease-in-out;
-    }
-
-    .story-title {
-      font-family: var(--font-display);
-      font-size: 2.3rem;
-      font-weight: 900;
-      line-height: 1.15;
-      margin-bottom: 16px;
+      font-size: 0.65rem;
+      font-weight: 800;
       color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       letter-spacing: 1px;
     }
 
-    .story-title .gradient-text {
-      background: linear-gradient(135deg, #ffffff 30%, var(--spidey-red) 70%, var(--cyber-cyan) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 14px rgba(255, 30, 74, 0.6));
+    .card-chapter-tag {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--spidey-red);
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .story-desc {
+    .card-chapter-tag .tag-badge {
+      background: var(--ink-black);
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+    }
+
+    .comic-title {
+      font-family: var(--font-comic);
+      font-size: 2.7rem;
+      line-height: 1.05;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+      color: var(--ink-black);
+    }
+
+    .comic-title .red-text {
+      color: var(--spidey-red);
+      text-shadow: 2px 2px 0px rgba(0,0,0,0.12);
+    }
+
+    .comic-desc {
       color: var(--text-muted);
-      font-size: 1.05rem;
-      line-height: 1.7;
-      margin-bottom: 24px;
+      font-size: 1.02rem;
+      line-height: 1.65;
+      margin-bottom: 22px;
+      font-weight: 500;
     }
 
-    .story-interactive-grid {
+    .comic-badge-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 11px;
+      gap: 10px;
       margin-top: 14px;
     }
 
-    .badge-pill {
+    .comic-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       padding: 8px 14px;
-      background: rgba(18, 26, 44, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: #f8fafc;
+      border: 2px solid var(--ink-black);
       border-radius: 8px;
-      color: #fff;
+      color: var(--ink-black);
       font-family: var(--font-mono);
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 700;
       text-decoration: none;
-      transition: all 0.25s ease;
+      box-shadow: 2px 2px 0px var(--ink-black);
+      transition: all 0.2s ease;
     }
 
-    .badge-pill:hover {
-      border-color: var(--cyber-cyan);
-      background: rgba(0, 242, 254, 0.18);
-      box-shadow: 0 0 18px var(--cyber-cyan-glow);
-      color: var(--cyber-cyan);
-      transform: translateY(-3px);
+    .comic-pill:hover {
+      background: var(--spidey-red);
+      color: #ffffff;
+      box-shadow: 4px 4px 0px var(--ink-black);
+      transform: translate(-2px, -2px);
     }
 
-    .badge-pill img {
-      width: 19px;
-      height: 19px;
-      border-radius: 4px;
+    .comic-pill img {
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
     }
 
-    .cta-btn-row {
+    .comic-btn-row {
       display: flex;
       gap: 14px;
-      margin-top: 26px;
+      margin-top: 24px;
       flex-wrap: wrap;
     }
 
-    .action-btn {
+    .comic-action-btn {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 14px 26px;
-      background: linear-gradient(135deg, var(--spidey-crimson), var(--spidey-red));
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      color: #fff;
+      padding: 13px 24px;
+      background: var(--spidey-red);
+      border: 2.5px solid var(--ink-black);
+      box-shadow: 4px 4px 0px var(--ink-black);
+      color: #ffffff;
       font-family: var(--font-display);
       font-size: 0.85rem;
-      font-weight: 800;
-      letter-spacing: 1.5px;
+      font-weight: 900;
+      letter-spacing: 1px;
       text-decoration: none;
-      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-      box-shadow: 0 0 25px var(--spidey-glow);
-      transition: all 0.25s ease;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
 
-    .action-btn:hover {
-      box-shadow: 0 0 40px rgba(255, 30, 74, 1);
-      transform: translateY(-3px) scale(1.02);
+    .comic-action-btn:hover {
+      box-shadow: 6px 6px 0px var(--ink-black);
+      transform: translate(-2px, -2px);
+      background: var(--spidey-crimson);
     }
 
-    .action-btn.secondary {
-      background: rgba(16, 24, 40, 0.9);
-      border-color: var(--cyber-cyan-glow);
-      color: var(--cyber-cyan);
-      box-shadow: none;
+    .comic-action-btn.secondary {
+      background: #ffffff;
+      color: var(--ink-black);
     }
 
-    .action-btn.secondary:hover {
-      background: rgba(0, 242, 254, 0.2);
-      box-shadow: 0 0 25px var(--cyber-cyan-glow);
+    .comic-action-btn.secondary:hover {
+      background: #f1f5f9;
+      color: var(--spidey-red);
     }
 
-    /* Bottom Cyber Throttle Bar */
-    .flight-throttle-bar {
+    /* Bottom Interactive Throttle Control */
+    .comic-throttle-bar {
       position: fixed;
       bottom: 24px;
       left: 50%;
@@ -432,130 +482,130 @@
       z-index: 50;
       display: flex;
       align-items: center;
-      gap: 18px;
-      background: rgba(10, 16, 28, 0.92);
-      border: 1.5px solid var(--spidey-glow);
-      padding: 12px 26px;
+      gap: 16px;
+      background: #ffffff;
+      border: 2.5px solid var(--ink-black);
+      box-shadow: 5px 5px 0px var(--ink-black);
+      padding: 12px 24px;
       border-radius: 40px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(255, 30, 74, 0.25);
       pointer-events: auto;
     }
 
-    .throttle-label {
-      font-family: var(--font-display);
-      font-size: 0.78rem;
-      font-weight: 800;
+    .throttle-tag {
+      font-family: var(--font-comic);
+      font-size: 1.25rem;
+      letter-spacing: 1px;
       color: var(--spidey-red);
-      letter-spacing: 2px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      white-space: nowrap;
+      gap: 6px;
     }
 
     .throttle-slider {
-      width: 240px;
+      width: 220px;
       accent-color: var(--spidey-red);
+      cursor: pointer;
     }
 
-    .throttle-nav-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #fff;
+    .throttle-arrow-btn {
+      background: #ffffff;
+      border: 2px solid var(--ink-black);
+      color: var(--ink-black);
       width: 32px;
       height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
       font-size: 0.85rem;
+      box-shadow: 2px 2px 0px var(--ink-black);
       transition: all 0.2s ease;
     }
 
-    .throttle-nav-btn:hover {
-      border-color: var(--spidey-red);
+    .throttle-arrow-btn:hover {
       background: var(--spidey-red);
       color: #fff;
-      box-shadow: 0 0 16px var(--spidey-glow);
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0px var(--ink-black);
     }
 
-    .drag-hint {
+    .scroll-hint {
       font-family: var(--font-mono);
       font-size: 0.72rem;
-      color: var(--cyber-cyan);
-      letter-spacing: 1px;
-      white-space: nowrap;
+      font-weight: 700;
+      color: var(--text-muted);
     }
 
-    @keyframes spiderPulse {
-      0%, 100% { filter: drop-shadow(0 0 8px var(--spidey-glow)); transform: scale(1); }
-      50% { filter: drop-shadow(0 0 20px var(--spidey-red)); transform: scale(1.15); }
-    }
-
-    @keyframes pulseDot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.25; transform: scale(0.7); }
+    @keyframes spiderPop {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15) rotate(5deg); }
     }
 
     @media (max-width: 860px) {
-      .story-card {
-        max-width: 94% !important;
-        left: 3% !important;
-        right: 3% !important;
-        padding: 24px;
+      .comic-card {
+        max-width: 92% !important;
+        left: 4% !important;
+        right: 4% !important;
+        padding: 22px;
       }
-      .story-title {
-        font-size: 1.7rem;
+      .comic-title {
+        font-size: 2.1rem;
       }
-      .telemetry-hud, .drag-hint {
+      .comic-telemetry, .scroll-hint {
         display: none;
       }
-      aside.flight-scrubber {
+      aside.blueprint-scrubber {
         right: 12px;
       }
       .node-label {
         display: none;
       }
       .throttle-slider {
-        width: 130px;
+        width: 120px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Custom Cyber Crosshair Reticle -->
-  <div id="cyberCursor"></div>
-  <div id="cursorDot"></div>
+  <!-- Blueprint & Comic Grid Overlays -->
+  <div class="blueprint-grid-overlay"></div>
+  <div class="halftone-overlay"></div>
+
+  <!-- CAD Crop Marks -->
+  <div class="cad-crop-marks">
+    <div class="cad-tag-tl">DRAWING NO. 0600 // SPIDEY-DEV-SUIT // SCALE 1:1</div>
+    <div class="cad-tag-br">STATUS: VERIFIED // AUTONOMOUS ARCHITECTURE</div>
+  </div>
 
   <!-- 3D WebGL Canvas Viewport -->
   <div id="viewport3d">
     <canvas id="webglCanvas"></canvas>
   </div>
 
-  <!-- Screen FX -->
-  <div class="screen-fx"></div>
+  <!-- Comic Action Sound FX Callout (THWIP!) -->
+  <div class="comic-sound-fx" id="comicFx">THWIP!</div>
 
-  <!-- Top HUD Bar -->
-  <header class="hud-header">
-    <div class="brand-hud">
-      <i class="fa-solid fa-spider spider-badge"></i>
+  <!-- Top Header Navigation -->
+  <header class="comic-header">
+    <div class="comic-logo">
+      <i class="fa-solid fa-spider spider-icon"></i>
       <span>MRTG-CODEBOT</span>
     </div>
 
-    <div class="telemetry-hud">
-      <span>SECTOR: <span id="sectorTag" style="color:#fff">ORIGIN</span></span>
-      <span>ALT: <span id="altMeter" style="color:#fff">240m</span></span>
-      <span>TRAJECTORY: <span id="trackMeter" style="color:var(--spidey-red)">00%</span></span>
+    <div class="comic-telemetry">
+      <span>SHEET: <span id="sheetTag" style="color:var(--spidey-red)">SPEC-01</span></span>
+      <span>ALT: <span id="altMeter" style="color:var(--ink-black)">240m</span></span>
+      <span>PROGRESS: <span id="trackMeter" style="color:var(--spidey-red)">00%</span></span>
     </div>
 
-    <div class="hud-controls">
-      <button class="hud-btn" id="sfxToggle">
+    <div class="comic-controls">
+      <button class="comic-btn" id="sfxToggle">
         <i class="fa-solid fa-volume-high" id="sfxIcon"></i>
-        <span id="sfxText">AUDIO: ON</span>
+        <span id="sfxText">SFX: ON</span>
       </button>
-      <a href="https://github.com/MrTG-CodeBot" target="_blank" class="hud-btn">
+      <a href="https://github.com/MrTG-CodeBot" target="_blank" class="comic-btn">
         <i class="fa-brands fa-github"></i>
         <span>GITHUB</span>
       </a>
@@ -563,96 +613,98 @@
   </header>
 
   <!-- Side Flight Scrubber Navigation -->
-  <aside class="flight-scrubber">
-    <div class="waypoint-node active" data-progress="0.0">
+  <aside class="blueprint-scrubber">
+    <div class="scrubber-node active" data-progress="0.0">
       <div class="node-dot"></div>
-      <div class="node-label">01 // ORIGIN &amp; AVATAR</div>
+      <div class="node-label">01 // SPIDEY ARCHITECT</div>
     </div>
-    <div class="waypoint-node" data-progress="0.25">
+    <div class="scrubber-node" data-progress="0.25">
       <div class="node-dot"></div>
-      <div class="node-label">02 // BOT ARCHITECTURE</div>
+      <div class="node-label">02 // BOT SYSTEMS</div>
     </div>
-    <div class="waypoint-node" data-progress="0.50">
+    <div class="scrubber-node" data-progress="0.50">
       <div class="node-dot"></div>
-      <div class="node-label">03 // TECH MATRIX</div>
+      <div class="node-label">03 // TECH ARSENAL</div>
     </div>
-    <div class="waypoint-node" data-progress="0.75">
+    <div class="scrubber-node" data-progress="0.75">
       <div class="node-dot"></div>
       <div class="node-label">04 // TELEMETRY &amp; STATS</div>
     </div>
-    <div class="waypoint-node" data-progress="1.0">
+    <div class="scrubber-node" data-progress="1.0">
       <div class="node-dot"></div>
       <div class="node-label">05 // TRANSMISSION GATE</div>
     </div>
   </aside>
 
-  <!-- Story Overlay Cards (Synchronized with 3D camera waypoints) -->
+  <!-- Story Overlay Cards (Comic Panels / Technical Blueprint Sheets) -->
   <div class="story-overlay-container">
 
     <!-- Chapter 1: Origin -->
-    <div class="story-card left-aligned visible" id="card0">
-      <div class="story-chapter-tag">
-        <span class="pulse-dot"></span>
-        <span>WAYPOINT 01 // SECTOR_ORIGIN</span>
+    <div class="comic-card left-aligned visible" id="card0">
+      <div class="card-tape">FIG. 01</div>
+      <div class="card-chapter-tag">
+        <span class="tag-badge">SPEC-01</span>
+        <span>ARCHITECTURAL ORIGIN // SPIDEY</span>
       </div>
-      <h1 class="story-title">
-        The Cyber-Spidey <br/>
-        <span class="gradient-text">Architect</span>
+      <h1 class="comic-title">
+        THE HOODED <br/>
+        <span class="red-text">CODE ARCHITECT</span>
       </h1>
-      <p class="story-desc">
-        Welcome to the 3D cyberpunk megalopolis of <b>MrTG-CodeBot</b>. Pilot your flight across glowing skyscraper canyons, asynchronous bot networks, and high-concurrency microservices.
+      <p class="comic-desc">
+        Welcome to the technical blueprint world of <b>MrTG-CodeBot</b>. Watch Spider-Man web-sling through the architectural drafting city as you scroll to explore Telegram bot frameworks and async backend architectures.
       </p>
-      <div class="cta-btn-row">
-        <button class="action-btn" onclick="flyToWaypoint(0.25)">
-          <span>ENGAGE FLIGHT</span>
+      <div class="comic-btn-row">
+        <button class="comic-action-btn" onclick="flyToWaypoint(0.25)">
+          <span>LAUNCH FLIGHT</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
-        <a href="https://t.me/MrTG_Coder" target="_blank" class="action-btn secondary">
-          <i class="fa-brands fa-telegram"></i>
+        <a href="https://t.me/MrTG_Coder" target="_blank" class="comic-action-btn secondary">
+          <i class="fa-brands fa-telegram" style="color: var(--spidey-red);"></i>
           <span>TELEGRAM</span>
         </a>
       </div>
     </div>
 
     <!-- Chapter 2: Telegram & Bots -->
-    <div class="story-card right-aligned" id="card1">
-      <div class="story-chapter-tag">
-        <span class="pulse-dot"></span>
-        <span>WAYPOINT 02 // BOT_ENGINEERING</span>
+    <div class="comic-card right-aligned" id="card1">
+      <div class="card-tape">FIG. 02</div>
+      <div class="card-chapter-tag">
+        <span class="tag-badge">SPEC-02</span>
+        <span>TELEGRAM &amp; MTPROTO ENGINES</span>
       </div>
-      <h2 class="story-title">
-        Telegram &amp; <br/>
-        <span class="gradient-text">MTProto Cores</span>
+      <h2 class="comic-title">
+        BOT INFRASTRUCTURE <br/>
+        <span class="red-text">&amp; ASYNC PIPELINES</span>
       </h2>
-      <p class="story-desc">
-        Architecting robust, fault-tolerant Telegram bots, raw MTProto automation engines, and webhook ingestion systems capable of handling thousands of concurrent user interactions.
+      <p class="comic-desc">
+        Engineering high-speed, fault-tolerant Telegram bots, raw MTProto automation engines, and webhook ingestion systems for thousands of concurrent users.
       </p>
-      <div class="story-interactive-grid">
-        <a href="https://core.telegram.org/bots/api" target="_blank" class="badge-pill">
-          <i class="fa-solid fa-robot" style="color: #26a5e4;"></i> Telegram API
+      <div class="comic-badge-grid">
+        <a href="https://core.telegram.org/bots/api" target="_blank" class="comic-pill">
+          <i class="fa-solid fa-robot" style="color: #0284c7;"></i> Telegram API
         </a>
-        <a href="https://docs.pyrogram.org" target="_blank" class="badge-pill">
-          <i class="fa-solid fa-fire" style="color: #ff9800;"></i> Pyrogram
+        <a href="https://docs.pyrogram.org" target="_blank" class="comic-pill">
+          <i class="fa-solid fa-fire" style="color: #ea580c;"></i> Pyrogram
         </a>
-        <a href="https://docs.telethon.dev" target="_blank" class="badge-pill">
-          <i class="fa-solid fa-bolt" style="color: #0088cc;"></i> Telethon
+        <a href="https://docs.telethon.dev" target="_blank" class="comic-pill">
+          <i class="fa-solid fa-bolt" style="color: #0284c7;"></i> Telethon
         </a>
-        <a href="https://docs.aiogram.dev" target="_blank" class="badge-pill">
-          <i class="fa-solid fa-brain" style="color: #2ca5e0;"></i> aiogram
+        <a href="https://docs.aiogram.dev" target="_blank" class="comic-pill">
+          <i class="fa-solid fa-brain" style="color: #e11d48;"></i> aiogram
         </a>
-        <a href="https://discordpy.readthedocs.io" target="_blank" class="badge-pill">
+        <a href="https://discordpy.readthedocs.io" target="_blank" class="comic-pill">
           <i class="fa-brands fa-discord" style="color: #5865f2;"></i> Discord.py
         </a>
-        <a href="https://en.wikipedia.org/wiki/Webhook" target="_blank" class="badge-pill">
-          <i class="fa-solid fa-satellite-dish" style="color: #ff6c37;"></i> Webhooks
+        <a href="https://en.wikipedia.org/wiki/Webhook" target="_blank" class="comic-pill">
+          <i class="fa-solid fa-satellite-dish" style="color: #ea580c;"></i> Webhooks
         </a>
       </div>
-      <div class="cta-btn-row">
-        <button class="action-btn secondary" onclick="flyToWaypoint(0.0)">
+      <div class="comic-btn-row">
+        <button class="comic-action-btn secondary" onclick="flyToWaypoint(0.0)">
           <i class="fa-solid fa-arrow-left"></i>
           <span>PREV</span>
         </button>
-        <button class="action-btn" onclick="flyToWaypoint(0.50)">
+        <button class="comic-action-btn" onclick="flyToWaypoint(0.50)">
           <span>NEXT: TECH MATRIX</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
@@ -660,53 +712,54 @@
     </div>
 
     <!-- Chapter 3: Tech Matrix & Languages -->
-    <div class="story-card left-aligned" id="card2">
-      <div class="story-chapter-tag">
-        <span class="pulse-dot"></span>
-        <span>WAYPOINT 03 // FULLSTACK_MATRIX</span>
+    <div class="comic-card left-aligned" id="card2">
+      <div class="card-tape">FIG. 03</div>
+      <div class="card-chapter-tag">
+        <span class="tag-badge">SPEC-03</span>
+        <span>FULL-STACK OPERATIONAL ARSENAL</span>
       </div>
-      <h2 class="story-title">
-        Full-Stack <br/>
-        <span class="gradient-text">Operational Arsenal</span>
+      <h2 class="comic-title">
+        CODE ARSENAL <br/>
+        <span class="red-text">&amp; DATA STORES</span>
       </h2>
-      <p class="story-desc">
-        Multi-language engineering tuned for speed, zero memory leaks, and enterprise-grade uptime across backend microservices and databases.
+      <p class="comic-desc">
+        Polyglot engineering tuned for minimal latency, zero memory leaks, and production-grade reliability across cloud microservices.
       </p>
-      <div class="story-interactive-grid">
-        <a href="https://www.python.org" target="_blank" class="badge-pill">
+      <div class="comic-badge-grid">
+        <a href="https://www.python.org" target="_blank" class="comic-pill">
           <img src="https://skillicons.dev/icons?i=py&theme=dark" alt="Python" /> Python
         </a>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="badge-pill">
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="comic-pill">
           <img src="https://skillicons.dev/icons?i=js&theme=dark" alt="JavaScript" /> JavaScript
         </a>
-        <a href="https://www.typescriptlang.org" target="_blank" class="badge-pill">
+        <a href="https://www.typescriptlang.org" target="_blank" class="comic-pill">
           <img src="https://skillicons.dev/icons?i=ts&theme=dark" alt="TypeScript" /> TypeScript
         </a>
-        <a href="https://go.dev" target="_blank" class="badge-pill">
+        <a href="https://go.dev" target="_blank" class="comic-pill">
           <img src="https://skillicons.dev/icons?i=go&theme=dark" alt="Golang" /> Golang
         </a>
-        <a href="https://fastapi.tiangolo.com" target="_blank" class="badge-pill">
+        <a href="https://fastapi.tiangolo.com" target="_blank" class="comic-pill">
           <img src="https://skillicons.dev/icons?i=fastapi&theme=dark" alt="FastAPI" /> FastAPI
         </a>
-        <a href="https://nodejs.org" target="_blank" class="badge-pill">
+        <a href="https://nodejs.org" target="_blank" class="comic-pill">
           <img src="https://skillicons.dev/icons?i=nodejs&theme=dark" alt="Node.js" /> Node.js
         </a>
-        <a href="https://www.mongodb.com" target="_blank" class="badge-pill">
+        <a href="https://www.mongodb.com" target="_blank" class="comic-pill">
           <img src="https://skillicons.dev/icons?i=mongodb&theme=dark" alt="MongoDB" /> MongoDB
         </a>
-        <a href="https://www.postgresql.org" target="_blank" class="badge-pill">
+        <a href="https://www.postgresql.org" target="_blank" class="comic-pill">
           <img src="https://skillicons.dev/icons?i=postgres&theme=dark" alt="PostgreSQL" /> PostgreSQL
         </a>
-        <a href="https://www.docker.com" target="_blank" class="badge-pill">
+        <a href="https://www.docker.com" target="_blank" class="comic-pill">
           <img src="https://skillicons.dev/icons?i=docker&theme=dark" alt="Docker" /> Docker
         </a>
       </div>
-      <div class="cta-btn-row">
-        <button class="action-btn secondary" onclick="flyToWaypoint(0.25)">
+      <div class="comic-btn-row">
+        <button class="comic-action-btn secondary" onclick="flyToWaypoint(0.25)">
           <i class="fa-solid fa-arrow-left"></i>
           <span>PREV</span>
         </button>
-        <button class="action-btn" onclick="flyToWaypoint(0.75)">
+        <button class="comic-action-btn" onclick="flyToWaypoint(0.75)">
           <span>NEXT: TELEMETRY</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
@@ -714,29 +767,30 @@
     </div>
 
     <!-- Chapter 4: Telemetry & GitHub Activity -->
-    <div class="story-card right-aligned" id="card3">
-      <div class="story-chapter-tag">
-        <span class="pulse-dot"></span>
-        <span>WAYPOINT 04 // LIVE_TELEMETRY</span>
+    <div class="comic-card right-aligned" id="card3">
+      <div class="card-tape">FIG. 04</div>
+      <div class="card-chapter-tag">
+        <span class="tag-badge">SPEC-04</span>
+        <span>TELEMETRY &amp; GITHUB METRICS</span>
       </div>
-      <h2 class="story-title">
-        GitHub Stats &amp; <br/>
-        <span class="gradient-text">Activity Metrics</span>
+      <h2 class="comic-title">
+        ACTIVITY TELEMETRY <br/>
+        <span class="red-text">&amp; CONTRIBUTIONS</span>
       </h2>
-      <p class="story-desc">
-        Real-time metrics, contributions, and repositories tracked across open-source and bot development projects.
+      <p class="comic-desc">
+        Real-time telemetry, commit milestones, and bot repositories tracked across GitHub.
       </p>
       <div style="margin: 14px 0;">
         <a href="https://gitshine.com/stats/MrTG-CodeBot" target="_blank">
-          <img src="https://gitshine.com/card/MrTG-CodeBot?theme=dark" alt="GitShine Stats" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,30,74,0.4);" />
+          <img src="https://gitshine.com/card/MrTG-CodeBot?theme=dark" alt="GitShine Stats" style="max-width: 100%; border-radius: 8px; border: 2px solid var(--ink-black); box-shadow: 4px 4px 0px var(--spidey-red);" />
         </a>
       </div>
-      <div class="cta-btn-row">
-        <button class="action-btn secondary" onclick="flyToWaypoint(0.50)">
+      <div class="comic-btn-row">
+        <button class="comic-action-btn secondary" onclick="flyToWaypoint(0.50)">
           <i class="fa-solid fa-arrow-left"></i>
           <span>PREV</span>
         </button>
-        <button class="action-btn" onclick="flyToWaypoint(1.0)">
+        <button class="comic-action-btn" onclick="flyToWaypoint(1.0)">
           <span>NEXT: TRANSMISSION</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
@@ -744,31 +798,32 @@
     </div>
 
     <!-- Chapter 5: Transmission & Contact -->
-    <div class="story-card left-aligned" id="card4">
-      <div class="story-chapter-tag">
-        <span class="pulse-dot"></span>
-        <span>WAYPOINT 05 // TRANSMISSION_APEX</span>
+    <div class="comic-card left-aligned" id="card4">
+      <div class="card-tape">FIG. 05</div>
+      <div class="card-chapter-tag">
+        <span class="tag-badge">SPEC-05</span>
+        <span>ENCRYPTED TRANSMISSION APEX</span>
       </div>
-      <h2 class="story-title">
-        Encrypted <br/>
-        <span class="gradient-text">Communication Gate</span>
+      <h2 class="comic-title">
+        CONNECT WITH <br/>
+        <span class="red-text">MRTG-CODEBOT</span>
       </h2>
-      <p class="story-desc">
-        Ready to collaborate on Telegram bots, API backends, or custom software solutions? Send a direct transmission across any channel:
+      <p class="comic-desc">
+        Ready to collaborate on Telegram bots, automation systems, or custom backend services? Establish contact:
       </p>
-      <div class="story-interactive-grid">
-        <a href="https://t.me/MrTG_Coder" target="_blank" class="badge-pill" style="border-color: var(--spidey-red); color: #fff;">
-          <i class="fa-brands fa-telegram" style="color: var(--spidey-red);"></i> Telegram // @MrTG_Coder
+      <div class="comic-badge-grid">
+        <a href="https://t.me/MrTG_Coder" target="_blank" class="comic-pill" style="border-color: var(--spidey-red); background: #fff;">
+          <i class="fa-brands fa-telegram" style="color: var(--spidey-red); font-size: 1.1rem;"></i> Telegram // @MrTG_Coder
         </a>
-        <a href="https://discordapp.com/users/mr_.orion" target="_blank" class="badge-pill" style="border-color: var(--cyber-cyan); color: #fff;">
-          <i class="fa-brands fa-discord" style="color: var(--cyber-cyan);"></i> Discord // mr_.orion
+        <a href="https://discordapp.com/users/mr_.orion" target="_blank" class="comic-pill" style="border-color: #5865f2; background: #fff;">
+          <i class="fa-brands fa-discord" style="color: #5865f2; font-size: 1.1rem;"></i> Discord // mr_.orion
         </a>
-        <a href="mailto:amalnath0600@gmail.com" target="_blank" class="badge-pill">
-          <i class="fa-solid fa-envelope"></i> Email // amalnath0600@gmail.com
+        <a href="mailto:amalnath0600@gmail.com" target="_blank" class="comic-pill">
+          <i class="fa-solid fa-envelope" style="color: var(--spidey-red);"></i> Email // amalnath0600@gmail.com
         </a>
       </div>
-      <div class="cta-btn-row">
-        <button class="action-btn" onclick="flyToWaypoint(0.0)">
+      <div class="comic-btn-row">
+        <button class="comic-action-btn" onclick="flyToWaypoint(0.0)">
           <i class="fa-solid fa-rotate-left"></i>
           <span>REPLAY FLIGHT</span>
         </button>
@@ -777,20 +832,20 @@
 
   </div>
 
-  <!-- Bottom Cyber Throttle Bar -->
-  <div class="flight-throttle-bar">
-    <button class="throttle-nav-btn" onclick="stepWaypoint(-1)" title="Previous Sector">
+  <!-- Bottom Interactive Throttle Control -->
+  <div class="comic-throttle-bar">
+    <button class="throttle-arrow-btn" onclick="stepWaypoint(-1)" title="Previous Sector">
       <i class="fa-solid fa-chevron-left"></i>
     </button>
-    <div class="throttle-label">
-      <i class="fa-solid fa-jet-fighter-up"></i>
-      <span>WARP:</span>
+    <div class="throttle-tag">
+      <i class="fa-solid fa-spider"></i>
+      <span>SWING:</span>
     </div>
     <input type="range" class="throttle-slider" id="throttleSlider" min="0" max="100" value="0" />
-    <button class="throttle-nav-btn" onclick="stepWaypoint(1)" title="Next Sector">
+    <button class="throttle-arrow-btn" onclick="stepWaypoint(1)" title="Next Sector">
       <i class="fa-solid fa-chevron-right"></i>
     </button>
-    <span class="drag-hint">[ SCROLL OR DRAG MOUSE TO LOOK ]</span>
+    <span class="scroll-hint">[ SCROLL OR SLIDE TO FLY SPIDER-MAN ]</span>
   </div>
 
   <!-- Embedded Local Avatar Data -->
@@ -801,180 +856,107 @@
 
   <script>
     /* ==========================================================
-       1. CUSTOM CYBER CROSSHAIR CURSOR
+       1. SYNTHESIZED COMIC SOUND FX (THWIP! & CHIMES)
        ========================================================== */
-    const cursor = document.getElementById('cyberCursor');
-    const dot = document.getElementById('cursorDot');
-    let curX = window.innerWidth / 2, curY = window.innerHeight / 2;
-    let targetCurX = curX, targetCurY = curY;
-
-    window.addEventListener('mousemove', (e) => {
-      targetCurX = e.clientX;
-      targetCurY = e.clientY;
-      dot.style.left = `${e.clientX}px`;
-      dot.style.top = `${e.clientY}px`;
-    });
-
-    document.querySelectorAll('a, button, input, .badge-pill, .waypoint-node').forEach(el => {
-      el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-      el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-    });
-
-    /* ==========================================================
-       2. SYNTHESIZED CYBER DRONE & AUDIO ENGINE
-       ========================================================== */
-    class CyberSoundEngine {
+    class ComicAudioEngine {
       constructor() {
         this.ctx = null;
         this.enabled = true;
-        this.droneOsc = null;
-        this.droneGain = null;
       }
       init() {
         if (!this.ctx) {
           const AudioContext = window.AudioContext || window.webkitAudioContext;
-          if (AudioContext) {
-            this.ctx = new AudioContext();
-            this.startDrone();
-          }
+          if (AudioContext) this.ctx = new AudioContext();
         }
       }
-      startDrone() {
-        if (!this.enabled || !this.ctx || this.droneOsc) return;
+      playThwip() {
+        if (!this.enabled || !this.ctx) return;
         try {
-          this.droneOsc = this.ctx.createOscillator();
-          this.droneGain = this.ctx.createGain();
-          this.droneOsc.type = 'sawtooth';
-          this.droneOsc.frequency.setValueAtTime(55, this.ctx.currentTime); // Low cyberpunk A1 drone
-          
-          // Low-pass filter for deep sci-fi warmth
-          const filter = this.ctx.createBiquadFilter();
-          filter.type = 'lowpass';
-          filter.frequency.setValueAtTime(140, this.ctx.currentTime);
+          // Web-slinging "THWIP!" whip sound
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(1400, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(260, this.ctx.currentTime + 0.14);
 
-          this.droneGain.gain.setValueAtTime(0.015, this.ctx.currentTime);
-          this.droneOsc.connect(filter);
-          filter.connect(this.droneGain);
-          this.droneGain.connect(this.ctx.destination);
-          this.droneOsc.start();
+          gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.14);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.14);
         } catch(e) {}
       }
-      playWarpChime(freq = 580) {
+      playChime(freq = 560) {
         if (!this.enabled || !this.ctx) return;
         try {
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
-          osc.type = 'sine';
+          osc.type = 'triangle';
           osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(freq * 1.8, this.ctx.currentTime + 0.16);
+          osc.frequency.exponentialRampToValueAtTime(freq * 1.6, this.ctx.currentTime + 0.12);
           gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.16);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.12);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
           osc.start();
-          osc.stop(this.ctx.currentTime + 0.16);
+          osc.stop(this.ctx.currentTime + 0.12);
         } catch(e) {}
       }
       toggle() {
         this.enabled = !this.enabled;
-        if (this.droneGain) {
-          this.droneGain.gain.setValueAtTime(this.enabled ? 0.015 : 0.0001, this.ctx.currentTime);
-        }
         return this.enabled;
       }
     }
 
-    const sfx = new CyberSoundEngine();
+    const sfx = new ComicAudioEngine();
     const sfxToggle = document.getElementById('sfxToggle');
     const sfxIcon = document.getElementById('sfxIcon');
     const sfxText = document.getElementById('sfxText');
+    const comicFx = document.getElementById('comicFx');
 
     sfxToggle.addEventListener('click', () => {
       sfx.init();
       const on = sfx.toggle();
       sfxIcon.className = on ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
-      sfxText.textContent = on ? 'AUDIO: ON' : 'AUDIO: OFF';
-      if (on) sfx.playWarpChime(740);
+      sfxText.textContent = on ? 'SFX: ON' : 'SFX: OFF';
+      if (on) sfx.playThwip();
     });
 
+    function triggerComicFx(word, x, y) {
+      comicFx.textContent = word;
+      comicFx.style.left = `${x || (window.innerWidth / 2 - 60)}px`;
+      comicFx.style.top = `${y || (window.innerHeight / 2 - 80)}px`;
+      comicFx.classList.add('show');
+      setTimeout(() => comicFx.classList.remove('show'), 700);
+    }
+
     /* ==========================================================
-       3. THREE.JS AWARD-WINNING CYBERPUNK MEGALOPOLIS
+       2. THREE.JS ARCHITECTURAL BLUEPRINT 3D WORLD
        ========================================================== */
     const canvas = document.getElementById('webglCanvas');
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x04060a, 1);
+    renderer.setClearColor(0xf4f6fb, 1); // Clean architectural drafting paper white
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x04060a, 0.012);
+    scene.fog = new THREE.FogExp2(0xf4f6fb, 0.012);
 
-    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1200);
+    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-    // Procedural Glowing Texture Generators
-    function createGlowSpriteTexture(colorHex) {
-      const c = document.createElement('canvas');
-      c.width = 128;
-      c.height = 128;
-      const ctx = c.getContext('2d');
-      const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
-      grad.addColorStop(0, colorHex);
-      grad.addColorStop(0.3, colorHex);
-      grad.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 128, 128);
-      return new THREE.CanvasTexture(c);
-    }
-
-    const redGlowTex = createGlowSpriteTexture('rgba(255, 30, 74, 0.85)');
-    const cyanGlowTex = createGlowSpriteTexture('rgba(0, 242, 254, 0.85)');
-
-    // Procedural Cyberpunk Skyscraper Window Facade Texture
-    function createBuildingFacadeTexture() {
-      const c = document.createElement('canvas');
-      c.width = 128;
-      c.height = 512;
-      const ctx = c.getContext('2d');
-      ctx.fillStyle = '#0a0f18';
-      ctx.fillRect(0, 0, 128, 512);
-
-      // Window grid
-      for (let y = 10; y < 500; y += 14) {
-        for (let x = 8; x < 120; x += 16) {
-          const rand = Math.random();
-          if (rand > 0.82) {
-            ctx.fillStyle = '#00f2fe'; // Cyan neon window
-          } else if (rand > 0.72) {
-            ctx.fillStyle = '#ff1e4a'; // Red neon window
-          } else if (rand > 0.62) {
-            ctx.fillStyle = '#ffbe0b'; // Gold window
-          } else if (rand > 0.40) {
-            ctx.fillStyle = '#ffffff'; // White window
-          } else {
-            ctx.fillStyle = '#101622'; // Dark unlit window
-          }
-          ctx.fillRect(x, y, 9, 8);
-        }
-      }
-      const tex = new THREE.CanvasTexture(c);
-      tex.wrapS = THREE.RepeatWrapping;
-      tex.wrapT = THREE.RepeatWrapping;
-      return tex;
-    }
-
-    const buildingFacadeTex = createBuildingFacadeTexture();
-
-    // 3D Flight Camera Curve Path (Smooth CatmullRom Spline through 3D Megalopolis)
+    // 3D Flight Camera Curve Path
     const curvePoints = [
-      new THREE.Vector3(0, 8, 40),     // Waypoint 0: Origin (Facing Floating Hologram Avatar)
-      new THREE.Vector3(14, 16, 8),    // Curve banking right over neon canyon
-      new THREE.Vector3(26, 4, -28),   // Waypoint 1: Bot Architecture Core
-      new THREE.Vector3(0, -5, -68),   // Curve diving through cyber arches
-      new THREE.Vector3(-24, 7, -108), // Waypoint 2: Code Matrix Helix
-      new THREE.Vector3(-10, 18, -148),// Curve climbing
-      new THREE.Vector3(18, 3, -188),  // Waypoint 3: Telemetry Deck
-      new THREE.Vector3(0, 24, -228),  // Curve swooping high above skyscrapers
-      new THREE.Vector3(0, 6, -268)    // Waypoint 4: Apex Transmission Gateway
+      new THREE.Vector3(0, 8, 40),
+      new THREE.Vector3(14, 16, 8),
+      new THREE.Vector3(26, 4, -28),
+      new THREE.Vector3(0, -4, -68),
+      new THREE.Vector3(-24, 8, -108),
+      new THREE.Vector3(-10, 18, -148),
+      new THREE.Vector3(18, 4, -188),
+      new THREE.Vector3(0, 24, -228),
+      new THREE.Vector3(0, 6, -268)
     ];
 
     const flightCurve = new THREE.CatmullRomCurve3(curvePoints);
@@ -989,176 +971,113 @@
     });
     const lookCurve = new THREE.CatmullRomCurve3(lookTargetPoints);
 
-    // Build Cyberpunk Megalopolis Towers
+    // Architectural Line-Art Drafting Skyscrapers (Flat Cartoon Cel-Shaded)
     const cityGroup = new THREE.Group();
     scene.add(cityGroup);
 
     const towerGeo = new THREE.BoxGeometry(1, 1, 1);
-    const towerMat = new THREE.MeshBasicMaterial({
-      map: buildingFacadeTex,
-      transparent: true,
-      opacity: 0.85
-    });
+    
+    // Flat Cel-Shaded Paper-White Facade with Ink Black Wireframe Edges
+    const towerMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const inkWireframeMat = new THREE.MeshBasicMaterial({ color: 0x1e293b, wireframe: true });
+    const redAccentWireMat = new THREE.MeshBasicMaterial({ color: 0xe11d48, wireframe: true });
 
-    const edgeGlowRedMat = new THREE.MeshBasicMaterial({ color: 0xff1e4a, wireframe: true, transparent: true, opacity: 0.35 });
-    const edgeGlowCyanMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe, wireframe: true, transparent: true, opacity: 0.35 });
-
-    // Populate 110 Skyscrapers along flight valley
-    for (let i = 0; i < 110; i++) {
-      const isRed = Math.random() < 0.3;
+    // Generate 100 Architectural Sketch Skyscrapers
+    for (let i = 0; i < 100; i++) {
+      const isRedAccent = Math.random() < 0.25;
+      
+      // Building Body
       const bMesh = new THREE.Mesh(towerGeo, towerMat);
-
       const side = Math.random() < 0.5 ? -1 : 1;
-      const x = side * (22 + Math.random() * 70);
+      const x = side * (20 + Math.random() * 65);
       const z = (Math.random() - 0.5) * 380 - 110;
-      const h = 30 + Math.random() * 95;
-      const w = 14 + Math.random() * 22;
+      const h = 28 + Math.random() * 90;
+      const w = 14 + Math.random() * 20;
 
       bMesh.scale.set(w, h, w);
       bMesh.position.set(x, h * 0.5 - 28, z);
       cityGroup.add(bMesh);
 
-      // Glowing wireframe roof accents
-      const roofMesh = new THREE.Mesh(towerGeo, isRed ? edgeGlowRedMat : edgeGlowCyanMat);
-      roofMesh.scale.set(w * 1.02, 3, w * 1.02);
-      roofMesh.position.set(x, h - 28, z);
-      cityGroup.add(roofMesh);
+      // Ink Outline Mesh (Slightly larger for cartoon cel-shaded outline)
+      const outlineMesh = new THREE.Mesh(towerGeo, isRedAccent ? redAccentWireMat : inkWireframeMat);
+      outlineMesh.scale.set(w * 1.002, h * 1.002, w * 1.002);
+      outlineMesh.position.set(x, h * 0.5 - 28, z);
+      cityGroup.add(outlineMesh);
 
-      // Antenna beacon needles on tall skyscrapers
-      if (h > 65) {
-        const needleGeo = new THREE.CylinderGeometry(0.2, 0.4, 18, 8);
-        const needleMat = new THREE.MeshBasicMaterial({ color: isRed ? 0xff1e4a : 0x00f2fe });
+      // Architectural Rooftop Parapet / Antenna
+      if (h > 60) {
+        const needleGeo = new THREE.CylinderGeometry(0.2, 0.4, 16, 6);
+        const needleMat = new THREE.MeshBasicMaterial({ color: isRedAccent ? 0xe11d48 : 0x0f172a });
         const needle = new THREE.Mesh(needleGeo, needleMat);
-        needle.position.set(x, h - 28 + 9, z);
+        needle.position.set(x, h - 28 + 8, z);
         cityGroup.add(needle);
       }
     }
 
-    // High-Speed Ground Cyber Highway (Glowing light trails on ground)
-    const highwayCount = 40;
-    const highwayGroup = new THREE.Group();
-    scene.add(highwayGroup);
+    // Ground Drafting Blueprint Grid (Ink & Red Grid)
+    const gridHelper = new THREE.GridHelper(600, 75, 0xe11d48, 0x94a3b8);
+    gridHelper.position.y = -27.8;
+    scene.add(gridHelper);
 
-    const carGeo = new THREE.BoxGeometry(0.8, 0.4, 6);
-    const carRedMat = new THREE.MeshBasicMaterial({ color: 0xff1e4a });
-    const carCyanMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe });
-    const highwayCars = [];
+    /* ==========================================================
+       3. MOVING 3D SPIDER-MAN CHARACTER IN THE WORLD!
+       ========================================================== */
+    const spideyHeroGroup = new THREE.Group();
+    scene.add(spideyHeroGroup);
 
-    for (let i = 0; i < highwayCount; i++) {
-      const isRed = Math.random() < 0.5;
-      const car = new THREE.Mesh(carGeo, isRed ? carRedMat : carCyanMat);
-      const lane = (Math.random() - 0.5) * 28;
-      car.position.set(lane, -27.5, (Math.random() - 0.5) * 380 - 110);
-      car.speed = 0.8 + Math.random() * 1.4;
-      highwayGroup.add(car);
-      highwayCars.push(car);
-    }
+    // Spider-Man Cutout Billboard
+    const textureLoader = new THREE.TextureLoader();
+    const spideyCutoutSrc = (window.SPIDEY_CUTOUT_B64 && window.SPIDEY_CUTOUT_B64.length > 50)
+      ? window.SPIDEY_CUTOUT_B64
+      : 'portfolio/assets/spidey-cutout.png';
 
-    // Giant Glowing 3D Spider Emblem in Sky
-    const spideySkyEmblem = new THREE.Group();
-    spideySkyEmblem.position.set(0, 48, -200);
-    scene.add(spideySkyEmblem);
-
-    const skyRing1 = new THREE.Mesh(
-      new THREE.RingGeometry(22, 23.5, 64),
-      new THREE.MeshBasicMaterial({ color: 0xff1e4a, side: THREE.DoubleSide, transparent: true, opacity: 0.75 })
-    );
-    const skyRing2 = new THREE.Mesh(
-      new THREE.RingGeometry(26, 27.2, 8),
-      new THREE.MeshBasicMaterial({ color: 0x00f2fe, side: THREE.DoubleSide, transparent: true, opacity: 0.6 })
-    );
-    spideySkyEmblem.add(skyRing1);
-    spideySkyEmblem.add(skyRing2);
-
-    // Dynamic Volumetric Spider-Web Filament Lines
-    const webLinesGeo = new THREE.BufferGeometry();
-    const webLinesMat = new THREE.LineBasicMaterial({
-      color: 0x00f2fe,
+    const spideyTex = textureLoader.load(spideyCutoutSrc);
+    const spideyGeo = new THREE.PlaneGeometry(7.5, 16);
+    const spideyMat = new THREE.MeshBasicMaterial({
+      map: spideyTex,
       transparent: true,
-      opacity: 0.25
+      alphaTest: 0.05,
+      side: THREE.DoubleSide
     });
-    const webLineCoords = [];
-    for (let i = 0; i < 70; i++) {
-      const p1 = curvePoints[Math.floor(Math.random() * curvePoints.length)];
-      webLineCoords.push(
-        p1.x + (Math.random() - 0.5) * 30, p1.y + (Math.random() - 0.5) * 20, p1.z + (Math.random() - 0.5) * 30,
-        p1.x + (Math.random() - 0.5) * 45, p1.y + 15 + Math.random() * 20, p1.z + (Math.random() - 0.5) * 45
-      );
-    }
-    webLinesGeo.setAttribute('position', new THREE.Float32BufferAttribute(webLineCoords, 3));
-    const webFilaments = new THREE.LineSegments(webLinesGeo, webLinesMat);
-    scene.add(webFilaments);
+    const spideyMesh = new THREE.Mesh(spideyGeo, spideyMat);
+    spideyHeroGroup.add(spideyMesh);
 
-    // Glowing Cyber Emitter Embers
-    const emberCount = 800;
-    const emberGeo = new THREE.BufferGeometry();
-    const emberPos = new Float32Array(emberCount * 3);
+    // Cartoon Red Halftone Aura Circle behind Spider-Man
+    const auraGeo = new THREE.CircleGeometry(8, 48);
+    const auraMat = new THREE.MeshBasicMaterial({
+      color: 0xe11d48,
+      transparent: true,
+      opacity: 0.18,
+      side: THREE.DoubleSide
+    });
+    const auraMesh = new THREE.Mesh(auraGeo, auraMat);
+    auraMesh.position.set(0, 0, -0.2);
+    spideyHeroGroup.add(auraMesh);
 
-    for (let i = 0; i < emberCount; i++) {
-      emberPos[i * 3] = (Math.random() - 0.5) * 180;
-      emberPos[i * 3 + 1] = (Math.random() - 0.5) * 90;
-      emberPos[i * 3 + 2] = (Math.random() - 0.5) * 360 - 110;
-    }
-
-    emberGeo.setAttribute('position', new THREE.BufferAttribute(emberPos, 3));
-    const emberMat = new THREE.PointsMaterial({
-      color: 0xff1e4a,
-      size: 0.55,
+    // Comic Action Web-Slinging Line (Shoots from Spider-Man's wrist to buildings)
+    const webLineGeo = new THREE.BufferGeometry();
+    const webLinePositions = new Float32Array(6); // 2 vertices (wrist -> building)
+    webLineGeo.setAttribute('position', new THREE.BufferAttribute(webLinePositions, 3));
+    const webLineMat = new THREE.LineBasicMaterial({
+      color: 0xe11d48,
+      linewidth: 3,
       transparent: true,
       opacity: 0.85
     });
-    const emberCloud = new THREE.Points(emberGeo, emberMat);
-    scene.add(emberCloud);
+    const activeWebLine = new THREE.Line(webLineGeo, webLineMat);
+    scene.add(activeWebLine);
 
-    // Floating Hologram Spidey Avatar Panel (Waypoint 0)
-    const textureLoader = new THREE.TextureLoader();
-    const avatarSrc = (window.SPIDEY_AVATAR_B64 && window.SPIDEY_AVATAR_B64.length > 50) 
-      ? window.SPIDEY_AVATAR_B64 
-      : 'assets/spidey-avatar.jpg';
-
-    const avatarTexture = textureLoader.load(avatarSrc);
-    const avatarPanelGeo = new THREE.PlaneGeometry(10, 14.5);
-    const avatarPanelMat = new THREE.MeshBasicMaterial({
-      map: avatarTexture,
-      transparent: true,
-      opacity: 0.96,
-      side: THREE.DoubleSide
-    });
-    const avatarMesh = new THREE.Mesh(avatarPanelGeo, avatarPanelMat);
-    avatarMesh.position.set(0, 8, 16);
-    scene.add(avatarMesh);
-
-    // Holographic Laser Rings around Avatar
-    const holoRingGeo1 = new THREE.RingGeometry(8.5, 8.8, 64);
-    const holoRingMat1 = new THREE.MeshBasicMaterial({ color: 0x00f2fe, side: THREE.DoubleSide, transparent: true, opacity: 0.75 });
-    const holoRing1 = new THREE.Mesh(holoRingGeo1, holoRingMat1);
-    holoRing1.position.copy(avatarMesh.position);
-    scene.add(holoRing1);
-
-    const holoRingGeo2 = new THREE.RingGeometry(9.6, 9.9, 8);
-    const holoRingMat2 = new THREE.MeshBasicMaterial({ color: 0xff1e4a, side: THREE.DoubleSide, transparent: true, opacity: 0.85 });
-    const holoRing2 = new THREE.Mesh(holoRingGeo2, holoRingMat2);
-    holoRing2.position.copy(avatarMesh.position);
-    scene.add(holoRing2);
-
-    // Scanning Holographic Laser Line over Avatar
-    const scanLaserGeo = new THREE.PlaneGeometry(10.5, 0.25);
-    const scanLaserMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe, side: THREE.DoubleSide, transparent: true, opacity: 0.85 });
-    const scanLaser = new THREE.Mesh(scanLaserGeo, scanLaserMat);
-    scanLaser.position.set(0, 8, 16.2);
-    scene.add(scanLaser);
-
-    // Waypoint 1: Floating 3D Bot Hub Reactor
+    // Waypoint 1: Floating 3D Bot Hub Cel-Shaded Reactor
     const botHubGroup = new THREE.Group();
     botHubGroup.position.set(26, 4, -28);
     scene.add(botHubGroup);
 
     const botCoreGeo = new THREE.IcosahedronGeometry(5, 1);
-    const botCoreMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe, wireframe: true, transparent: true, opacity: 0.8 });
+    const botCoreMat = new THREE.MeshBasicMaterial({ color: 0x0284c7, wireframe: true });
     const botCore = new THREE.Mesh(botCoreGeo, botCoreMat);
     botHubGroup.add(botCore);
 
-    const botInnerCore = new THREE.Mesh(new THREE.OctahedronGeometry(2.8, 0), new THREE.MeshBasicMaterial({ color: 0xff1e4a, wireframe: true }));
+    const botInnerCore = new THREE.Mesh(new THREE.OctahedronGeometry(2.8, 0), new THREE.MeshBasicMaterial({ color: 0xe11d48, wireframe: true }));
     botHubGroup.add(botInnerCore);
 
     // Waypoint 2: Floating 3D Code Torus Matrix
@@ -1166,8 +1085,8 @@
     torusTunnelGroup.position.set(-24, 7, -108);
     scene.add(torusTunnelGroup);
 
-    const torusGeo = new THREE.TorusGeometry(8.5, 0.45, 16, 64);
-    const torusMat = new THREE.MeshBasicMaterial({ color: 0xff1e4a, wireframe: true, transparent: true, opacity: 0.65 });
+    const torusGeo = new THREE.TorusGeometry(8.5, 0.45, 16, 48);
+    const torusMat = new THREE.MeshBasicMaterial({ color: 0xe11d48, wireframe: true });
     for (let k = 0; k < 5; k++) {
       const ringT = new THREE.Mesh(torusGeo, torusMat);
       ringT.position.z = (k - 2) * 9;
@@ -1176,33 +1095,28 @@
 
     // Waypoint 4: Apex Transmission Gateway Beacon
     const beaconGeo = new THREE.CylinderGeometry(0.3, 5, 50, 16);
-    const beaconMat = new THREE.MeshBasicMaterial({ color: 0xff1e4a, wireframe: true, transparent: true, opacity: 0.85 });
+    const beaconMat = new THREE.MeshBasicMaterial({ color: 0xe11d48, wireframe: true });
     const beacon = new THREE.Mesh(beaconGeo, beaconMat);
     beacon.position.set(0, 18, -268);
     scene.add(beacon);
 
-    // Vertical Laser Pillar Shooting into the Sky
-    const laserBeamGeo = new THREE.CylinderGeometry(0.6, 0.6, 180, 16);
-    const laserBeamMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe, transparent: true, opacity: 0.6 });
-    const laserBeam = new THREE.Mesh(laserBeamGeo, laserBeamMat);
-    laserBeam.position.set(0, 90, -268);
-    scene.add(laserBeam);
-
     /* ==========================================================
-       4. INTERACTIVE FLIGHT ENGINE & 360-DEGREE ORBIT DRAG
+       4. INTERACTIVE FLIGHT & SPIDER-MAN KINETIC MOVEMENT
        ========================================================== */
     let targetProgress = 0;
     let currentProgress = 0;
+    let lastThwipProgress = 0;
 
-    let isDragging = false;
-    let dragStartX = 0, dragStartY = 0;
-    let orbitAngleX = 0, orbitAngleY = 0;
-    let targetOrbitX = 0, targetOrbitY = 0;
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseY = -(e.clientY / window.innerHeight - 0.5) * 2;
+    });
 
     const throttleSlider = document.getElementById('throttleSlider');
     const altMeter = document.getElementById('altMeter');
     const trackMeter = document.getElementById('trackMeter');
-    const sectorTag = document.getElementById('sectorTag');
+    const sheetTag = document.getElementById('sheetTag');
 
     function clamp(val, min = 0, max = 1) {
       if (isNaN(val)) return min;
@@ -1214,28 +1128,14 @@
       sfx.init();
       targetProgress = clamp(targetProgress + e.deltaY * 0.0006);
       throttleSlider.value = Math.round(targetProgress * 100);
-    }, { passive: true });
 
-    // Click & Drag to Orbit / Look Around City in 360
-    window.addEventListener('mousedown', (e) => {
-      if (e.target.closest('header, aside, .story-card, .flight-throttle-bar')) return;
-      isDragging = true;
-      dragStartX = e.clientX;
-      dragStartY = e.clientY;
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      if (isDragging) {
-        const dx = e.clientX - dragStartX;
-        const dy = e.clientY - dragStartY;
-        dragStartX = e.clientX;
-        dragStartY = e.clientY;
-        targetOrbitX += dx * 0.006;
-        targetOrbitY = Math.max(Math.min(targetOrbitY + dy * 0.006, 0.6), -0.6);
+      // Trigger THWIP! sound effect on scrolling bursts
+      if (Math.abs(targetProgress - lastThwipProgress) > 0.08) {
+        sfx.playThwip();
+        triggerComicFx('THWIP!', window.innerWidth / 2 + (Math.random() - 0.5) * 160, window.innerHeight / 2 - 80);
+        lastThwipProgress = targetProgress;
       }
-    });
-
-    window.addEventListener('mouseup', () => { isDragging = false; });
+    }, { passive: true });
 
     // Touch Swipe
     let touchStartY = 0;
@@ -1253,19 +1153,21 @@
       }
     }, { passive: true });
 
-    // Keyboard Flight Controls
+    // Keyboard
     window.addEventListener('keydown', (e) => {
       sfx.init();
       if (['ArrowDown', 'PageDown', ' ', 'ArrowRight'].includes(e.key)) {
         targetProgress = clamp(targetProgress + 0.08);
         throttleSlider.value = Math.round(targetProgress * 100);
+        sfx.playThwip();
+        triggerComicFx('SWOOSH!');
       } else if (['ArrowUp', 'PageUp', 'ArrowLeft'].includes(e.key)) {
         targetProgress = clamp(targetProgress - 0.08);
         throttleSlider.value = Math.round(targetProgress * 100);
       }
     });
 
-    // Throttle Slider
+    // Slider
     throttleSlider.addEventListener('input', (e) => {
       sfx.init();
       targetProgress = clamp(parseFloat(e.target.value) / 100);
@@ -1273,16 +1175,17 @@
 
     // Waypoints
     const waypoints = [0.0, 0.25, 0.50, 0.75, 1.0];
-    const sectorNames = ["ORIGIN", "BOTS", "MATRIX", "TELEMETRY", "APEX"];
+    const sheetNames = ["SPEC-01", "SPEC-02", "SPEC-03", "SPEC-04", "SPEC-05"];
 
     window.flyToWaypoint = function(p) {
       sfx.init();
-      sfx.playWarpChime(680);
+      sfx.playThwip();
+      triggerComicFx('THWIP!');
       targetProgress = clamp(p);
       throttleSlider.value = Math.round(targetProgress * 100);
     };
 
-    window.stepWaypoint = function(direction) {
+    window.stepWaypoint = function(dir) {
       sfx.init();
       let closestIdx = 0;
       let minDiff = 999;
@@ -1290,12 +1193,12 @@
         const diff = Math.abs(currentProgress - w);
         if (diff < minDiff) { minDiff = diff; closestIdx = i; }
       });
-      const nextIdx = clamp(closestIdx + direction, 0, waypoints.length - 1);
+      const nextIdx = clamp(closestIdx + dir, 0, waypoints.length - 1);
       flyToWaypoint(waypoints[nextIdx]);
     };
 
-    const waypointNodes = document.querySelectorAll('.waypoint-node');
-    waypointNodes.forEach(node => {
+    const scrubberNodes = document.querySelectorAll('.scrubber-node');
+    scrubberNodes.forEach(node => {
       node.addEventListener('click', () => {
         flyToWaypoint(parseFloat(node.getAttribute('data-progress')));
       });
@@ -1325,16 +1228,16 @@
         }
       });
 
-      waypointNodes.forEach((node, idx) => {
+      scrubberNodes.forEach((node, idx) => {
         node.classList.toggle('active', idx === activeIdx);
       });
 
       if (activeIdx !== lastActiveIdx) {
-        sfx.playWarpChime(520 + activeIdx * 80);
+        sfx.playChime(500 + activeIdx * 80);
         lastActiveIdx = activeIdx;
       }
 
-      sectorTag.textContent = sectorNames[activeIdx];
+      sheetTag.textContent = sheetNames[activeIdx];
       trackMeter.textContent = Math.round(progress * 100).toString().padStart(2, '0') + '%';
       altMeter.textContent = Math.round(camera.position.y * 12 + 100) + 'm';
     }
@@ -1354,16 +1257,6 @@
       requestAnimationFrame(animate);
       const elapsed = clock.getElapsedTime();
 
-      // Smooth custom cursor lag
-      curX += (targetCurX - curX) * 0.18;
-      curY += (targetCurY - curY) * 0.18;
-      cursor.style.left = `${curX}px`;
-      cursor.style.top = `${curY}px`;
-
-      // Smooth orbit drag interpolation
-      orbitAngleX += (targetOrbitX - orbitAngleX) * 0.08;
-      orbitAngleY += (targetOrbitY - orbitAngleY) * 0.08;
-
       // Smooth progress interpolation
       currentProgress += (targetProgress - currentProgress) * 0.06;
       currentProgress = clamp(currentProgress, 0, 1);
@@ -1373,41 +1266,52 @@
       const lookPos = lookCurve.getPointAt(currentProgress);
 
       if (camPos && lookPos && !isNaN(camPos.x)) {
-        camera.position.set(camPos.x, camPos.y, camPos.z);
+        camera.position.set(camPos.x + mouseX * 1.5, camPos.y + mouseY * 1.2, camPos.z);
 
-        tempLookAt.x = lookPos.x + Math.sin(orbitAngleX) * 12;
-        tempLookAt.y = lookPos.y - Math.sin(orbitAngleY) * 10;
-        tempLookAt.z = lookPos.z - Math.cos(orbitAngleX) * 12;
+        tempLookAt.x = lookPos.x + mouseX * 1.0;
+        tempLookAt.y = lookPos.y + mouseY * 0.8;
+        tempLookAt.z = lookPos.z;
         camera.lookAt(tempLookAt);
+
+        /* ==========================================================
+           SPIDER-MAN CHARACTER DYNAMIC MOVEMENT & KINETIC WEB-SLING
+           ========================================================== */
+        // Spider-Man position flies right in front of the camera like an active superhero guide!
+        const forwardVector = new THREE.Vector3().subVectors(lookPos, camPos).normalize();
+        const spideyTargetPos = new THREE.Vector3().copy(camPos).add(forwardVector.clone().multiplyScalar(14));
+
+        // Add comic kinetic bobbing and crouch breathing
+        const bobY = Math.sin(elapsed * 4.5) * 0.6;
+        const bankX = Math.sin(elapsed * 2.2) * 0.8;
+
+        spideyHeroGroup.position.set(
+          spideyTargetPos.x + bankX + mouseX * 1.8,
+          spideyTargetPos.y - 2.8 + bobY,
+          spideyTargetPos.z
+        );
+
+        // Spider-Man faces the camera with dynamic banking
+        spideyHeroGroup.lookAt(camera.position);
+        spideyHeroGroup.rotation.z = Math.sin(elapsed * 2.5) * 0.08 - mouseX * 0.12;
+
+        // Dynamic 3D Web Line connecting wrist to skyscraper roof
+        const webPos = activeWebLine.geometry.attributes.position.array;
+        // Wrist position
+        webPos[0] = spideyHeroGroup.position.x - 0.8;
+        webPos[1] = spideyHeroGroup.position.y + 0.4;
+        webPos[2] = spideyHeroGroup.position.z;
+        // Building anchor point ahead
+        webPos[3] = lookPos.x + Math.sin(elapsed) * 18;
+        webPos[4] = lookPos.y + 14;
+        webPos[5] = lookPos.z - 20;
+        activeWebLine.geometry.attributes.position.needsUpdate = true;
       }
 
-      // Animate Highway Traffic
-      highwayCars.forEach(car => {
-        car.position.z += car.speed;
-        if (car.position.z > 60) car.position.z = -300;
-      });
-
-      // Animate 3D Holograms
-      holoRing1.rotation.z += 0.012;
-      holoRing2.rotation.z -= 0.009;
-      scanLaser.position.y = 8 + Math.sin(elapsed * 2.5) * 6;
-
+      // Rotate decorative 3D comic assets
       botHubGroup.rotation.y += 0.014;
       botInnerCore.rotation.x += 0.02;
-
       torusTunnelGroup.rotation.z += 0.008;
       beacon.rotation.y += 0.016;
-
-      skyRing1.rotation.z += 0.003;
-      skyRing2.rotation.z -= 0.004;
-
-      // Animate embers floating upwards
-      const pos = emberGeo.attributes.position.array;
-      for (let i = 1; i < emberCount * 3; i += 3) {
-        pos[i] += 0.1;
-        if (pos[i] > 60) pos[i] = -30;
-      }
-      emberGeo.attributes.position.needsUpdate = true;
 
       updateStoryOverlays(currentProgress);
 
