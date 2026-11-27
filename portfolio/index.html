@@ -2,35 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MrTG-CodeBot // 3D Spider-Verse Architectural Blueprint</title>
-  <meta name="description" content="Award-Winning 3D Comic Scrollytelling Experience for MrTG-CodeBot - Telegram Bot Architect & Full-Stack Developer." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=JetBrains+Mono:wght@500;700;800&family=Orbitron:wght@800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>MrTG-CodeBot // 3D Architectural WebGL Studio</title>
+  
+  <meta name="description" content="Senior Bot Architect, Automation Engineer & WebGL Creative Developer Portfolio" />
+  <meta name="theme-color" content="#f8fafc" />
+
+  <!-- Google Fonts: Space Grotesk (Display), JetBrains Mono (Technical), Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
     :root {
-      --bg-blueprint: #f2f5fa;
+      --bg-vellum: #f8fafc;
       --paper-white: #ffffff;
-      --ink-black: #0c111d;
-      --ink-dark: #1e293b;
+      --ink-black: #0f172a;
+      --ink-subtle: #475569;
+      --cad-slate: #94a3b8;
       --spidey-red: #e11d48;
-      --spidey-crimson: #9f1239;
-      --spidey-glow: rgba(225, 29, 72, 0.45);
-      --cad-blue: #0284c7;
-      --cad-grid: rgba(148, 163, 184, 0.32);
-      --cad-grid-bold: rgba(100, 116, 139, 0.45);
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --font-comic: 'Bangers', cursive;
-      --font-display: 'Orbitron', monospace;
+      --spidey-crimson: #be123c;
+      --blueprint-blue: #0284c7;
+      --border-ink: rgba(15, 23, 42, 0.16);
+      
+      --font-display: 'Space Grotesk', -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
     }
 
-    * {
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -39,970 +42,942 @@
     html, body {
       width: 100%;
       height: 100%;
-      background-color: var(--bg-blueprint);
-      color: var(--text-main);
-      font-family: var(--font-body);
       overflow: hidden;
+      background-color: var(--bg-vellum);
+      color: var(--ink-black);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      user-select: none;
     }
 
-    /* Architectural Blueprint CAD Grid & Halftone */
-    .blueprint-grid-overlay {
+    /* Architectural Millimeter Drafting Grid */
+    .drafting-grid-bg {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
+      inset: 0;
       pointer-events: none;
-      background-image: 
-        linear-gradient(var(--cad-grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--cad-grid) 1px, transparent 1px),
-        linear-gradient(var(--cad-grid-bold) 1.5px, transparent 1.5px),
-        linear-gradient(90deg, var(--cad-grid-bold) 1.5px, transparent 1.5px);
-      background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
-    }
-
-    .halftone-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 3;
-      pointer-events: none;
-      background-image: radial-gradient(rgba(15, 23, 42, 0.05) 1.5px, transparent 1.5px);
-      background-size: 16px 16px;
-    }
-
-    /* Technical CAD Markings & Registration Crosshairs */
-    .cad-crop-marks {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 4;
-      pointer-events: none;
-    }
-
-    .cad-crosshair {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      color: var(--cad-blue);
-      font-family: var(--font-mono);
-      font-size: 14px;
-      line-height: 20px;
-      text-align: center;
-      opacity: 0.6;
-    }
-
-    .cad-tl { top: 22px; left: 24px; }
-    .cad-tr { top: 22px; right: 24px; }
-    .cad-bl { bottom: 22px; left: 24px; }
-    .cad-br { bottom: 22px; right: 24px; }
-
-    .cad-doc-tag {
-      position: absolute;
-      top: 24px;
-      left: 60px;
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: 2px;
-    }
-
-    /* 3D WebGL Canvas Viewport */
-    #viewport3d {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
       z-index: 1;
+      background-size: 40px 40px, 8px 8px;
+      background-image: 
+        linear-gradient(to right, rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+        linear-gradient(to right, rgba(15, 23, 42, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.015) 1px, transparent 1px);
     }
 
-    #webglCanvas {
+    /* WebGL Canvas */
+    #webgl-canvas-container {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+    }
+    #webgl-canvas {
       width: 100%;
       height: 100%;
       display: block;
     }
 
-    /* Top Comic Navigation Header */
-    header.comic-header {
+    /* Corner CAD Crosshairs */
+    .cad-crosshair {
+      position: fixed;
+      z-index: 20;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--cad-slate);
+      pointer-events: none;
+      line-height: 1;
+    }
+    .cad-tl { top: 16px; left: 16px; }
+    .cad-tr { top: 16px; right: 16px; }
+    .cad-bl { bottom: 16px; left: 16px; }
+    .cad-br { bottom: 16px; right: 16px; }
+
+    /* Custom Reticle Cursor */
+    .custom-cursor {
+      position: fixed;
+      width: 28px;
+      height: 28px;
+      border: 1.5px solid var(--spidey-red);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 999;
+      transform: translate(-50%, -50%);
+      transition: width 0.15s ease, height 0.15s ease, background 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .custom-cursor-dot {
+      width: 4px;
+      height: 4px;
+      background: var(--spidey-red);
+      border-radius: 50%;
+    }
+    body.cursor-hover .custom-cursor {
+      width: 48px;
+      height: 48px;
+      background: rgba(225, 29, 72, 0.08);
+      border-color: var(--ink-black);
+    }
+
+    /* Top Studio Header */
+    header.studio-header {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      z-index: 50;
-      padding: 16px 32px;
+      right: 0;
+      height: 64px;
+      padding: 0 28px;
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(180deg, rgba(242, 245, 250, 0.96) 0%, transparent 100%);
-      pointer-events: auto;
+      z-index: 30;
+      background: rgba(248, 250, 252, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-ink);
     }
 
-    .comic-logo {
+    .brand-cluster {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-family: var(--font-comic);
-      font-size: 1.8rem;
-      letter-spacing: 1.5px;
-      color: var(--ink-black);
-      text-shadow: 2px 2px 0px #fff;
     }
-
-    .comic-logo .spider-icon {
-      color: var(--spidey-red);
-      font-size: 1.8rem;
-      animation: spiderPop 2s infinite ease-in-out;
-    }
-
-    .comic-telemetry {
-      display: flex;
-      gap: 20px;
-      background: #ffffff;
-      border: 2.5px solid var(--ink-black);
-      box-shadow: 4px 4px 0px var(--spidey-red);
-      padding: 8px 18px;
-      border-radius: 8px;
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--ink-black);
-    }
-
-    .comic-controls {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .comic-btn {
-      background: #ffffff;
-      border: 2.5px solid var(--ink-black);
-      box-shadow: 3.5px 3.5px 0px var(--ink-black);
-      color: var(--ink-black);
-      padding: 8px 18px;
-      border-radius: 6px;
-      font-family: var(--font-display);
-      font-size: 0.8rem;
-      font-weight: 900;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .comic-btn:hover {
+    .brand-icon-box {
+      width: 34px;
+      height: 34px;
       background: var(--spidey-red);
-      color: #fff;
-      box-shadow: 5px 5px 0px var(--ink-black);
-      transform: translate(-2px, -2px);
-    }
-
-    /* Sound Effect Floating Popups (THWIP! POW!) */
-    .comic-sound-fx {
-      position: fixed;
-      font-family: var(--font-comic);
-      font-size: 3.2rem;
-      color: var(--spidey-red);
-      text-shadow: 4px 4px 0px var(--ink-black), -1.5px -1.5px 0px var(--ink-black), 1.5px -1.5px 0px var(--ink-black), -1.5px 1.5px 0px var(--ink-black);
-      z-index: 45;
-      pointer-events: none;
-      opacity: 0;
-      transform: scale(0.4) rotate(-16deg);
-      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .comic-sound-fx.show {
-      opacity: 1;
-      transform: scale(1.2) rotate(-8deg);
-    }
-
-    /* Right-Side Blueprint Scrubber */
-    aside.blueprint-scrubber {
-      position: fixed;
-      right: 28px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 50;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      pointer-events: auto;
-    }
-
-    .scrubber-node {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-direction: row-reverse;
-      cursor: pointer;
-    }
-
-    .node-dot {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: #ffffff;
-      border: 2.5px solid var(--ink-black);
-      box-shadow: 2.5px 2.5px 0px var(--ink-black);
-      transition: all 0.25s ease;
-    }
-
-    .node-label {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      font-weight: 800;
-      color: var(--text-muted);
-      opacity: 0;
-      transform: translateX(10px);
-      transition: all 0.25s ease;
-      white-space: nowrap;
-      background: #ffffff;
-      padding: 6px 14px;
-      border-radius: 6px;
-      border: 2.5px solid var(--ink-black);
-      box-shadow: 3.5px 3.5px 0px var(--ink-black);
-    }
-
-    .scrubber-node:hover .node-label {
-      opacity: 1;
-      transform: translateX(0);
-      color: var(--ink-black);
-    }
-
-    .scrubber-node.active .node-dot {
-      background: var(--spidey-red);
-      border-color: var(--ink-black);
-      box-shadow: 3.5px 3.5px 0px var(--ink-black);
-      transform: scale(1.45);
-    }
-
-    .scrubber-node.active .node-label {
-      opacity: 1;
-      transform: translateX(0);
-      color: var(--spidey-red);
-      border-color: var(--ink-black);
-      box-shadow: 3.5px 3.5px 0px var(--spidey-red);
-    }
-
-    /* Bottom Left Mini Flight Radar */
-    .mini-flight-radar {
-      position: fixed;
-      bottom: 24px;
-      left: 28px;
-      z-index: 50;
-      background: #ffffff;
-      border: 2.5px solid var(--ink-black);
-      box-shadow: 4px 4px 0px var(--ink-black);
-      border-radius: 12px;
-      padding: 10px 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: var(--font-mono);
-      pointer-events: auto;
-    }
-
-    .radar-circle {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      border: 1.5px solid var(--cad-blue);
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(2, 132, 199, 0.06);
-    }
-
-    .radar-blip {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--spidey-red);
-      box-shadow: 0 0 6px var(--spidey-red);
-      position: absolute;
-      animation: radarPulse 1.4s infinite ease-in-out;
-    }
-
-    .radar-sweep {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border-top: 2px solid var(--spidey-red);
-      animation: radarSweep 2s infinite linear;
-    }
-
-    .radar-info {
-      font-size: 0.72rem;
-      line-height: 1.4;
-      font-weight: 700;
-    }
-
-    /* Comic Book Story Panels / Blueprint Cards */
-    .story-overlay-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 40;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .comic-card {
-      position: absolute;
-      max-width: 600px;
-      width: 90%;
-      padding: 36px;
-      background: #ffffff;
-      border: 3.5px solid var(--ink-black);
-      box-shadow: 10px 10px 0px var(--ink-black), 16px 16px 0px var(--spidey-red);
-      border-radius: 16px;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(35px) rotate(1deg);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      pointer-events: none;
-    }
-
-    .comic-card.visible {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0) rotate(0deg);
-      pointer-events: auto;
-    }
-
-    .comic-card.left-aligned {
-      left: 6%;
-      right: auto;
-    }
-
-    .comic-card.right-aligned {
-      right: 6%;
-      left: auto;
-    }
-
-    /* Red Drafting Tape & Classification Stamps */
-    .card-tape {
-      position: absolute;
-      top: -14px;
-      left: 36px;
-      width: 96px;
-      height: 26px;
-      background: var(--spidey-red);
-      border: 2px solid var(--ink-black);
-      box-shadow: 2px 2px 0px var(--ink-black);
-      transform: rotate(-3deg);
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: 900;
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      letter-spacing: 1px;
-    }
-
-    .card-stamp {
-      position: absolute;
-      bottom: 24px;
-      right: 28px;
-      border: 2px dashed var(--spidey-red);
-      color: var(--spidey-red);
-      padding: 4px 10px;
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      transform: rotate(-7deg);
-      pointer-events: none;
-    }
-
-    .card-chapter-tag {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: var(--spidey-red);
-      letter-spacing: 1.5px;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .card-chapter-tag .tag-badge {
-      background: var(--ink-black);
-      color: #fff;
-      padding: 3px 8px;
       border-radius: 4px;
-      font-size: 0.72rem;
+      font-size: 0.95rem;
+      box-shadow: 2px 2px 0px var(--ink-black);
     }
-
-    .comic-title {
-      font-family: var(--font-comic);
-      font-size: 2.9rem;
-      line-height: 1.05;
-      letter-spacing: 1px;
-      margin-bottom: 14px;
-      color: var(--ink-black);
-    }
-
-    .comic-title .red-text {
-      color: var(--spidey-red);
-      text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-    }
-
-    .comic-desc {
-      color: var(--text-muted);
-      font-size: 1.04rem;
-      line-height: 1.65;
-      margin-bottom: 22px;
-      font-weight: 600;
-    }
-
-    .comic-badge-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .comic-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      background: #f8fafc;
-      border: 2px solid var(--ink-black);
-      border-radius: 8px;
-      color: var(--ink-black);
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      font-weight: 800;
-      text-decoration: none;
-      box-shadow: 2.5px 2.5px 0px var(--ink-black);
-      transition: all 0.2s ease;
-    }
-
-    .comic-pill:hover {
-      background: var(--spidey-red);
-      color: #ffffff;
-      box-shadow: 4px 4px 0px var(--ink-black);
-      transform: translate(-2px, -2px);
-    }
-
-    .comic-pill img {
-      width: 19px;
-      height: 19px;
-      border-radius: 3px;
-    }
-
-    .comic-btn-row {
-      display: flex;
-      gap: 14px;
-      margin-top: 24px;
-      flex-wrap: wrap;
-    }
-
-    .comic-action-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 13px 26px;
-      background: var(--spidey-red);
-      border: 2.5px solid var(--ink-black);
-      box-shadow: 4px 4px 0px var(--ink-black);
-      color: #ffffff;
+    .brand-title {
       font-family: var(--font-display);
-      font-size: 0.85rem;
-      font-weight: 900;
-      letter-spacing: 1px;
-      text-decoration: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .comic-action-btn:hover {
-      box-shadow: 6px 6px 0px var(--ink-black);
-      transform: translate(-2px, -2px);
-      background: var(--spidey-crimson);
-    }
-
-    .comic-action-btn.secondary {
-      background: #ffffff;
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: -0.2px;
       color: var(--ink-black);
     }
-
-    .comic-action-btn.secondary:hover {
-      background: #f1f5f9;
-      color: var(--spidey-red);
+    .brand-sub {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--ink-subtle);
     }
 
-    /* Bottom Interactive Throttle Control */
-    .comic-throttle-bar {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 50;
+    /* Telemetry HUD Badge */
+    .telemetry-strip {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 18px;
       background: #ffffff;
-      border: 2.5px solid var(--ink-black);
-      box-shadow: 5px 5px 0px var(--ink-black);
-      padding: 12px 26px;
-      border-radius: 40px;
-      pointer-events: auto;
+      border: 1px solid var(--border-ink);
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
     }
-
-    .throttle-tag {
-      font-family: var(--font-comic);
-      font-size: 1.35rem;
-      letter-spacing: 1px;
-      color: var(--spidey-red);
+    .telemetry-item {
       display: flex;
       align-items: center;
       gap: 6px;
     }
-
-    .throttle-slider {
-      width: 220px;
-      accent-color: var(--spidey-red);
-      cursor: pointer;
+    .telemetry-label {
+      color: var(--cad-slate);
+    }
+    .telemetry-val {
+      font-weight: 700;
+      color: var(--ink-black);
+    }
+    .telemetry-val.highlight {
+      color: var(--spidey-red);
     }
 
-    .throttle-arrow-btn {
+    /* Header Action Controls */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .studio-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       background: #ffffff;
-      border: 2px solid var(--ink-black);
+      border: 1px solid var(--border-ink);
+      padding: 7px 14px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
       color: var(--ink-black);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      box-shadow: 2px 2px 0px rgba(15, 23, 42, 0.06);
+    }
+    .studio-btn:hover {
+      background: var(--ink-black);
+      color: #ffffff;
+      border-color: var(--ink-black);
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0px var(--spidey-red);
+    }
+    .studio-btn.active {
+      background: var(--ink-black);
+      color: #ffffff;
+      border-color: var(--ink-black);
+    }
+
+    /* Vertical Sector Scrubber */
+    aside.sector-scrubber {
+      position: fixed;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 25;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .scrubber-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      position: relative;
+    }
+    .scrubber-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #cbd5e1;
+      border: 1.5px solid #fff;
+      box-shadow: 0 0 0 1px var(--border-ink);
+      transition: all 0.2s ease;
+    }
+    .scrubber-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--cad-slate);
+      opacity: 0;
+      transform: translateX(6px);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .scrubber-item:hover .scrubber-label,
+    .scrubber-item.active .scrubber-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .scrubber-item.active .scrubber-dot {
+      background: var(--spidey-red);
+      transform: scale(1.4);
+      box-shadow: 0 0 0 2px var(--ink-black);
+    }
+    .scrubber-item.active .scrubber-label {
+      color: var(--ink-black);
+      font-weight: 700;
+    }
+
+    /* 3D Blueprint Screen-Projected Spec Callouts */
+    .blueprint-specs-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 22;
+      transition: opacity 0.25s ease;
+    }
+    .blueprint-specs-container.hidden {
+      opacity: 0;
+    }
+    .spec-annotation {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid var(--spidey-red);
+      padding: 4px 8px;
+      border-radius: 2px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--ink-black);
+      box-shadow: 2px 2px 0px rgba(225, 29, 72, 0.25);
+      white-space: nowrap;
+      pointer-events: auto;
+      transition: transform 0.08s ease-out;
+    }
+    .spec-annotation::before {
+      content: '';
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: var(--spidey-red);
+      border-radius: 50%;
+    }
+    .spec-left::before {
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .spec-right::before {
+      left: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .spec-tag {
+      background: var(--spidey-red);
+      color: #fff;
+      padding: 1px 4px;
+      border-radius: 2px;
+      font-size: 0.60rem;
+    }
+
+    /* Story Card Viewports */
+    .story-viewport {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 24;
+      display: flex;
+      align-items: center;
+      padding: 0 8vw;
+    }
+    .editorial-card {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1.5px solid var(--ink-black);
+      border-radius: 6px;
+      padding: 34px 32px;
+      box-shadow: 6px 6px 0px var(--spidey-red);
+      backdrop-filter: blur(12px);
+      pointer-events: auto;
+      opacity: 0;
+      transform: translateY(28px) scale(0.97);
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: absolute;
+      pointer-events: none;
+    }
+    .editorial-card.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .editorial-card.pos-left {
+      left: 7vw;
+    }
+    .editorial-card.pos-right {
+      right: 7vw;
+    }
+
+    /* Card Micro Elements */
+    .card-meta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--border-ink);
+    }
+    .card-sector-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.70rem;
+      font-weight: 700;
+      color: var(--spidey-red);
+      letter-spacing: 0.5px;
+    }
+    .card-cad-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--cad-slate);
+    }
+    .card-heading {
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: var(--ink-black);
+      margin-bottom: 14px;
+    }
+    .card-heading .accent-red {
+      color: var(--spidey-red);
+    }
+    .card-body-text {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--ink-subtle);
+      margin-bottom: 22px;
+    }
+
+    /* Badges & Metrics Grid */
+    .metrics-pill-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .metric-pill {
+      background: var(--bg-vellum);
+      border: 1px solid var(--border-ink);
+      padding: 10px 12px;
+      border-radius: 4px;
+    }
+    .metric-num {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink-black);
+    }
+    .metric-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--cad-slate);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Stack Pills Grid */
+    .stack-tags-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .stack-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 1px solid var(--border-ink);
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--ink-black);
+    }
+    .stack-tag i {
+      color: var(--spidey-red);
+      font-size: 0.85rem;
+    }
+
+    /* Card Interactive Action Row */
+    .card-action-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .action-button-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--ink-black);
+      color: #ffffff;
+      border: 1px solid var(--ink-black);
+      padding: 10px 18px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      box-shadow: 3px 3px 0px var(--spidey-red);
+    }
+    .action-button-primary:hover {
+      background: var(--spidey-red);
+      border-color: var(--spidey-red);
+      box-shadow: 3px 3px 0px var(--ink-black);
+      transform: translate(-1px, -1px);
+    }
+    .action-button-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--ink-black);
+      border: 1px solid var(--border-ink);
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .action-button-ghost:hover {
+      background: #ffffff;
+      border-color: var(--ink-black);
+    }
+
+    /* Bottom Scrolly Flight Control Deck */
+    .flight-control-deck {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1.5px solid var(--ink-black);
+      padding: 8px 18px;
+      border-radius: 36px;
+      box-shadow: 4px 4px 0px var(--ink-black);
+      backdrop-filter: blur(8px);
+    }
+    .flight-stepper-btn {
       width: 32px;
       height: 32px;
       border-radius: 50%;
+      background: var(--bg-vellum);
+      border: 1px solid var(--border-ink);
+      color: var(--ink-black);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 0.85rem;
-      box-shadow: 2px 2px 0px var(--ink-black);
-      transition: all 0.2s ease;
+      font-size: 0.75rem;
+      transition: all 0.15s ease;
     }
-
-    .throttle-arrow-btn:hover {
+    .flight-stepper-btn:hover {
       background: var(--spidey-red);
       color: #fff;
-      transform: translate(-1px, -1px);
-      box-shadow: 3px 3px 0px var(--ink-black);
+      border-color: var(--spidey-red);
     }
-
-    .scroll-hint {
+    .flight-slider {
+      width: 160px;
+      -webkit-appearance: none;
+      height: 4px;
+      background: #cbd5e1;
+      border-radius: 2px;
+      outline: none;
+    }
+    .flight-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--spidey-red);
+      border: 2px solid var(--ink-black);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+    .flight-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+    .flight-hint-text {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: var(--text-muted);
+      font-size: 0.70rem;
+      font-weight: 600;
+      color: var(--ink-subtle);
     }
 
-    /* Spider-Man Interactive Click Hint */
-    .spidey-hint-pill {
+    /* Spider-Man Interactive Hint Pill */
+    .hero-hint-pill {
       position: fixed;
-      top: 90px;
+      top: 80px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 50;
+      z-index: 25;
       background: #ffffff;
-      border: 2px solid var(--ink-black);
-      box-shadow: 3px 3px 0px var(--spidey-red);
+      border: 1.5px solid var(--ink-black);
+      padding: 6px 14px;
       border-radius: 20px;
-      padding: 6px 16px;
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      font-weight: 800;
+      font-size: 0.72rem;
+      font-weight: 700;
       color: var(--ink-black);
+      box-shadow: 3px 3px 0px var(--spidey-red);
       display: flex;
       align-items: center;
       gap: 8px;
-      animation: bounceHint 2s infinite ease-in-out;
       pointer-events: none;
+      animation: floatHint 2.4s infinite ease-in-out;
     }
-
-    @keyframes spiderPop {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.15) rotate(5deg); }
-    }
-
-    @keyframes radarPulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.4); opacity: 0.5; }
-    }
-
-    @keyframes radarSweep {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    @keyframes bounceHint {
+    @keyframes floatHint {
       0%, 100% { transform: translate(-50%, 0); }
       50% { transform: translate(-50%, -6px); }
     }
 
+    /* Comic Action Word Popup */
+    .comic-fx-burst {
+      position: fixed;
+      z-index: 998;
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--spidey-red);
+      text-shadow: 2px 2px 0px var(--ink-black), -1px -1px 0px var(--ink-black);
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0) rotate(-10deg);
+      transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 0.2s ease;
+      opacity: 0;
+    }
+    .comic-fx-burst.active {
+      transform: translate(-50%, -50%) scale(1.2) rotate(6deg);
+      opacity: 1;
+    }
+
+    /* Responsive Queries */
     @media (max-width: 860px) {
-      .comic-card {
-        max-width: 92% !important;
-        left: 4% !important;
-        right: 4% !important;
-        padding: 24px;
+      .editorial-card {
+        max-width: 90% !important;
+        left: 5% !important;
+        right: 5% !important;
+        padding: 24px 20px;
       }
-      .comic-title {
-        font-size: 2.2rem;
+      .card-heading {
+        font-size: 1.7rem;
       }
-      .comic-telemetry, .scroll-hint, .mini-flight-radar, .spidey-hint-pill {
-        display: none;
+      .telemetry-strip, .hero-hint-pill, .blueprint-specs-container {
+        display: none !important;
       }
-      aside.blueprint-scrubber {
-        right: 12px;
+      .flight-slider {
+        width: 100px;
       }
-      .node-label {
-        display: none;
-      }
-      .throttle-slider {
-        width: 120px;
+      .scrubber-label {
+        display: none !important;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Blueprint & Comic Grid Overlays -->
-  <div class="blueprint-grid-overlay"></div>
-  <div class="halftone-overlay"></div>
+  <!-- Precision Custom Reticle Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor-dot"></div>
+  </div>
 
   <!-- CAD Crop Marks -->
-  <div class="cad-crop-marks">
-    <div class="cad-crosshair cad-tl">+</div>
-    <div class="cad-crosshair cad-tr">+</div>
-    <div class="cad-crosshair cad-bl">+</div>
-    <div class="cad-crosshair cad-br">+</div>
-    <div class="cad-doc-tag">MRTG-CAD // PROJ-0600 // CEL-SHADED SPIDER-VERSE</div>
+  <div class="cad-crosshair cad-tl">+ 00°00'N 00°00'W</div>
+  <div class="cad-crosshair cad-tr">CAD // ARCH-0600</div>
+  <div class="cad-crosshair cad-bl">GRID: 0.1MM VELLUM</div>
+  <div class="cad-crosshair cad-br">SPIDEY-ENGINE v4.2</div>
+
+  <!-- Drafting Grid Layer -->
+  <div class="drafting-grid-bg"></div>
+
+  <!-- Three.js Canvas Container -->
+  <div id="webgl-canvas-container">
+    <canvas id="webgl-canvas"></canvas>
   </div>
 
-  <!-- 3D WebGL Canvas Viewport -->
-  <div id="viewport3d">
-    <canvas id="webglCanvas"></canvas>
-  </div>
+  <!-- Comic Word FX Burst -->
+  <div class="comic-fx-burst" id="comicFx">BOOM-WEB!</div>
 
-  <!-- Spider-Man Click Interaction Hint -->
-  <div class="spidey-hint-pill">
-    <i class="fa-solid fa-hand-pointer" style="color:var(--spidey-red)"></i>
-    <span>CLICK SPIDER-MAN TO WEB-BLAST!</span>
-  </div>
-
-  <!-- Comic Action Sound FX Callout (THWIP!) -->
-  <div class="comic-sound-fx" id="comicFx">THWIP!</div>
-
-  <!-- Top Header Navigation -->
-  <header class="comic-header">
-    <div class="comic-logo">
-      <i class="fa-solid fa-spider spider-icon"></i>
-      <span>MRTG-CODEBOT</span>
+  <!-- Top Studio Header -->
+  <header class="studio-header">
+    <div class="brand-cluster">
+      <div class="brand-icon-box">
+        <i class="fa-solid fa-spider"></i>
+      </div>
+      <div>
+        <div class="brand-title">MRTG-CODEBOT</div>
+        <div class="brand-sub">BOT ARCHITECT // 3D LAB</div>
+      </div>
     </div>
 
-    <div class="comic-telemetry">
-      <span>SHEET: <span id="sheetTag" style="color:var(--spidey-red)">SPEC-01</span></span>
-      <span>ALT: <span id="altMeter" style="color:var(--ink-black)">240m</span></span>
-      <span>TRAJECTORY: <span id="trackMeter" style="color:var(--spidey-red)">00%</span></span>
+    <!-- Live Flight Telemetry -->
+    <div class="telemetry-strip">
+      <div class="telemetry-item">
+        <span class="telemetry-label">SECTOR:</span>
+        <span class="telemetry-val highlight" id="telemetrySector">SPEC-01</span>
+      </div>
+      <div class="telemetry-item">
+        <span class="telemetry-label">ALT:</span>
+        <span class="telemetry-val" id="telemetryAltitude">184m</span>
+      </div>
+      <div class="telemetry-item">
+        <span class="telemetry-label">TRAJECTORY:</span>
+        <span class="telemetry-val highlight" id="telemetryProgress">00%</span>
+      </div>
     </div>
 
-    <div class="comic-controls">
-      <button class="comic-btn" id="sfxToggle">
-        <i class="fa-solid fa-volume-high" id="sfxIcon"></i>
-        <span id="sfxText">SFX: ON</span>
+    <!-- Action Controls -->
+    <div class="header-actions">
+      <button class="studio-btn" id="specToggleBtn" title="Toggle Blueprint CAD Annotations">
+        <i class="fa-solid fa-compass-drafting" style="color:var(--spidey-red)"></i>
+        <span id="specToggleText">SPECS: ON</span>
       </button>
-      <a href="https://github.com/MrTG-CodeBot" target="_blank" class="comic-btn">
+      <button class="studio-btn" id="audioToggleBtn" title="Toggle Procedural Web Audio FX">
+        <i class="fa-solid fa-volume-high" id="audioIcon"></i>
+        <span id="audioText">SFX: ON</span>
+      </button>
+      <a href="https://github.com/MrTG-CodeBot" target="_blank" class="studio-btn">
         <i class="fa-brands fa-github"></i>
         <span>GITHUB</span>
       </a>
     </div>
   </header>
 
-  <!-- Side Flight Scrubber Navigation -->
-  <aside class="blueprint-scrubber">
-    <div class="scrubber-node active" data-progress="0.0">
-      <div class="node-dot"></div>
-      <div class="node-label">01 // SPIDEY ARCHITECT</div>
+  <!-- Interactive Hero Click Hint -->
+  <div class="hero-hint-pill">
+    <i class="fa-solid fa-hand-pointer" style="color:var(--spidey-red)"></i>
+    <span>CLICK SPIDER-MAN TO FLIP &amp; WEB-BLAST</span>
+  </div>
+
+  <!-- Dynamic Screen-Projected Blueprint Technical Specs -->
+  <div class="blueprint-specs-container" id="blueprintSpecs">
+    <div class="spec-annotation spec-left" id="specAudio">
+      <span class="spec-tag">ACOUSTICS</span>
+      <span>WH-1000XM4 // APEX AUDIO</span>
     </div>
-    <div class="scrubber-node" data-progress="0.25">
-      <div class="node-dot"></div>
-      <div class="node-label">02 // BOT SYSTEMS</div>
+    <div class="spec-annotation spec-right" id="specHoodie">
+      <span class="spec-tag">CHASSIS</span>
+      <span>WHITE TECHNICAL FABRIC HOODIE</span>
     </div>
-    <div class="scrubber-node" data-progress="0.50">
-      <div class="node-dot"></div>
-      <div class="node-label">03 // TECH ARSENAL</div>
+    <div class="spec-annotation spec-left" id="specPack">
+      <span class="spec-tag">PAYLOAD</span>
+      <span>HIGH-PRESSURE WEB RESERVOIR</span>
     </div>
-    <div class="scrubber-node" data-progress="0.75">
-      <div class="node-dot"></div>
-      <div class="node-label">04 // TELEMETRY &amp; STATS</div>
+    <div class="spec-annotation spec-right" id="specShoes">
+      <span class="spec-tag">TRACTION</span>
+      <span>AIR JORDAN 1 RETRO CHICAGO</span>
     </div>
-    <div class="scrubber-node" data-progress="1.0">
-      <div class="node-dot"></div>
-      <div class="node-label">05 // TRANSMISSION GATE</div>
+  </div>
+
+  <!-- Vertical Sector Navigation -->
+  <aside class="sector-scrubber">
+    <div class="scrubber-item active" data-progress="0.0">
+      <div class="scrubber-dot"></div>
+      <div class="scrubber-label">01 // PHILOSOPHY</div>
+    </div>
+    <div class="scrubber-item" data-progress="0.25">
+      <div class="scrubber-dot"></div>
+      <div class="scrubber-label">02 // BOT FLEET</div>
+    </div>
+    <div class="scrubber-item" data-progress="0.50">
+      <div class="scrubber-dot"></div>
+      <div class="scrubber-label">03 // ARSENAL</div>
+    </div>
+    <div class="scrubber-item" data-progress="0.75">
+      <div class="scrubber-dot"></div>
+      <div class="scrubber-label">04 // TELEMETRY</div>
+    </div>
+    <div class="scrubber-item" data-progress="1.0">
+      <div class="scrubber-dot"></div>
+      <div class="scrubber-label">05 // TRANSMISSION</div>
     </div>
   </aside>
 
-  <!-- Bottom Left Mini Flight Radar -->
-  <div class="mini-flight-radar">
-    <div class="radar-circle">
-      <div class="radar-sweep"></div>
-      <div class="radar-blip"></div>
-    </div>
-    <div class="radar-info">
-      <div style="color:var(--spidey-red)">VECTOR-RADAR</div>
-      <div style="color:var(--text-muted)">COORDS: X:24 Y:18</div>
-    </div>
-  </div>
+  <!-- Story Overlay Cards (Editorial & Authentic) -->
+  <div class="story-viewport">
 
-  <!-- Story Overlay Cards (Comic Panels / Technical Blueprint Sheets) -->
-  <div class="story-overlay-container">
-
-    <!-- Chapter 1: Origin -->
-    <div class="comic-card left-aligned visible" id="card0">
-      <div class="card-tape">FIG. 01</div>
-      <div class="card-stamp">AUTHENTICATED</div>
-      <div class="card-chapter-tag">
-        <span class="tag-badge">SPEC-01</span>
-        <span>ARCHITECTURAL ORIGIN // SPIDEY</span>
+    <!-- Card 01: Core Architecture -->
+    <article class="editorial-card pos-left visible" id="card0">
+      <div class="card-meta-bar">
+        <span class="card-sector-badge">
+          <i class="fa-solid fa-cube"></i> SPEC-01 // IDENTITY
+        </span>
+        <span class="card-cad-tag">DRAFT-2026.11</span>
       </div>
-      <h1 class="comic-title">
-        THE HOODED <br/>
-        <span class="red-text">CODE ARCHITECT</span>
-      </h1>
-      <p class="comic-desc">
-        Welcome to the technical blueprint world of <b>MrTG-CodeBot</b>. Watch Spider-Man web-sling through the architectural drafting city as you scroll to explore Telegram bot frameworks and async backend architectures.
+      <h2 class="card-heading">
+        ARCHITECTING <br/>
+        <span class="accent-red">RESILIENT SYSTEMS</span>
+      </h2>
+      <p class="card-body-text">
+        Welcome to the studio of <strong>MrTG-CodeBot</strong>. I engineer high-throughput asynchronous Telegram bot fleets, resilient automation engines, and bespoke 3D WebGL user journeys with zero fluff.
       </p>
-      <div class="comic-btn-row">
-        <button class="comic-action-btn" onclick="flyToWaypoint(0.25)">
-          <span>LAUNCH FLIGHT</span>
+      <div class="metrics-pill-grid">
+        <div class="metric-pill">
+          <div class="metric-num">99.9%</div>
+          <div class="metric-title">Uptime Reliability</div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-num">&lt;85ms</div>
+          <div class="metric-title">Event Loop Latency</div>
+        </div>
+      </div>
+      <div class="card-action-row">
+        <button class="action-button-primary" onclick="window.experience.flight.flyTo(0.25)">
+          <span>EXPLORE BOT FLEET</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
-        <a href="https://t.me/MrTG_Coder" target="_blank" class="comic-action-btn secondary">
-          <i class="fa-brands fa-telegram" style="color: var(--spidey-red);"></i>
-          <span>TELEGRAM</span>
-        </a>
       </div>
-    </div>
+    </article>
 
-    <!-- Chapter 2: Telegram & Bots -->
-    <div class="comic-card right-aligned" id="card1">
-      <div class="card-tape">FIG. 02</div>
-      <div class="card-stamp">MTPROTO SPEC</div>
-      <div class="card-chapter-tag">
-        <span class="tag-badge">SPEC-02</span>
-        <span>TELEGRAM &amp; MTPROTO ENGINES</span>
+    <!-- Card 02: Bot Fleet & Systems -->
+    <article class="editorial-card pos-right" id="card1">
+      <div class="card-meta-bar">
+        <span class="card-sector-badge">
+          <i class="fa-solid fa-network-wired"></i> SPEC-02 // FLEET
+        </span>
+        <span class="card-cad-tag">PRODUCTION DEPLOYMENTS</span>
       </div>
-      <h2 class="comic-title">
-        BOT INFRASTRUCTURE <br/>
-        <span class="red-text">&amp; ASYNC PIPELINES</span>
+      <h2 class="card-heading">
+        AUTONOMOUS <br/>
+        <span class="accent-red">BOT ENGINES</span>
       </h2>
-      <p class="comic-desc">
-        Engineering high-speed, fault-tolerant Telegram bots, raw MTProto automation engines, and webhook ingestion systems for thousands of concurrent users.
+      <p class="card-body-text">
+        Engineered for massive event concurrency. Leveraging modern Python asynchronous paradigms, custom MTProto client filters, rate-limited queueing, and fail-safe database connections.
       </p>
-      <div class="comic-badge-grid">
-        <a href="https://core.telegram.org/bots/api" target="_blank" class="comic-pill">
-          <i class="fa-solid fa-robot" style="color: #0284c7;"></i> Telegram API
-        </a>
-        <a href="https://docs.pyrogram.org" target="_blank" class="comic-pill">
-          <i class="fa-solid fa-fire" style="color: #ea580c;"></i> Pyrogram
-        </a>
-        <a href="https://docs.telethon.dev" target="_blank" class="comic-pill">
-          <i class="fa-solid fa-bolt" style="color: #0284c7;"></i> Telethon
-        </a>
-        <a href="https://docs.aiogram.dev" target="_blank" class="comic-pill">
-          <i class="fa-solid fa-brain" style="color: #e11d48;"></i> aiogram
-        </a>
-        <a href="https://discordpy.readthedocs.io" target="_blank" class="comic-pill">
-          <i class="fa-brands fa-discord" style="color: #5865f2;"></i> Discord.py
-        </a>
-        <a href="https://en.wikipedia.org/wiki/Webhook" target="_blank" class="comic-pill">
-          <i class="fa-solid fa-satellite-dish" style="color: #ea580c;"></i> Webhooks
-        </a>
+      <div class="stack-tags-cloud">
+        <div class="stack-tag"><i class="fa-brands fa-python"></i> Pyrogram / Telethon</div>
+        <div class="stack-tag"><i class="fa-solid fa-bolt"></i> Asyncio Concurrency</div>
+        <div class="stack-tag"><i class="fa-solid fa-layer-group"></i> Message Brokers</div>
+        <div class="stack-tag"><i class="fa-solid fa-shield-halved"></i> Anti-Spam Gateways</div>
       </div>
-      <div class="comic-btn-row">
-        <button class="comic-action-btn secondary" onclick="flyToWaypoint(0.0)">
+      <div class="card-action-row">
+        <button class="action-button-ghost" onclick="window.experience.flight.flyTo(0.0)">
           <i class="fa-solid fa-arrow-left"></i>
-          <span>PREV</span>
+          <span>BACK</span>
         </button>
-        <button class="comic-action-btn" onclick="flyToWaypoint(0.50)">
-          <span>NEXT: TECH MATRIX</span>
+        <button class="action-button-primary" onclick="window.experience.flight.flyTo(0.50)">
+          <span>VIEW ARSENAL</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
-    </div>
+    </article>
 
-    <!-- Chapter 3: Tech Matrix & Languages -->
-    <div class="comic-card left-aligned" id="card2">
-      <div class="card-tape">FIG. 03</div>
-      <div class="card-stamp">POLYGLOT ARSENAL</div>
-      <div class="card-chapter-tag">
-        <span class="tag-badge">SPEC-03</span>
-        <span>FULL-STACK OPERATIONAL ARSENAL</span>
+    <!-- Card 03: Tech Arsenal -->
+    <article class="editorial-card pos-left" id="card2">
+      <div class="card-meta-bar">
+        <span class="card-sector-badge">
+          <i class="fa-solid fa-microchip"></i> SPEC-03 // ARSENAL
+        </span>
+        <span class="card-cad-tag">CORE CAPABILITIES</span>
       </div>
-      <h2 class="comic-title">
-        CODE ARSENAL <br/>
-        <span class="red-text">&amp; DATA STORES</span>
+      <h2 class="card-heading">
+        TECHNICAL <br/>
+        <span class="accent-red">CORE MATRIX</span>
       </h2>
-      <p class="comic-desc">
-        Polyglot engineering tuned for minimal latency, zero memory leaks, and production-grade reliability across cloud microservices.
+      <p class="card-body-text">
+        Battle-tested stack focused on speed, efficiency, and zero bloat across the complete development lifecycle.
       </p>
-      <div class="comic-badge-grid">
-        <a href="https://www.python.org" target="_blank" class="comic-pill">
-          <img src="https://skillicons.dev/icons?i=py&theme=dark" alt="Python" /> Python
-        </a>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="comic-pill">
-          <img src="https://skillicons.dev/icons?i=js&theme=dark" alt="JavaScript" /> JavaScript
-        </a>
-        <a href="https://www.typescriptlang.org" target="_blank" class="comic-pill">
-          <img src="https://skillicons.dev/icons?i=ts&theme=dark" alt="TypeScript" /> TypeScript
-        </a>
-        <a href="https://go.dev" target="_blank" class="comic-pill">
-          <img src="https://skillicons.dev/icons?i=go&theme=dark" alt="Golang" /> Golang
-        </a>
-        <a href="https://fastapi.tiangolo.com" target="_blank" class="comic-pill">
-          <img src="https://skillicons.dev/icons?i=fastapi&theme=dark" alt="FastAPI" /> FastAPI
-        </a>
-        <a href="https://nodejs.org" target="_blank" class="comic-pill">
-          <img src="https://skillicons.dev/icons?i=nodejs&theme=dark" alt="Node.js" /> Node.js
-        </a>
-        <a href="https://www.mongodb.com" target="_blank" class="comic-pill">
-          <img src="https://skillicons.dev/icons?i=mongodb&theme=dark" alt="MongoDB" /> MongoDB
-        </a>
-        <a href="https://www.postgresql.org" target="_blank" class="comic-pill">
-          <img src="https://skillicons.dev/icons?i=postgres&theme=dark" alt="PostgreSQL" /> PostgreSQL
-        </a>
-        <a href="https://www.docker.com" target="_blank" class="comic-pill">
-          <img src="https://skillicons.dev/icons?i=docker&theme=dark" alt="Docker" /> Docker
-        </a>
+      <div class="stack-tags-cloud">
+        <div class="stack-tag"><i class="fa-brands fa-python"></i> Python 3.12+</div>
+        <div class="stack-tag"><i class="fa-brands fa-js"></i> TypeScript / ES6+</div>
+        <div class="stack-tag"><i class="fa-solid fa-cube"></i> Three.js / WebGL</div>
+        <div class="stack-tag"><i class="fa-brands fa-docker"></i> Dockerized Deploy</div>
+        <div class="stack-tag"><i class="fa-brands fa-react"></i> React UI</div>
+        <div class="stack-tag"><i class="fa-solid fa-database"></i> PostgreSQL / SQLite</div>
+        <div class="stack-tag"><i class="fa-brands fa-git-alt"></i> Git Workflow</div>
       </div>
-      <div class="comic-btn-row">
-        <button class="comic-action-btn secondary" onclick="flyToWaypoint(0.25)">
+      <div class="card-action-row">
+        <button class="action-button-ghost" onclick="window.experience.flight.flyTo(0.25)">
           <i class="fa-solid fa-arrow-left"></i>
-          <span>PREV</span>
+          <span>BACK</span>
         </button>
-        <button class="comic-action-btn" onclick="flyToWaypoint(0.75)">
-          <span>NEXT: TELEMETRY</span>
+        <button class="action-button-primary" onclick="window.experience.flight.flyTo(0.75)">
+          <span>SEE TELEMETRY</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
-    </div>
+    </article>
 
-    <!-- Chapter 4: Telemetry & GitHub Activity -->
-    <div class="comic-card right-aligned" id="card3">
-      <div class="card-tape">FIG. 04</div>
-      <div class="card-stamp">METRICS VERIFIED</div>
-      <div class="card-chapter-tag">
-        <span class="tag-badge">SPEC-04</span>
-        <span>TELEMETRY &amp; GITHUB METRICS</span>
+    <!-- Card 04: Velocity & Stats -->
+    <article class="editorial-card pos-right" id="card3">
+      <div class="card-meta-bar">
+        <span class="card-sector-badge">
+          <i class="fa-solid fa-chart-line"></i> SPEC-04 // VELOCITY
+        </span>
+        <span class="card-cad-tag">GITSHINE TELEMETRY</span>
       </div>
-      <h2 class="comic-title">
-        ACTIVITY TELEMETRY <br/>
-        <span class="red-text">&amp; CONTRIBUTIONS</span>
+      <h2 class="card-heading">
+        SYSTEM VELOCITY <br/>
+        <span class="accent-red">&amp; TELEMETRY</span>
       </h2>
-      <p class="comic-desc">
-        Real-time telemetry, commit milestones, and bot repositories tracked across GitHub.
+      <p class="card-body-text">
+        Every commit strictly follows the Single Responsibility Principle, zero technical debt, modular boundaries, and clean Git histories.
       </p>
-      <div style="margin: 14px 0;">
-        <a href="https://gitshine.com/stats/MrTG-CodeBot" target="_blank">
-          <img src="https://gitshine.com/card/MrTG-CodeBot?theme=dark" alt="GitShine Stats" style="max-width: 100%; border-radius: 8px; border: 2.5px solid var(--ink-black); box-shadow: 5px 5px 0px var(--spidey-red);" />
-        </a>
+      <div class="metrics-pill-grid">
+        <div class="metric-pill">
+          <div class="metric-num">100%</div>
+          <div class="metric-title">Clean Commits</div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-num">0 ms</div>
+          <div class="metric-title">Blocking Overhead</div>
+        </div>
       </div>
-      <div class="comic-btn-row">
-        <button class="comic-action-btn secondary" onclick="flyToWaypoint(0.50)">
+      <div class="card-action-row">
+        <button class="action-button-ghost" onclick="window.experience.flight.flyTo(0.50)">
           <i class="fa-solid fa-arrow-left"></i>
-          <span>PREV</span>
+          <span>BACK</span>
         </button>
-        <button class="comic-action-btn" onclick="flyToWaypoint(1.0)">
-          <span>NEXT: TRANSMISSION</span>
+        <button class="action-button-primary" onclick="window.experience.flight.flyTo(1.0)">
+          <span>TRANSMIT SIGNAL</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
-    </div>
+    </article>
 
-    <!-- Chapter 5: Transmission & Contact -->
-    <div class="comic-card left-aligned" id="card4">
-      <div class="card-tape">FIG. 05</div>
-      <div class="card-stamp">READY TO TRANSMIT</div>
-      <div class="card-chapter-tag">
-        <span class="tag-badge">SPEC-05</span>
-        <span>ENCRYPTED TRANSMISSION APEX</span>
+    <!-- Card 05: Direct Transmission -->
+    <article class="editorial-card pos-left" id="card4">
+      <div class="card-meta-bar">
+        <span class="card-sector-badge">
+          <i class="fa-solid fa-satellite-dish"></i> SPEC-05 // TRANSMIT
+        </span>
+        <span class="card-cad-tag">DIRECT CHANNEL</span>
       </div>
-      <h2 class="comic-title">
-        CONNECT WITH <br/>
-        <span class="red-text">MRTG-CODEBOT</span>
+      <h2 class="card-heading">
+        ESTABLISH <br/>
+        <span class="accent-red">DIRECT CONTACT</span>
       </h2>
-      <p class="comic-desc">
-        Ready to collaborate on Telegram bots, automation systems, or custom backend services? Establish contact:
+      <p class="card-body-text">
+        Ready to engineer automated backend systems, intelligent Telegram bot ecosystems, or creative 3D web experiences? Connect directly:
       </p>
-      <div class="comic-badge-grid">
-        <a href="https://t.me/MrTG_Coder" target="_blank" class="comic-pill" style="border-color: var(--spidey-red); background: #fff;">
-          <i class="fa-brands fa-telegram" style="color: var(--spidey-red); font-size: 1.1rem;"></i> Telegram // @MrTG_Coder
+      <div class="stack-tags-cloud" style="margin-bottom: 24px;">
+        <a href="https://t.me/MrTG_Coder" target="_blank" class="stack-tag" style="border-color: var(--spidey-red); text-decoration: none;">
+          <i class="fa-brands fa-telegram" style="color:var(--spidey-red);"></i> Telegram // @MrTG_Coder
         </a>
-        <a href="https://discordapp.com/users/mr_.orion" target="_blank" class="comic-pill" style="border-color: #5865f2; background: #fff;">
-          <i class="fa-brands fa-discord" style="color: #5865f2; font-size: 1.1rem;"></i> Discord // mr_.orion
+        <a href="https://discordapp.com/users/mr_.orion" target="_blank" class="stack-tag" style="border-color: #5865f2; text-decoration: none;">
+          <i class="fa-brands fa-discord" style="color:#5865f2;"></i> Discord // mr_.orion
         </a>
-        <a href="mailto:amalnath0600@gmail.com" target="_blank" class="comic-pill">
-          <i class="fa-solid fa-envelope" style="color: var(--spidey-red);"></i> Email // amalnath0600@gmail.com
+        <a href="mailto:amalnath0600@gmail.com" target="_blank" class="stack-tag" style="text-decoration: none;">
+          <i class="fa-solid fa-envelope" style="color:var(--spidey-red);"></i> amalnath0600@gmail.com
         </a>
       </div>
-      <div class="comic-btn-row">
-        <button class="comic-action-btn" onclick="flyToWaypoint(0.0)">
+      <div class="card-action-row">
+        <button class="action-button-primary" onclick="window.experience.flight.flyTo(0.0)">
           <i class="fa-solid fa-rotate-left"></i>
-          <span>REPLAY FLIGHT</span>
+          <span>REPLAY EXPERIENCE</span>
         </button>
       </div>
-    </div>
+    </article>
 
   </div>
 
-  <!-- Bottom Interactive Throttle Control -->
-  <div class="comic-throttle-bar">
-    <button class="throttle-arrow-btn" onclick="stepWaypoint(-1)" title="Previous Sector">
+  <!-- Bottom Flight Scrubber Control Deck -->
+  <div class="flight-control-deck">
+    <button class="flight-stepper-btn" onclick="window.experience.flight.step(-1)" title="Previous Sector">
       <i class="fa-solid fa-chevron-left"></i>
     </button>
-    <div class="throttle-tag">
-      <i class="fa-solid fa-spider"></i>
-      <span>SWING:</span>
-    </div>
-    <input type="range" class="throttle-slider" id="throttleSlider" min="0" max="100" value="0" />
-    <button class="throttle-arrow-btn" onclick="stepWaypoint(1)" title="Next Sector">
+    <span class="flight-hint-text">SECTOR FLIGHT:</span>
+    <input type="range" class="flight-slider" id="flightSlider" min="0" max="100" value="0" />
+    <button class="flight-stepper-btn" onclick="window.experience.flight.step(1)" title="Next Sector">
       <i class="fa-solid fa-chevron-right"></i>
     </button>
-    <span class="scroll-hint">[ SCROLL OR SLIDE TO FLY SPIDER-MAN ]</span>
+    <span class="flight-hint-text" style="color:var(--cad-slate);">[ SCROLL TO FLY ]</span>
   </div>
 
-  <!-- Embedded Local Avatar Data -->
+  <!-- Embedded Zero-CORS Avatar Data -->
   <script src="assets/avatar-data.js"></script>
 
-  <!-- Three.js CDN & GLTF 3D Model Loader -->
+  <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
+  <!-- Senior 3D Architecture Script -->
   <script>
-    /* ==========================================================
-       1. SYNTHESIZED COMIC SOUND FX (THWIP! & CHIMES)
-       ========================================================== */
-    class ComicAudioEngine {
+    /* =========================================================================
+       1. SYNTHESIZED WEB AUDIO ENGINE (Procedural, 0 Dependencies, 100% Offline)
+       ========================================================================= */
+    class AudioEngine {
       constructor() {
         this.ctx = null;
         this.enabled = true;
@@ -1012,40 +987,41 @@
           const AudioContext = window.AudioContext || window.webkitAudioContext;
           if (AudioContext) this.ctx = new AudioContext();
         }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
       }
       playThwip() {
         if (!this.enabled || !this.ctx) return;
         try {
-          // Web-slinging "THWIP!" whip sound
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(1600, this.ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(240, this.ctx.currentTime + 0.15);
-
-          gain.gain.setValueAtTime(0.09, this.ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.15);
-
+          const now = this.ctx.currentTime;
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1400, now);
+          osc.frequency.exponentialRampToValueAtTime(160, now + 0.16);
+          gain.gain.setValueAtTime(0.18, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
           osc.start();
-          osc.stop(this.ctx.currentTime + 0.15);
+          osc.stop(now + 0.16);
         } catch(e) {}
       }
-      playChime(freq = 560) {
+      playChime(freq = 640) {
         if (!this.enabled || !this.ctx) return;
         try {
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
+          const now = this.ctx.currentTime;
           osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(freq * 1.6, this.ctx.currentTime + 0.12);
-          gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.12);
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
           osc.start();
-          osc.stop(this.ctx.currentTime + 0.12);
+          osc.stop(now + 0.32);
         } catch(e) {}
       }
       playWebBlast() {
@@ -1053,15 +1029,16 @@
         try {
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
-          osc.type = 'square';
-          osc.frequency.setValueAtTime(800, this.ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(120, this.ctx.currentTime + 0.22);
-          gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.22);
+          const now = this.ctx.currentTime;
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(600, now);
+          osc.frequency.exponentialRampToValueAtTime(90, now + 0.28);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
           osc.start();
-          osc.stop(this.ctx.currentTime + 0.22);
+          osc.stop(now + 0.28);
         } catch(e) {}
       }
       toggle() {
@@ -1070,541 +1047,644 @@
       }
     }
 
-    const sfx = new ComicAudioEngine();
-    const sfxToggle = document.getElementById('sfxToggle');
-    const sfxIcon = document.getElementById('sfxIcon');
-    const sfxText = document.getElementById('sfxText');
-    const comicFx = document.getElementById('comicFx');
+    /* =========================================================================
+       2. INPUT CONTROLLER (Mouse Parallax, Inertial Scrollytelling, Keyboard)
+       ========================================================================= */
+    class InputController {
+      constructor(experience) {
+        this.exp = experience;
+        this.mouse = { x: 0, y: 0, normX: 0, normY: 0 };
+        this.targetProgress = 0;
+        this.currentProgress = 0;
+        this.lastThwipProg = 0;
+        this.touchStartY = 0;
 
-    sfxToggle.addEventListener('click', () => {
-      sfx.init();
-      const on = sfx.toggle();
-      sfxIcon.className = on ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
-      sfxText.textContent = on ? 'SFX: ON' : 'SFX: OFF';
-      if (on) sfx.playThwip();
-    });
-
-    function triggerComicFx(word, x, y) {
-      comicFx.textContent = word;
-      comicFx.style.left = `${x || (window.innerWidth / 2 - 60)}px`;
-      comicFx.style.top = `${y || (window.innerHeight / 2 - 80)}px`;
-      comicFx.classList.add('show');
-      setTimeout(() => comicFx.classList.remove('show'), 700);
-    }
-
-    /* ==========================================================
-       2. THREE.JS ARCHITECTURAL BLUEPRINT 3D WORLD
-       ========================================================== */
-    const canvas = document.getElementById('webglCanvas');
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0xf2f5fa, 1);
-
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0xf2f5fa, 0.012);
-
-    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-    // 3D Flight Camera Curve Path
-    const curvePoints = [
-      new THREE.Vector3(0, 8, 40),
-      new THREE.Vector3(14, 16, 8),
-      new THREE.Vector3(26, 4, -28),
-      new THREE.Vector3(0, -4, -68),
-      new THREE.Vector3(-24, 8, -108),
-      new THREE.Vector3(-10, 18, -148),
-      new THREE.Vector3(18, 4, -188),
-      new THREE.Vector3(0, 24, -228),
-      new THREE.Vector3(0, 6, -268)
-    ];
-
-    const flightCurve = new THREE.CatmullRomCurve3(curvePoints);
-
-    const lookTargetPoints = curvePoints.map((pt, i) => {
-      const next = curvePoints[Math.min(i + 1, curvePoints.length - 1)];
-      return new THREE.Vector3(
-        (pt.x + next.x) * 0.5,
-        (pt.y + next.y) * 0.5 - 1.2,
-        (pt.z + next.z) * 0.5 - 16
-      );
-    });
-    const lookCurve = new THREE.CatmullRomCurve3(lookTargetPoints);
-
-    // Architectural Line-Art Drafting Skyscrapers (Cel-Shaded)
-    const cityGroup = new THREE.Group();
-    scene.add(cityGroup);
-
-    const towerGeo = new THREE.BoxGeometry(1, 1, 1);
-    const towerMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    const inkWireframeMat = new THREE.MeshBasicMaterial({ color: 0x1e293b, wireframe: true });
-    const redAccentWireMat = new THREE.MeshBasicMaterial({ color: 0xe11d48, wireframe: true });
-
-    // Populate 100 Architectural Sketch Skyscrapers
-    for (let i = 0; i < 100; i++) {
-      const isRedAccent = Math.random() < 0.25;
-      
-      const bMesh = new THREE.Mesh(towerGeo, towerMat);
-      const side = Math.random() < 0.5 ? -1 : 1;
-      const x = side * (20 + Math.random() * 65);
-      const z = (Math.random() - 0.5) * 380 - 110;
-      const h = 28 + Math.random() * 90;
-      const w = 14 + Math.random() * 20;
-
-      bMesh.scale.set(w, h, w);
-      bMesh.position.set(x, h * 0.5 - 28, z);
-      cityGroup.add(bMesh);
-
-      const outlineMesh = new THREE.Mesh(towerGeo, isRedAccent ? redAccentWireMat : inkWireframeMat);
-      outlineMesh.scale.set(w * 1.002, h * 1.002, w * 1.002);
-      outlineMesh.position.set(x, h * 0.5 - 28, z);
-      cityGroup.add(outlineMesh);
-
-      if (h > 60) {
-        const needleGeo = new THREE.CylinderGeometry(0.2, 0.4, 16, 6);
-        const needleMat = new THREE.MeshBasicMaterial({ color: isRedAccent ? 0xe11d48 : 0x0f172a });
-        const needle = new THREE.Mesh(needleGeo, needleMat);
-        needle.position.set(x, h - 28 + 8, z);
-        cityGroup.add(needle);
+        this.initEvents();
       }
-    }
 
-    // Ground Drafting Blueprint Grid (Ink & Red Grid)
-    const gridHelper = new THREE.GridHelper(600, 75, 0xe11d48, 0x94a3b8);
-    gridHelper.position.y = -27.8;
-    scene.add(gridHelper);
+      initEvents() {
+        // Cursor Parallax & Reticle Follower
+        const cursorEl = document.getElementById('customCursor');
+        window.addEventListener('mousemove', (e) => {
+          this.mouse.x = e.clientX;
+          this.mouse.y = e.clientY;
+          this.mouse.normX = (e.clientX / window.innerWidth - 0.5) * 2;
+          this.mouse.normY = -(e.clientY / window.innerHeight - 0.5) * 2;
 
-    // Floating 3D CAD Blueprint Compass in Sky
-    const cadCompassGroup = new THREE.Group();
-    cadCompassGroup.position.set(0, 48, -180);
-    scene.add(cadCompassGroup);
-
-    const compassRing1 = new THREE.Mesh(
-      new THREE.RingGeometry(20, 21.2, 64),
-      new THREE.MeshBasicMaterial({ color: 0x0284c7, side: THREE.DoubleSide, transparent: true, opacity: 0.6 })
-    );
-    const compassRing2 = new THREE.Mesh(
-      new THREE.RingGeometry(24, 24.8, 12),
-      new THREE.MeshBasicMaterial({ color: 0xe11d48, side: THREE.DoubleSide, transparent: true, opacity: 0.5 })
-    );
-    cadCompassGroup.add(compassRing1);
-    cadCompassGroup.add(compassRing2);
-
-    /* ==========================================================
-       3. MOVING 3D SPIDER-MAN CHARACTER & DUAL-WEB PHYSICS
-       ========================================================== */
-    const spideyHeroGroup = new THREE.Group();
-    scene.add(spideyHeroGroup);
-
-    const textureLoader = new THREE.TextureLoader();
-    const spideyCutoutSrc = (window.SPIDEY_CUTOUT_B64 && window.SPIDEY_CUTOUT_B64.length > 50)
-      ? window.SPIDEY_CUTOUT_B64
-      : 'portfolio/assets/spidey-cutout.png';
-
-    const spideyTex = textureLoader.load(spideyCutoutSrc);
-    const spideyGeo = new THREE.PlaneGeometry(8, 17);
-    const spideyMat = new THREE.MeshBasicMaterial({
-      map: spideyTex,
-      transparent: true,
-      alphaTest: 0.05,
-      side: THREE.DoubleSide
-    });
-    const spideyMesh = new THREE.Mesh(spideyGeo, spideyMat);
-    spideyHeroGroup.add(spideyMesh);
-
-    // True 3D GLTF Model Loader for Miles Morales
-    const gltfLoader = new THREE.GLTFLoader();
-    let mixer = null;
-    let miles3DMesh = null;
-
-    function tryLoad3DModel(path) {
-      gltfLoader.load(
-        path,
-        (gltf) => {
-          miles3DMesh = gltf.scene;
-          miles3DMesh.scale.set(4.5, 4.5, 4.5);
-          miles3DMesh.position.set(0, -4.5, 0);
-
-          miles3DMesh.traverse((child) => {
-            if (child.isMesh) {
-              child.material.roughness = 0.85;
-            }
-          });
-
-          spideyHeroGroup.remove(spideyMesh);
-          spideyHeroGroup.add(miles3DMesh);
-
-          if (gltf.animations && gltf.animations.length > 0) {
-            mixer = new THREE.AnimationMixer(miles3DMesh);
-            const action = mixer.clipAction(gltf.animations[0]);
-            action.play();
+          if (cursorEl) {
+            cursorEl.style.left = `${e.clientX}px`;
+            cursorEl.style.top = `${e.clientY}px`;
           }
-          console.log('✅ True 3D Miles Morales Model Loaded Successfully from', path);
-        },
-        undefined,
-        (err) => {
-          console.log('ℹ️ 3D model not yet at', path, '- using comic cutout fallback.');
+        });
+
+        // Hover cursor expansion
+        document.querySelectorAll('a, button, .scrubber-item, input').forEach((el) => {
+          el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+          el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+
+        // Wheel Flight
+        window.addEventListener('wheel', (e) => {
+          this.exp.audio.init();
+          this.targetProgress = this.clamp(this.targetProgress + e.deltaY * 0.00065);
+          this.syncSlider();
+          this.checkAudioTrigger();
+        }, { passive: true });
+
+        // Touch Navigation
+        window.addEventListener('touchstart', (e) => {
+          this.exp.audio.init();
+          if (e.touches.length > 0) this.touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+          if (e.touches.length > 0) {
+            const delta = this.touchStartY - e.touches[0].clientY;
+            this.touchStartY = e.touches[0].clientY;
+            this.targetProgress = this.clamp(this.targetProgress + delta * 0.0018);
+            this.syncSlider();
+            this.checkAudioTrigger();
+          }
+        }, { passive: true });
+
+        // Keyboard Controls
+        window.addEventListener('keydown', (e) => {
+          this.exp.audio.init();
+          if (['ArrowDown', 'PageDown', ' ', 'ArrowRight', 's', 'd'].includes(e.key.toLowerCase())) {
+            this.targetProgress = this.clamp(this.targetProgress + 0.08);
+            this.syncSlider();
+            this.exp.audio.playThwip();
+            this.exp.triggerBurst('SWOOSH!');
+          } else if (['ArrowUp', 'PageUp', 'ArrowLeft', 'w', 'a'].includes(e.key.toLowerCase())) {
+            this.targetProgress = this.clamp(this.targetProgress - 0.08);
+            this.syncSlider();
+          }
+        });
+
+        // Slider scrubbing
+        const slider = document.getElementById('flightSlider');
+        if (slider) {
+          slider.addEventListener('input', (e) => {
+            this.exp.audio.init();
+            this.targetProgress = this.clamp(parseFloat(e.target.value) / 100);
+          });
         }
-      );
-    }
-
-    tryLoad3DModel('miles-morales-across-the-spider-verse/source/MilesMoralesAcrossTheSpiderVerse.glb');
-    tryLoad3DModel('assets/miles-morales.glb');
-
-    // Cartoon Red Halftone Aura Circle
-    const auraGeo = new THREE.CircleGeometry(8.5, 48);
-    const auraMat = new THREE.MeshBasicMaterial({
-      color: 0xe11d48,
-      transparent: true,
-      opacity: 0.22,
-      side: THREE.DoubleSide
-    });
-    const auraMesh = new THREE.Mesh(auraGeo, auraMat);
-    auraMesh.position.set(0, 0, -0.2);
-    spideyHeroGroup.add(auraMesh);
-
-    // Dual 3D Web Lines (Left & Right Hands)
-    const leftWebGeo = new THREE.BufferGeometry();
-    const leftWebPos = new Float32Array(6);
-    leftWebGeo.setAttribute('position', new THREE.BufferAttribute(leftWebPos, 3));
-    const leftWebMat = new THREE.LineBasicMaterial({ color: 0xe11d48, linewidth: 3, transparent: true, opacity: 0.85 });
-    const leftWebLine = new THREE.Line(leftWebGeo, leftWebMat);
-    scene.add(leftWebLine);
-
-    const rightWebGeo = new THREE.BufferGeometry();
-    const rightWebPos = new Float32Array(6);
-    rightWebGeo.setAttribute('position', new THREE.BufferAttribute(rightWebPos, 3));
-    const rightWebMat = new THREE.LineBasicMaterial({ color: 0x0284c7, linewidth: 3, transparent: true, opacity: 0.75 });
-    const rightWebLine = new THREE.Line(rightWebGeo, rightWebMat);
-    scene.add(rightWebLine);
-
-    // Comic Speed Lines (3D Radial Ink Streaks)
-    const speedLineCount = 30;
-    const speedLineGroup = new THREE.Group();
-    scene.add(speedLineGroup);
-
-    const slMat = new THREE.LineBasicMaterial({ color: 0x0f172a, transparent: true, opacity: 0.25 });
-    const speedLines = [];
-
-    for (let i = 0; i < speedLineCount; i++) {
-      const slGeo = new THREE.BufferGeometry();
-      const zLen = 8 + Math.random() * 14;
-      const pts = new Float32Array([0, 0, 0, 0, 0, -zLen]);
-      slGeo.setAttribute('position', new THREE.BufferAttribute(pts, 3));
-      const slMesh = new THREE.Line(slGeo, slMat);
-      speedLineGroup.add(slMesh);
-      speedLines.push({
-        mesh: slMesh,
-        radius: 12 + Math.random() * 20,
-        angle: Math.random() * Math.PI * 2,
-        speed: 1.5 + Math.random() * 2
-      });
-    }
-
-    // Waypoint 1: Floating 3D Bot Hub Cel-Shaded Reactor
-    const botHubGroup = new THREE.Group();
-    botHubGroup.position.set(26, 4, -28);
-    scene.add(botHubGroup);
-
-    const botCoreGeo = new THREE.IcosahedronGeometry(5, 1);
-    const botCoreMat = new THREE.MeshBasicMaterial({ color: 0x0284c7, wireframe: true });
-    const botCore = new THREE.Mesh(botCoreGeo, botCoreMat);
-    botHubGroup.add(botCore);
-
-    const botInnerCore = new THREE.Mesh(new THREE.OctahedronGeometry(2.8, 0), new THREE.MeshBasicMaterial({ color: 0xe11d48, wireframe: true }));
-    botHubGroup.add(botInnerCore);
-
-    // Waypoint 2: Floating 3D Code Torus Matrix
-    const torusTunnelGroup = new THREE.Group();
-    torusTunnelGroup.position.set(-24, 7, -108);
-    scene.add(torusTunnelGroup);
-
-    const torusGeo = new THREE.TorusGeometry(8.5, 0.45, 16, 48);
-    const torusMat = new THREE.MeshBasicMaterial({ color: 0xe11d48, wireframe: true });
-    for (let k = 0; k < 5; k++) {
-      const ringT = new THREE.Mesh(torusGeo, torusMat);
-      ringT.position.z = (k - 2) * 9;
-      torusTunnelGroup.add(ringT);
-    }
-
-    // Waypoint 4: Apex Transmission Gateway Beacon
-    const beaconGeo = new THREE.CylinderGeometry(0.3, 5, 50, 16);
-    const beaconMat = new THREE.MeshBasicMaterial({ color: 0xe11d48, wireframe: true });
-    const beacon = new THREE.Mesh(beaconGeo, beaconMat);
-    beacon.position.set(0, 18, -268);
-    scene.add(beacon);
-
-    /* ==========================================================
-       4. INTERACTIVE FLIGHT & SPIDER-MAN ACROBATICS ON CLICK
-       ========================================================== */
-    let targetProgress = 0;
-    let currentProgress = 0;
-    let lastThwipProgress = 0;
-
-    let spideySpin = 0;
-    let isSpinning = false;
-
-    let mouseX = 0, mouseY = 0;
-    window.addEventListener('mousemove', (e) => {
-      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouseY = -(e.clientY / window.innerHeight - 0.5) * 2;
-    });
-
-    // Raycaster to detect click directly on Spider-Man!
-    const raycaster = new THREE.Raycaster();
-    const mouseVec = new THREE.Vector2();
-
-    window.addEventListener('click', (e) => {
-      if (e.target.closest('header, aside, .comic-card, .comic-throttle-bar')) return;
-      mouseVec.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseVec.y = -(e.clientY / window.innerHeight) * 2 + 1;
-      raycaster.setFromCamera(mouseVec, camera);
-
-      const intersects = raycaster.intersectObject(spideyMesh);
-      if (intersects.length > 0 || Math.hypot(e.clientX - window.innerWidth/2, e.clientY - window.innerHeight/2) < 180) {
-        // Trigger Spider-Man Acrobatics!
-        sfx.init();
-        sfx.playWebBlast();
-        triggerComicFx('BOOM-WEB!', e.clientX, e.clientY);
-        isSpinning = true;
       }
-    });
 
-    const throttleSlider = document.getElementById('throttleSlider');
-    const altMeter = document.getElementById('altMeter');
-    const trackMeter = document.getElementById('trackMeter');
-    const sheetTag = document.getElementById('sheetTag');
-
-    function clamp(val, min = 0, max = 1) {
-      if (isNaN(val)) return min;
-      return Math.min(Math.max(val, min), max);
-    }
-
-    // Mouse Wheel
-    window.addEventListener('wheel', (e) => {
-      sfx.init();
-      targetProgress = clamp(targetProgress + e.deltaY * 0.0006);
-      throttleSlider.value = Math.round(targetProgress * 100);
-
-      if (Math.abs(targetProgress - lastThwipProgress) > 0.08) {
-        sfx.playThwip();
-        triggerComicFx('THWIP!', window.innerWidth / 2 + (Math.random() - 0.5) * 180, window.innerHeight / 2 - 80);
-        lastThwipProgress = targetProgress;
-      }
-    }, { passive: true });
-
-    // Touch Swipe
-    let touchStartY = 0;
-    window.addEventListener('touchstart', (e) => {
-      sfx.init();
-      if (e.touches.length > 0) touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    window.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) {
-        const delta = touchStartY - e.touches[0].clientY;
-        touchStartY = e.touches[0].clientY;
-        targetProgress = clamp(targetProgress + delta * 0.0018);
-        throttleSlider.value = Math.round(targetProgress * 100);
-      }
-    }, { passive: true });
-
-    // Keyboard
-    window.addEventListener('keydown', (e) => {
-      sfx.init();
-      if (['ArrowDown', 'PageDown', ' ', 'ArrowRight'].includes(e.key)) {
-        targetProgress = clamp(targetProgress + 0.08);
-        throttleSlider.value = Math.round(targetProgress * 100);
-        sfx.playThwip();
-        triggerComicFx('SWOOSH!');
-      } else if (['ArrowUp', 'PageUp', 'ArrowLeft'].includes(e.key)) {
-        targetProgress = clamp(targetProgress - 0.08);
-        throttleSlider.value = Math.round(targetProgress * 100);
-      }
-    });
-
-    // Slider
-    throttleSlider.addEventListener('input', (e) => {
-      sfx.init();
-      targetProgress = clamp(parseFloat(e.target.value) / 100);
-    });
-
-    // Waypoints
-    const waypoints = [0.0, 0.25, 0.50, 0.75, 1.0];
-    const sheetNames = ["SPEC-01", "SPEC-02", "SPEC-03", "SPEC-04", "SPEC-05"];
-
-    window.flyToWaypoint = function(p) {
-      sfx.init();
-      sfx.playThwip();
-      triggerComicFx('THWIP!');
-      targetProgress = clamp(p);
-      throttleSlider.value = Math.round(targetProgress * 100);
-    };
-
-    window.stepWaypoint = function(dir) {
-      sfx.init();
-      let closestIdx = 0;
-      let minDiff = 999;
-      waypoints.forEach((w, i) => {
-        const diff = Math.abs(currentProgress - w);
-        if (diff < minDiff) { minDiff = diff; closestIdx = i; }
-      });
-      const nextIdx = clamp(closestIdx + dir, 0, waypoints.length - 1);
-      flyToWaypoint(waypoints[nextIdx]);
-    };
-
-    const scrubberNodes = document.querySelectorAll('.scrubber-node');
-    scrubberNodes.forEach(node => {
-      node.addEventListener('click', () => {
-        flyToWaypoint(parseFloat(node.getAttribute('data-progress')));
-      });
-    });
-
-    // Story Cards thresholds
-    const storyCards = [
-      { id: 'card0', min: 0.00, max: 0.16 },
-      { id: 'card1', min: 0.17, max: 0.38 },
-      { id: 'card2', min: 0.39, max: 0.62 },
-      { id: 'card3', min: 0.63, max: 0.86 },
-      { id: 'card4', min: 0.87, max: 1.00 }
-    ];
-
-    let lastActiveIdx = 0;
-
-    function updateStoryOverlays(progress) {
-      let activeIdx = 0;
-      storyCards.forEach((c, idx) => {
-        const el = document.getElementById(c.id);
-        const isActive = progress >= c.min && progress <= c.max;
-        if (isActive) {
-          activeIdx = idx;
-          el.classList.add('visible');
-        } else {
-          el.classList.remove('visible');
+      checkAudioTrigger() {
+        if (Math.abs(this.targetProgress - this.lastThwipProg) > 0.12) {
+          this.exp.audio.playThwip();
+          this.exp.triggerBurst('THWIP!');
+          this.lastThwipProg = this.targetProgress;
         }
-      });
-
-      scrubberNodes.forEach((node, idx) => {
-        node.classList.toggle('active', idx === activeIdx);
-      });
-
-      if (activeIdx !== lastActiveIdx) {
-        sfx.playChime(500 + activeIdx * 80);
-        lastActiveIdx = activeIdx;
       }
 
-      sheetTag.textContent = sheetNames[activeIdx];
-      trackMeter.textContent = Math.round(progress * 100).toString().padStart(2, '0') + '%';
-      altMeter.textContent = Math.round(camera.position.y * 12 + 100) + 'm';
+      syncSlider() {
+        const slider = document.getElementById('flightSlider');
+        if (slider) slider.value = Math.round(this.targetProgress * 100);
+      }
+
+      flyTo(p) {
+        this.exp.audio.init();
+        this.exp.audio.playThwip();
+        this.exp.triggerBurst('THWIP!');
+        this.targetProgress = this.clamp(p);
+        this.syncSlider();
+      }
+
+      step(dir) {
+        const waypoints = [0.0, 0.25, 0.50, 0.75, 1.0];
+        let closestIdx = 0;
+        let minDiff = 999;
+        waypoints.forEach((w, i) => {
+          const diff = Math.abs(this.currentProgress - w);
+          if (diff < minDiff) { minDiff = diff; closestIdx = i; }
+        });
+        const nextIdx = this.clamp(closestIdx + dir, 0, waypoints.length - 1);
+        this.flyTo(waypoints[nextIdx]);
+      }
+
+      clamp(v, min = 0, max = 1) {
+        if (isNaN(v)) return min;
+        return Math.min(Math.max(v, min), max);
+      }
+
+      update() {
+        // High-end smooth inertia damping
+        this.currentProgress += (this.targetProgress - this.currentProgress) * 0.065;
+        this.currentProgress = this.clamp(this.currentProgress);
+        return this.currentProgress;
+      }
     }
 
-    // Resize
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+    /* =========================================================================
+       3. ARCHITECTURAL SKY CITY ENVIRONMENT (Procedural Wireframe Skyscrapers)
+       ========================================================================= */
+    class SkyCity {
+      constructor(scene) {
+        this.scene = scene;
+        this.group = new THREE.Group();
+        this.scene.add(this.group);
 
-    // Main 60 FPS Render Loop
-    const tempLookAt = new THREE.Vector3();
-    let clock = new THREE.Clock();
+        this.towers = [];
+        this.buildCity();
+        this.buildFloorGrid();
+        this.buildCompassRings();
+      }
 
-    function animate() {
-      requestAnimationFrame(animate);
-      const elapsed = clock.getElapsedTime();
+      buildCity() {
+        const boxGeo = new THREE.BoxGeometry(1, 1, 1);
+        const solidMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        const inkWireMat = new THREE.MeshBasicMaterial({ color: 0x0f172a, wireframe: true });
+        const redAccentWireMat = new THREE.MeshBasicMaterial({ color: 0xe11d48, wireframe: true });
+        const beaconMat = new THREE.MeshBasicMaterial({ color: 0xe11d48 });
 
-      // Smooth progress interpolation
-      currentProgress += (targetProgress - currentProgress) * 0.06;
-      currentProgress = clamp(currentProgress, 0, 1);
+        for (let i = 0; i < 90; i++) {
+          const isRed = Math.random() < 0.22;
+          const side = Math.random() < 0.5 ? -1 : 1;
+          const x = side * (18 + Math.random() * 70);
+          const z = (Math.random() - 0.5) * 400 - 120;
+          const h = 26 + Math.random() * 95;
+          const w = 12 + Math.random() * 22;
 
-      // Camera Position on Curve
-      const camPos = flightCurve.getPointAt(currentProgress);
-      const lookPos = lookCurve.getPointAt(currentProgress);
+          // Solid White Block Core
+          const core = new THREE.Mesh(boxGeo, solidMat);
+          core.scale.set(w, h, w);
+          core.position.set(x, h * 0.5 - 28, z);
+          this.group.add(core);
 
-      if (camPos && lookPos && !isNaN(camPos.x)) {
-        camera.position.set(camPos.x + mouseX * 1.5, camPos.y + mouseY * 1.2, camPos.z);
+          // Cel-Shaded Line Art Wireframe
+          const wire = new THREE.Mesh(boxGeo, isRed ? redAccentWireMat : inkWireMat);
+          wire.scale.set(w * 1.002, h * 1.002, w * 1.002);
+          wire.position.set(x, h * 0.5 - 28, z);
+          this.group.add(wire);
 
-        tempLookAt.x = lookPos.x + mouseX * 1.0;
-        tempLookAt.y = lookPos.y + mouseY * 0.8;
-        tempLookAt.z = lookPos.z;
-        camera.lookAt(tempLookAt);
+          // Antenna Spire with Flashing Red CAD Beacon
+          if (h > 55) {
+            const antennaGeo = new THREE.CylinderGeometry(0.15, 0.35, 14, 6);
+            const antenna = new THREE.Mesh(antennaGeo, isRed ? redAccentWireMat : inkWireMat);
+            antenna.position.set(x, h - 28 + 7, z);
+            this.group.add(antenna);
 
-        /* ==========================================================
-           SPIDER-MAN CHARACTER DYNAMIC MOVEMENT & KINETIC WEB-SLING
-           ========================================================== */
-        const forwardVector = new THREE.Vector3().subVectors(lookPos, camPos).normalize();
-        const spideyTargetPos = new THREE.Vector3().copy(camPos).add(forwardVector.clone().multiplyScalar(14));
+            const beaconGeo = new THREE.SphereGeometry(0.7, 8, 8);
+            const beacon = new THREE.Mesh(beaconGeo, beaconMat);
+            beacon.position.set(x, h - 28 + 14, z);
+            this.group.add(beacon);
+          }
 
-        const bobY = Math.sin(elapsed * 4.5) * 0.6;
-        const bankX = Math.sin(elapsed * 2.2) * 0.8;
+          this.towers.push({ x, z, h, w });
+        }
+      }
 
-        spideyHeroGroup.position.set(
-          spideyTargetPos.x + bankX + mouseX * 1.8,
-          spideyTargetPos.y - 2.8 + bobY,
-          spideyTargetPos.z
+      buildFloorGrid() {
+        const grid = new THREE.GridHelper(700, 70, 0xe11d48, 0x94a3b8);
+        grid.position.y = -27.9;
+        this.group.add(grid);
+      }
+
+      buildCompassRings() {
+        this.compass = new THREE.Group();
+        this.compass.position.set(0, 45, -170);
+        this.group.add(this.compass);
+
+        const r1 = new THREE.Mesh(
+          new THREE.RingGeometry(20, 21.2, 64),
+          new THREE.MeshBasicMaterial({ color: 0x0284c7, side: THREE.DoubleSide, transparent: true, opacity: 0.55 })
+        );
+        const r2 = new THREE.Mesh(
+          new THREE.RingGeometry(24, 24.8, 16),
+          new THREE.MeshBasicMaterial({ color: 0xe11d48, side: THREE.DoubleSide, transparent: true, opacity: 0.45 })
+        );
+        this.compass.add(r1);
+        this.compass.add(r2);
+      }
+
+      update(elapsed) {
+        if (this.compass) {
+          this.compass.rotation.z = elapsed * 0.04;
+        }
+      }
+    }
+
+    /* =========================================================================
+       4. HERO CHARACTER (Hooded Spider-Man, Dual Web Physics & Acrobatics)
+       ========================================================================= */
+    class HeroCharacter {
+      constructor(scene, experience) {
+        this.scene = scene;
+        this.exp = experience;
+        this.group = new THREE.Group();
+        this.scene.add(this.group);
+
+        this.spin = 0;
+        this.isSpinning = false;
+
+        this.initMesh();
+        this.initAura();
+        this.initWebLines();
+        this.initSpeedLines();
+      }
+
+      initMesh() {
+        const texLoader = new THREE.TextureLoader();
+        const src = (window.SPIDEY_CUTOUT_B64 && window.SPIDEY_CUTOUT_B64.length > 50)
+          ? window.SPIDEY_CUTOUT_B64
+          : 'assets/spidey-cutout.png';
+
+        const tex = texLoader.load(src);
+        // Calibrated aspect ratio for hooded Spider-Man
+        const geo = new THREE.PlaneGeometry(9.4, 16);
+        const mat = new THREE.MeshBasicMaterial({
+          map: tex,
+          transparent: true,
+          alphaTest: 0.05,
+          side: THREE.DoubleSide
+        });
+
+        this.mesh = new THREE.Mesh(geo, mat);
+        this.group.add(this.mesh);
+      }
+
+      initAura() {
+        const geo = new THREE.CircleGeometry(8.2, 48);
+        const mat = new THREE.MeshBasicMaterial({
+          color: 0xe11d48,
+          transparent: true,
+          opacity: 0.18,
+          side: THREE.DoubleSide
+        });
+        this.aura = new THREE.Mesh(geo, mat);
+        this.aura.position.set(0, 0, -0.2);
+        this.group.add(this.aura);
+      }
+
+      initWebLines() {
+        const createLine = () => {
+          const geo = new THREE.BufferGeometry();
+          geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(6), 3));
+          const mat = new THREE.LineBasicMaterial({
+            color: 0xe11d48,
+            linewidth: 3,
+            transparent: true,
+            opacity: 0.85
+          });
+          const line = new THREE.Line(geo, mat);
+          this.scene.add(line);
+          return line;
+        };
+
+        this.leftWeb = createLine();
+        this.rightWeb = createLine();
+      }
+
+      initSpeedLines() {
+        this.speedLines = [];
+        const geo = new THREE.CylinderGeometry(0.04, 0.04, 9, 4);
+        const mat = new THREE.MeshBasicMaterial({ color: 0x94a3b8, transparent: true, opacity: 0.45 });
+
+        for (let i = 0; i < 28; i++) {
+          const m = new THREE.Mesh(geo, mat);
+          m.rotation.x = Math.PI / 2;
+          this.scene.add(m);
+          this.speedLines.push({
+            mesh: m,
+            angle: (i / 28) * Math.PI * 2,
+            radius: 8 + Math.random() * 12,
+            speed: 1.6 + Math.random() * 2.2
+          });
+        }
+      }
+
+      triggerAcrobatics() {
+        this.exp.audio.init();
+        this.exp.audio.playWebBlast();
+        this.exp.triggerBurst('BOOM-WEB!');
+        this.isSpinning = true;
+      }
+
+      update(elapsed, camPos, lookPos, mouse) {
+        // Position Hero in front of camera along forward flight vector
+        const forward = new THREE.Vector3().subVectors(lookPos, camPos).normalize();
+        const targetPos = new THREE.Vector3().copy(camPos).add(forward.clone().multiplyScalar(14.5));
+
+        // Idle hover & banking physics
+        const bobY = Math.sin(elapsed * 4.2) * 0.55;
+        const bankX = Math.sin(elapsed * 2.1) * 0.75;
+
+        this.group.position.set(
+          targetPos.x + bankX + mouse.normX * 1.6,
+          targetPos.y - 2.8 + bobY,
+          targetPos.z
         );
 
-        // Spin acrobatics on click
-        if (isSpinning) {
-          spideySpin += 0.35;
-          spideyMesh.rotation.z = spideySpin;
-          if (spideySpin > Math.PI * 2) {
-            spideySpin = 0;
-            isSpinning = false;
-            spideyMesh.rotation.z = 0;
+        // Click acrobatics corkscrew flip
+        if (this.isSpinning) {
+          this.spin += 0.38;
+          this.mesh.rotation.z = this.spin;
+          if (this.spin > Math.PI * 2) {
+            this.spin = 0;
+            this.isSpinning = false;
+            this.mesh.rotation.z = 0;
           }
         }
 
-        spideyHeroGroup.lookAt(camera.position);
-        spideyHeroGroup.rotation.z = Math.sin(elapsed * 2.5) * 0.08 - mouseX * 0.12;
+        // Camera orientation and mouse banking
+        this.group.lookAt(camPos);
+        this.group.rotation.z = Math.sin(elapsed * 2.4) * 0.07 - mouse.normX * 0.12;
 
-        // Dual 3D Web Lines (Left & Right alternating sling lines)
-        const leftArr = leftWebLine.geometry.attributes.position.array;
-        leftArr[0] = spideyHeroGroup.position.x - 1.2;
-        leftArr[1] = spideyHeroGroup.position.y + 0.4;
-        leftArr[2] = spideyHeroGroup.position.z;
-        leftArr[3] = lookPos.x - 22;
-        leftArr[4] = lookPos.y + 14 + Math.sin(elapsed * 2) * 4;
-        leftArr[5] = lookPos.z - 20;
-        leftWebLine.geometry.attributes.position.needsUpdate = true;
+        // Dynamic Dual 3D Web Lines anchored to passing buildings
+        const lArr = this.leftWeb.geometry.attributes.position.array;
+        lArr[0] = this.group.position.x - 1.2;
+        lArr[1] = this.group.position.y + 0.4;
+        lArr[2] = this.group.position.z;
+        lArr[3] = lookPos.x - 24;
+        lArr[4] = lookPos.y + 14 + Math.sin(elapsed * 2) * 4;
+        lArr[5] = lookPos.z - 20;
+        this.leftWeb.geometry.attributes.position.needsUpdate = true;
 
-        const rightArr = rightWebLine.geometry.attributes.position.array;
-        rightArr[0] = spideyHeroGroup.position.x + 1.2;
-        rightArr[1] = spideyHeroGroup.position.y + 0.4;
-        rightArr[2] = spideyHeroGroup.position.z;
-        rightArr[3] = lookPos.x + 22;
-        rightArr[4] = lookPos.y + 16 + Math.cos(elapsed * 2) * 4;
-        rightArr[5] = lookPos.z - 20;
-        rightWebLine.geometry.attributes.position.needsUpdate = true;
+        const rArr = this.rightWeb.geometry.attributes.position.array;
+        rArr[0] = this.group.position.x + 1.2;
+        rArr[1] = this.group.position.y + 0.4;
+        rArr[2] = this.group.position.z;
+        rArr[3] = lookPos.x + 24;
+        rArr[4] = lookPos.y + 16 + Math.cos(elapsed * 2) * 4;
+        rArr[5] = lookPos.z - 20;
+        this.rightWeb.geometry.attributes.position.needsUpdate = true;
 
-        // Speed Lines position around Spider-Man
-        speedLines.forEach((sl, idx) => {
-          const theta = sl.angle + elapsed * 0.2;
+        // Streaming Speed Lines
+        this.speedLines.forEach((sl, idx) => {
+          const th = sl.angle + elapsed * 0.2;
           sl.mesh.position.set(
-            spideyHeroGroup.position.x + Math.cos(theta) * sl.radius,
-            spideyHeroGroup.position.y + Math.sin(theta) * sl.radius,
-            spideyHeroGroup.position.z + ((elapsed * sl.speed * 20 + idx * 8) % 30) - 15
+            this.group.position.x + Math.cos(th) * sl.radius,
+            this.group.position.y + Math.sin(th) * sl.radius,
+            this.group.position.z + ((elapsed * sl.speed * 22 + idx * 7) % 32) - 16
           );
         });
       }
+    }
 
-      // Animate 3D Model Skeletal Mixer if loaded
-      if (mixer) {
-        mixer.update(clock.getDelta());
+    /* =========================================================================
+       5. MASTER EXPERIENCE SINGLETON (Orchestrator, Render Loop, UI Sync)
+       ========================================================================= */
+    class Experience {
+      constructor() {
+        this.canvas = document.getElementById('webgl-canvas');
+        this.scene = new THREE.Scene();
+        this.scene.fog = new THREE.FogExp2(0xf8fafc, 0.011);
+
+        this.initRenderer();
+        this.initCamera();
+        this.initLights();
+
+        this.audio = new AudioEngine();
+        this.flight = new InputController(this);
+        this.city = new SkyCity(this.scene);
+        this.hero = new HeroCharacter(this.scene, this);
+
+        this.clock = new THREE.Clock();
+        this.activeCardIdx = -1;
+        this.specOverlayActive = true;
+
+        this.initRaycaster();
+        this.initUI();
+        this.initResize();
+
+        this.animate = this.animate.bind(this);
+        this.animate();
       }
 
-      // Rotate decorative 3D comic assets
-      botHubGroup.rotation.y += 0.014;
-      botInnerCore.rotation.x += 0.02;
-      torusTunnelGroup.rotation.z += 0.008;
-      beacon.rotation.y += 0.016;
-      cadCompassGroup.rotation.z += 0.003;
+      initRenderer() {
+        this.renderer = new THREE.WebGLRenderer({
+          canvas: this.canvas,
+          antialias: true,
+          alpha: false,
+          powerPreference: 'high-performance'
+        });
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      }
 
-      updateStoryOverlays(currentProgress);
+      initCamera() {
+        this.camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-      renderer.render(scene, camera);
+        // 3D Flight Spline Path
+        const flightPoints = [
+          new THREE.Vector3(0, 16, 75),
+          new THREE.Vector3(26, 12, 10),
+          new THREE.Vector3(14, 20, -55),
+          new THREE.Vector3(-24, 15, -125),
+          new THREE.Vector3(-10, 24, -195),
+          new THREE.Vector3(0, 18, -265)
+        ];
+        this.flightSpline = new THREE.CatmullRomCurve3(flightPoints);
+
+        const lookPoints = flightPoints.map((pt, i) => {
+          const next = flightPoints[Math.min(i + 1, flightPoints.length - 1)];
+          return new THREE.Vector3(
+            (pt.x + next.x) * 0.5,
+            (pt.y + next.y) * 0.5 - 1.2,
+            (pt.z + next.z) * 0.5 - 16
+          );
+        });
+        this.lookSpline = new THREE.CatmullRomCurve3(lookPoints);
+      }
+
+      initLights() {
+        // High-end ambient & directional studio lighting
+        const ambient = new THREE.AmbientLight(0xffffff, 1.35);
+        this.scene.add(ambient);
+
+        const keyLight = new THREE.DirectionalLight(0xffffff, 1.45);
+        keyLight.position.set(20, 30, 20);
+        this.scene.add(keyLight);
+
+        const rimLight = new THREE.DirectionalLight(0xe11d48, 1.15);
+        rimLight.position.set(-20, -10, 15);
+        this.scene.add(rimLight);
+      }
+
+      initRaycaster() {
+        this.raycaster = new THREE.Raycaster();
+        this.mouseVec = new THREE.Vector2();
+
+        window.addEventListener('click', (e) => {
+          if (e.target.closest('header, aside, .editorial-card, .flight-control-deck, .studio-btn')) return;
+          this.mouseVec.x = (e.clientX / window.innerWidth) * 2 - 1;
+          this.mouseVec.y = -(e.clientY / window.innerHeight) * 2 + 1;
+          this.raycaster.setFromCamera(this.mouseVec, this.camera);
+
+          const hits = this.raycaster.intersectObject(this.hero.mesh);
+          if (hits.length > 0 || Math.hypot(e.clientX - window.innerWidth / 2, e.clientY - window.innerHeight / 2) < 170) {
+            this.hero.triggerAcrobatics();
+          }
+        });
+      }
+
+      initUI() {
+        // Audio Toggle
+        const audioBtn = document.getElementById('audioToggleBtn');
+        const audioIcon = document.getElementById('audioIcon');
+        const audioText = document.getElementById('audioText');
+        if (audioBtn) {
+          audioBtn.addEventListener('click', () => {
+            this.audio.init();
+            const on = this.audio.toggle();
+            audioIcon.className = on ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+            audioText.textContent = on ? 'SFX: ON' : 'SFX: OFF';
+            if (on) this.audio.playThwip();
+          });
+        }
+
+        // Specs Toggle
+        const specBtn = document.getElementById('specToggleBtn');
+        const specOverlay = document.getElementById('blueprintSpecs');
+        const specText = document.getElementById('specToggleText');
+        if (specBtn) {
+          specBtn.addEventListener('click', () => {
+            this.specOverlayActive = !this.specOverlayActive;
+            if (specOverlay) specOverlay.classList.toggle('hidden', !this.specOverlayActive);
+            if (specText) specText.textContent = this.specOverlayActive ? 'SPECS: ON' : 'SPECS: OFF';
+            this.audio.playChime(580);
+          });
+        }
+
+        // Sector Scrubber Nodes
+        document.querySelectorAll('.scrubber-item').forEach(node => {
+          node.addEventListener('click', () => {
+            const prog = parseFloat(node.getAttribute('data-progress'));
+            this.flight.flyTo(prog);
+          });
+        });
+      }
+
+      initResize() {
+        window.addEventListener('resize', () => {
+          this.camera.aspect = window.innerWidth / window.innerHeight;
+          this.camera.updateProjectionMatrix();
+          this.renderer.setSize(window.innerWidth, window.innerHeight);
+          this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        });
+      }
+
+      triggerBurst(word) {
+        const el = document.getElementById('comicFx');
+        if (!el) return;
+        el.textContent = word;
+        el.style.left = `${this.flight.mouse.x || window.innerWidth / 2}px`;
+        el.style.top = `${this.flight.mouse.y || window.innerHeight / 2 - 80}px`;
+        el.classList.add('active');
+        setTimeout(() => el.classList.remove('active'), 650);
+      }
+
+      syncStoryCards(progress) {
+        const thresholds = [
+          { id: 'card0', min: 0.00, max: 0.16, sector: 'SPEC-01' },
+          { id: 'card1', min: 0.17, max: 0.38, sector: 'SPEC-02' },
+          { id: 'card2', min: 0.39, max: 0.62, sector: 'SPEC-03' },
+          { id: 'card3', min: 0.63, max: 0.86, sector: 'SPEC-04' },
+          { id: 'card4', min: 0.87, max: 1.00, sector: 'SPEC-05' }
+        ];
+
+        let activeIdx = 0;
+        thresholds.forEach((t, idx) => {
+          const cardEl = document.getElementById(t.id);
+          const isCurrent = progress >= t.min && progress <= t.max;
+          if (cardEl) cardEl.classList.toggle('visible', isCurrent);
+          if (isCurrent) activeIdx = idx;
+        });
+
+        // Update right-hand scrubber dots
+        document.querySelectorAll('.scrubber-item').forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === activeIdx);
+        });
+
+        // Audio chime on sector transitions
+        if (activeIdx !== this.activeCardIdx) {
+          if (this.activeCardIdx !== -1) {
+            this.audio.playChime(520 + activeIdx * 80);
+          }
+          this.activeCardIdx = activeIdx;
+        }
+
+        // Update telemetry HUD
+        const secEl = document.getElementById('telemetrySector');
+        const progEl = document.getElementById('telemetryProgress');
+        const altEl = document.getElementById('telemetryAltitude');
+
+        if (secEl) secEl.textContent = thresholds[activeIdx].sector;
+        if (progEl) progEl.textContent = Math.round(progress * 100).toString().padStart(2, '0') + '%';
+        if (altEl) altEl.textContent = Math.round(this.camera.position.y * 11 + 95) + 'm';
+      }
+
+      syncScreenSpecs() {
+        if (!this.specOverlayActive || !this.hero.group) return;
+
+        const heroProj = this.hero.group.position.clone().project(this.camera);
+        const scrX = (heroProj.x * 0.5 + 0.5) * window.innerWidth;
+        const scrY = (-heroProj.y * 0.5 + 0.5) * window.innerHeight;
+
+        const sAudio = document.getElementById('specAudio');
+        const sHoodie = document.getElementById('specHoodie');
+        const sPack = document.getElementById('specPack');
+        const sShoes = document.getElementById('specShoes');
+
+        if (sAudio && sHoodie && sPack && sShoes) {
+          sAudio.style.left = `${scrX - 250}px`;
+          sAudio.style.top = `${scrY - 100}px`;
+
+          sHoodie.style.left = `${scrX + 85}px`;
+          sHoodie.style.top = `${scrY - 50}px`;
+
+          sPack.style.left = `${scrX - 240}px`;
+          sPack.style.top = `${scrY + 30}px`;
+
+          sShoes.style.left = `${scrX + 75}px`;
+          sShoes.style.top = `${scrY + 115}px`;
+        }
+      }
+
+      animate() {
+        requestAnimationFrame(this.animate);
+        const elapsed = this.clock.getElapsedTime();
+
+        const progress = this.flight.update();
+        const camPos = this.flightSpline.getPointAt(progress);
+        const lookPos = this.lookSpline.getPointAt(progress);
+
+        if (camPos && lookPos && !isNaN(camPos.x)) {
+          // Camera position with mouse parallax
+          this.camera.position.set(
+            camPos.x + this.flight.mouse.normX * 1.5,
+            camPos.y + this.flight.mouse.normY * 1.2,
+            camPos.z
+          );
+
+          const targetLook = new THREE.Vector3(
+            lookPos.x + this.flight.mouse.normX * 0.9,
+            lookPos.y + this.flight.mouse.normY * 0.7,
+            lookPos.z
+          );
+          this.camera.lookAt(targetLook);
+
+          // Update Hero
+          this.hero.update(elapsed, camPos, lookPos, this.flight.mouse);
+
+          // Update Environment
+          this.city.update(elapsed);
+
+          // Sync UI & Screen Annotations
+          this.syncStoryCards(progress);
+          this.syncScreenSpecs();
+        }
+
+        this.renderer.render(this.scene, this.camera);
+      }
     }
-    animate();
+
+    // Launch Experience
+    window.addEventListener('DOMContentLoaded', () => {
+      window.experience = new Experience();
+    });
   </script>
 </body>
 </html>
