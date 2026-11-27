@@ -3,24 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MrTG-CodeBot // Spider-Verse 3D Architectural Blueprint</title>
-  <meta name="description" content="Comic Cel-Shaded 3D Scrollytelling Experience for MrTG-CodeBot - Telegram Bot Architect & Full-Stack Developer." />
+  <title>MrTG-CodeBot // 3D Spider-Verse Architectural Blueprint</title>
+  <meta name="description" content="Award-Winning 3D Comic Scrollytelling Experience for MrTG-CodeBot - Telegram Bot Architect & Full-Stack Developer." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@700;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=JetBrains+Mono:wght@500;700;800&family=Orbitron:wght@800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
     :root {
-      --bg-blueprint: #f4f6fb;
+      --bg-blueprint: #f2f5fa;
       --paper-white: #ffffff;
-      --ink-black: #0d121f;
+      --ink-black: #0c111d;
       --ink-dark: #1e293b;
       --spidey-red: #e11d48;
-      --spidey-crimson: #be123c;
-      --spidey-glow: rgba(225, 29, 72, 0.4);
+      --spidey-crimson: #9f1239;
+      --spidey-glow: rgba(225, 29, 72, 0.45);
       --cad-blue: #0284c7;
-      --cad-grid: rgba(148, 163, 184, 0.28);
+      --cad-grid: rgba(148, 163, 184, 0.32);
+      --cad-grid-bold: rgba(100, 116, 139, 0.45);
       --text-main: #0f172a;
       --text-muted: #64748b;
       --font-comic: 'Bangers', cursive;
@@ -44,7 +45,7 @@
       overflow: hidden;
     }
 
-    /* Architectural Blueprint Grid Pattern */
+    /* Architectural Blueprint CAD Grid & Halftone */
     .blueprint-grid-overlay {
       position: fixed;
       top: 0;
@@ -55,11 +56,12 @@
       pointer-events: none;
       background-image: 
         linear-gradient(var(--cad-grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--cad-grid) 1px, transparent 1px);
-      background-size: 32px 32px;
+        linear-gradient(90deg, var(--cad-grid) 1px, transparent 1px),
+        linear-gradient(var(--cad-grid-bold) 1.5px, transparent 1.5px),
+        linear-gradient(90deg, var(--cad-grid-bold) 1.5px, transparent 1.5px);
+      background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
     }
 
-    /* Halftone Comic Dots Overlay */
     .halftone-overlay {
       position: fixed;
       top: 0;
@@ -68,11 +70,11 @@
       height: 100%;
       z-index: 3;
       pointer-events: none;
-      background-image: radial-gradient(rgba(15, 23, 42, 0.04) 1.5px, transparent 1.5px);
-      background-size: 14px 14px;
+      background-image: radial-gradient(rgba(15, 23, 42, 0.05) 1.5px, transparent 1.5px);
+      background-size: 16px 16px;
     }
 
-    /* Technical CAD Measurement Crop Marks */
+    /* Technical CAD Markings & Registration Crosshairs */
     .cad-crop-marks {
       position: fixed;
       top: 0;
@@ -81,27 +83,34 @@
       height: 100%;
       z-index: 4;
       pointer-events: none;
-      border: 18px solid transparent;
     }
 
-    .cad-tag-tl {
+    .cad-crosshair {
       position: absolute;
-      top: 20px;
-      left: 24px;
+      width: 20px;
+      height: 20px;
+      color: var(--cad-blue);
       font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      letter-spacing: 1.5px;
+      font-size: 14px;
+      line-height: 20px;
+      text-align: center;
+      opacity: 0.6;
     }
 
-    .cad-tag-br {
+    .cad-tl { top: 22px; left: 24px; }
+    .cad-tr { top: 22px; right: 24px; }
+    .cad-bl { bottom: 22px; left: 24px; }
+    .cad-br { bottom: 22px; right: 24px; }
+
+    .cad-doc-tag {
       position: absolute;
-      bottom: 20px;
-      right: 24px;
+      top: 24px;
+      left: 60px;
       font-family: var(--font-mono);
       font-size: 0.68rem;
+      font-weight: 700;
       color: var(--text-muted);
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
     }
 
     /* 3D WebGL Canvas Viewport */
@@ -120,18 +129,18 @@
       display: block;
     }
 
-    /* Top Navigation Header */
+    /* Top Comic Navigation Header */
     header.comic-header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       z-index: 50;
-      padding: 18px 32px;
+      padding: 16px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: linear-gradient(180deg, rgba(244, 246, 251, 0.95) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(242, 245, 250, 0.96) 0%, transparent 100%);
       pointer-events: auto;
     }
 
@@ -139,16 +148,16 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      font-weight: 900;
-      letter-spacing: 2px;
+      font-family: var(--font-comic);
+      font-size: 1.8rem;
+      letter-spacing: 1.5px;
       color: var(--ink-black);
+      text-shadow: 2px 2px 0px #fff;
     }
 
     .comic-logo .spider-icon {
       color: var(--spidey-red);
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       animation: spiderPop 2s infinite ease-in-out;
     }
 
@@ -156,7 +165,7 @@
       display: flex;
       gap: 20px;
       background: #ffffff;
-      border: 2px solid var(--ink-black);
+      border: 2.5px solid var(--ink-black);
       box-shadow: 4px 4px 0px var(--spidey-red);
       padding: 8px 18px;
       border-radius: 8px;
@@ -174,14 +183,14 @@
 
     .comic-btn {
       background: #ffffff;
-      border: 2px solid var(--ink-black);
-      box-shadow: 3px 3px 0px var(--ink-black);
+      border: 2.5px solid var(--ink-black);
+      box-shadow: 3.5px 3.5px 0px var(--ink-black);
       color: var(--ink-black);
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 6px;
       font-family: var(--font-display);
-      font-size: 0.78rem;
-      font-weight: 800;
+      font-size: 0.8rem;
+      font-weight: 900;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -193,28 +202,27 @@
     .comic-btn:hover {
       background: var(--spidey-red);
       color: #fff;
-      border-color: var(--ink-black);
       box-shadow: 5px 5px 0px var(--ink-black);
       transform: translate(-2px, -2px);
     }
 
-    /* Comic Sound Effect Popups (THWIP! POW!) */
+    /* Sound Effect Floating Popups (THWIP! POW!) */
     .comic-sound-fx {
       position: fixed;
       font-family: var(--font-comic);
-      font-size: 2.8rem;
+      font-size: 3.2rem;
       color: var(--spidey-red);
-      text-shadow: 3px 3px 0px var(--ink-black), -1px -1px 0px var(--ink-black), 1px -1px 0px var(--ink-black), -1px 1px 0px var(--ink-black);
+      text-shadow: 4px 4px 0px var(--ink-black), -1.5px -1.5px 0px var(--ink-black), 1.5px -1.5px 0px var(--ink-black), -1.5px 1.5px 0px var(--ink-black);
       z-index: 45;
       pointer-events: none;
       opacity: 0;
-      transform: scale(0.4) rotate(-14deg);
+      transform: scale(0.4) rotate(-16deg);
       transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .comic-sound-fx.show {
       opacity: 1;
-      transform: scale(1.15) rotate(-8deg);
+      transform: scale(1.2) rotate(-8deg);
     }
 
     /* Right-Side Blueprint Scrubber */
@@ -239,19 +247,19 @@
     }
 
     .node-dot {
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       background: #ffffff;
-      border: 2px solid var(--ink-black);
-      box-shadow: 2px 2px 0px var(--ink-black);
+      border: 2.5px solid var(--ink-black);
+      box-shadow: 2.5px 2.5px 0px var(--ink-black);
       transition: all 0.25s ease;
     }
 
     .node-label {
       font-family: var(--font-mono);
       font-size: 0.75rem;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--text-muted);
       opacity: 0;
       transform: translateX(10px);
@@ -260,8 +268,8 @@
       background: #ffffff;
       padding: 6px 14px;
       border-radius: 6px;
-      border: 2px solid var(--ink-black);
-      box-shadow: 3px 3px 0px var(--ink-black);
+      border: 2.5px solid var(--ink-black);
+      box-shadow: 3.5px 3.5px 0px var(--ink-black);
     }
 
     .scrubber-node:hover .node-label {
@@ -273,8 +281,8 @@
     .scrubber-node.active .node-dot {
       background: var(--spidey-red);
       border-color: var(--ink-black);
-      box-shadow: 3px 3px 0px var(--ink-black);
-      transform: scale(1.4);
+      box-shadow: 3.5px 3.5px 0px var(--ink-black);
+      transform: scale(1.45);
     }
 
     .scrubber-node.active .node-label {
@@ -282,7 +290,62 @@
       transform: translateX(0);
       color: var(--spidey-red);
       border-color: var(--ink-black);
-      box-shadow: 3px 3px 0px var(--spidey-red);
+      box-shadow: 3.5px 3.5px 0px var(--spidey-red);
+    }
+
+    /* Bottom Left Mini Flight Radar */
+    .mini-flight-radar {
+      position: fixed;
+      bottom: 24px;
+      left: 28px;
+      z-index: 50;
+      background: #ffffff;
+      border: 2.5px solid var(--ink-black);
+      box-shadow: 4px 4px 0px var(--ink-black);
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-mono);
+      pointer-events: auto;
+    }
+
+    .radar-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid var(--cad-blue);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(2, 132, 199, 0.06);
+    }
+
+    .radar-blip {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--spidey-red);
+      box-shadow: 0 0 6px var(--spidey-red);
+      position: absolute;
+      animation: radarPulse 1.4s infinite ease-in-out;
+    }
+
+    .radar-sweep {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border-top: 2px solid var(--spidey-red);
+      animation: radarSweep 2s infinite linear;
+    }
+
+    .radar-info {
+      font-size: 0.72rem;
+      line-height: 1.4;
+      font-weight: 700;
     }
 
     /* Comic Book Story Panels / Blueprint Cards */
@@ -301,13 +364,13 @@
 
     .comic-card {
       position: absolute;
-      max-width: 580px;
+      max-width: 600px;
       width: 90%;
-      padding: 34px;
+      padding: 36px;
       background: #ffffff;
-      border: 3px solid var(--ink-black);
-      box-shadow: 8px 8px 0px var(--ink-black), 14px 14px 0px var(--spidey-red);
-      border-radius: 14px;
+      border: 3.5px solid var(--ink-black);
+      box-shadow: 10px 10px 0px var(--ink-black), 16px 16px 0px var(--spidey-red);
+      border-radius: 16px;
       opacity: 0;
       visibility: hidden;
       transform: translateY(35px) rotate(1deg);
@@ -332,24 +395,40 @@
       left: auto;
     }
 
+    /* Red Drafting Tape & Classification Stamps */
     .card-tape {
       position: absolute;
-      top: -12px;
+      top: -14px;
       left: 36px;
-      width: 90px;
-      height: 24px;
-      background: rgba(225, 29, 72, 0.85);
-      border: 1.5px solid var(--ink-black);
+      width: 96px;
+      height: 26px;
+      background: var(--spidey-red);
+      border: 2px solid var(--ink-black);
       box-shadow: 2px 2px 0px var(--ink-black);
       transform: rotate(-3deg);
       font-family: var(--font-mono);
-      font-size: 0.65rem;
-      font-weight: 800;
+      font-size: 0.7rem;
+      font-weight: 900;
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       letter-spacing: 1px;
+    }
+
+    .card-stamp {
+      position: absolute;
+      bottom: 24px;
+      right: 28px;
+      border: 2px dashed var(--spidey-red);
+      color: var(--spidey-red);
+      padding: 4px 10px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      transform: rotate(-7deg);
+      pointer-events: none;
     }
 
     .card-chapter-tag {
@@ -374,7 +453,7 @@
 
     .comic-title {
       font-family: var(--font-comic);
-      font-size: 2.7rem;
+      font-size: 2.9rem;
       line-height: 1.05;
       letter-spacing: 1px;
       margin-bottom: 14px;
@@ -383,15 +462,15 @@
 
     .comic-title .red-text {
       color: var(--spidey-red);
-      text-shadow: 2px 2px 0px rgba(0,0,0,0.12);
+      text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
     }
 
     .comic-desc {
       color: var(--text-muted);
-      font-size: 1.02rem;
+      font-size: 1.04rem;
       line-height: 1.65;
       margin-bottom: 22px;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .comic-badge-grid {
@@ -412,9 +491,9 @@
       color: var(--ink-black);
       font-family: var(--font-mono);
       font-size: 0.85rem;
-      font-weight: 700;
+      font-weight: 800;
       text-decoration: none;
-      box-shadow: 2px 2px 0px var(--ink-black);
+      box-shadow: 2.5px 2.5px 0px var(--ink-black);
       transition: all 0.2s ease;
     }
 
@@ -426,8 +505,8 @@
     }
 
     .comic-pill img {
-      width: 18px;
-      height: 18px;
+      width: 19px;
+      height: 19px;
       border-radius: 3px;
     }
 
@@ -442,7 +521,7 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 13px 24px;
+      padding: 13px 26px;
       background: var(--spidey-red);
       border: 2.5px solid var(--ink-black);
       box-shadow: 4px 4px 0px var(--ink-black);
@@ -486,14 +565,14 @@
       background: #ffffff;
       border: 2.5px solid var(--ink-black);
       box-shadow: 5px 5px 0px var(--ink-black);
-      padding: 12px 24px;
+      padding: 12px 26px;
       border-radius: 40px;
       pointer-events: auto;
     }
 
     .throttle-tag {
       font-family: var(--font-comic);
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       letter-spacing: 1px;
       color: var(--spidey-red);
       display: flex;
@@ -533,8 +612,31 @@
     .scroll-hint {
       font-family: var(--font-mono);
       font-size: 0.72rem;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--text-muted);
+    }
+
+    /* Spider-Man Interactive Click Hint */
+    .spidey-hint-pill {
+      position: fixed;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      background: #ffffff;
+      border: 2px solid var(--ink-black);
+      box-shadow: 3px 3px 0px var(--spidey-red);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--ink-black);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: bounceHint 2s infinite ease-in-out;
+      pointer-events: none;
     }
 
     @keyframes spiderPop {
@@ -542,17 +644,32 @@
       50% { transform: scale(1.15) rotate(5deg); }
     }
 
+    @keyframes radarPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.5; }
+    }
+
+    @keyframes radarSweep {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes bounceHint {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, -6px); }
+    }
+
     @media (max-width: 860px) {
       .comic-card {
         max-width: 92% !important;
         left: 4% !important;
         right: 4% !important;
-        padding: 22px;
+        padding: 24px;
       }
       .comic-title {
-        font-size: 2.1rem;
+        font-size: 2.2rem;
       }
-      .comic-telemetry, .scroll-hint {
+      .comic-telemetry, .scroll-hint, .mini-flight-radar, .spidey-hint-pill {
         display: none;
       }
       aside.blueprint-scrubber {
@@ -575,13 +692,22 @@
 
   <!-- CAD Crop Marks -->
   <div class="cad-crop-marks">
-    <div class="cad-tag-tl">DRAWING NO. 0600 // SPIDEY-DEV-SUIT // SCALE 1:1</div>
-    <div class="cad-tag-br">STATUS: VERIFIED // AUTONOMOUS ARCHITECTURE</div>
+    <div class="cad-crosshair cad-tl">+</div>
+    <div class="cad-crosshair cad-tr">+</div>
+    <div class="cad-crosshair cad-bl">+</div>
+    <div class="cad-crosshair cad-br">+</div>
+    <div class="cad-doc-tag">MRTG-CAD // PROJ-0600 // CEL-SHADED SPIDER-VERSE</div>
   </div>
 
   <!-- 3D WebGL Canvas Viewport -->
   <div id="viewport3d">
     <canvas id="webglCanvas"></canvas>
+  </div>
+
+  <!-- Spider-Man Click Interaction Hint -->
+  <div class="spidey-hint-pill">
+    <i class="fa-solid fa-hand-pointer" style="color:var(--spidey-red)"></i>
+    <span>CLICK SPIDER-MAN TO WEB-BLAST!</span>
   </div>
 
   <!-- Comic Action Sound FX Callout (THWIP!) -->
@@ -597,7 +723,7 @@
     <div class="comic-telemetry">
       <span>SHEET: <span id="sheetTag" style="color:var(--spidey-red)">SPEC-01</span></span>
       <span>ALT: <span id="altMeter" style="color:var(--ink-black)">240m</span></span>
-      <span>PROGRESS: <span id="trackMeter" style="color:var(--spidey-red)">00%</span></span>
+      <span>TRAJECTORY: <span id="trackMeter" style="color:var(--spidey-red)">00%</span></span>
     </div>
 
     <div class="comic-controls">
@@ -636,12 +762,25 @@
     </div>
   </aside>
 
+  <!-- Bottom Left Mini Flight Radar -->
+  <div class="mini-flight-radar">
+    <div class="radar-circle">
+      <div class="radar-sweep"></div>
+      <div class="radar-blip"></div>
+    </div>
+    <div class="radar-info">
+      <div style="color:var(--spidey-red)">VECTOR-RADAR</div>
+      <div style="color:var(--text-muted)">COORDS: X:24 Y:18</div>
+    </div>
+  </div>
+
   <!-- Story Overlay Cards (Comic Panels / Technical Blueprint Sheets) -->
   <div class="story-overlay-container">
 
     <!-- Chapter 1: Origin -->
     <div class="comic-card left-aligned visible" id="card0">
       <div class="card-tape">FIG. 01</div>
+      <div class="card-stamp">AUTHENTICATED</div>
       <div class="card-chapter-tag">
         <span class="tag-badge">SPEC-01</span>
         <span>ARCHITECTURAL ORIGIN // SPIDEY</span>
@@ -668,6 +807,7 @@
     <!-- Chapter 2: Telegram & Bots -->
     <div class="comic-card right-aligned" id="card1">
       <div class="card-tape">FIG. 02</div>
+      <div class="card-stamp">MTPROTO SPEC</div>
       <div class="card-chapter-tag">
         <span class="tag-badge">SPEC-02</span>
         <span>TELEGRAM &amp; MTPROTO ENGINES</span>
@@ -714,6 +854,7 @@
     <!-- Chapter 3: Tech Matrix & Languages -->
     <div class="comic-card left-aligned" id="card2">
       <div class="card-tape">FIG. 03</div>
+      <div class="card-stamp">POLYGLOT ARSENAL</div>
       <div class="card-chapter-tag">
         <span class="tag-badge">SPEC-03</span>
         <span>FULL-STACK OPERATIONAL ARSENAL</span>
@@ -769,6 +910,7 @@
     <!-- Chapter 4: Telemetry & GitHub Activity -->
     <div class="comic-card right-aligned" id="card3">
       <div class="card-tape">FIG. 04</div>
+      <div class="card-stamp">METRICS VERIFIED</div>
       <div class="card-chapter-tag">
         <span class="tag-badge">SPEC-04</span>
         <span>TELEMETRY &amp; GITHUB METRICS</span>
@@ -782,7 +924,7 @@
       </p>
       <div style="margin: 14px 0;">
         <a href="https://gitshine.com/stats/MrTG-CodeBot" target="_blank">
-          <img src="https://gitshine.com/card/MrTG-CodeBot?theme=dark" alt="GitShine Stats" style="max-width: 100%; border-radius: 8px; border: 2px solid var(--ink-black); box-shadow: 4px 4px 0px var(--spidey-red);" />
+          <img src="https://gitshine.com/card/MrTG-CodeBot?theme=dark" alt="GitShine Stats" style="max-width: 100%; border-radius: 8px; border: 2.5px solid var(--ink-black); box-shadow: 5px 5px 0px var(--spidey-red);" />
         </a>
       </div>
       <div class="comic-btn-row">
@@ -800,6 +942,7 @@
     <!-- Chapter 5: Transmission & Contact -->
     <div class="comic-card left-aligned" id="card4">
       <div class="card-tape">FIG. 05</div>
+      <div class="card-stamp">READY TO TRANSMIT</div>
       <div class="card-chapter-tag">
         <span class="tag-badge">SPEC-05</span>
         <span>ENCRYPTED TRANSMISSION APEX</span>
@@ -876,16 +1019,16 @@
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
           osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(1400, this.ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(260, this.ctx.currentTime + 0.14);
+          osc.frequency.setValueAtTime(1600, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(240, this.ctx.currentTime + 0.15);
 
-          gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.14);
+          gain.gain.setValueAtTime(0.09, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.15);
 
           osc.connect(gain);
           gain.connect(this.ctx.destination);
           osc.start();
-          osc.stop(this.ctx.currentTime + 0.14);
+          osc.stop(this.ctx.currentTime + 0.15);
         } catch(e) {}
       }
       playChime(freq = 560) {
@@ -902,6 +1045,22 @@
           gain.connect(this.ctx.destination);
           osc.start();
           osc.stop(this.ctx.currentTime + 0.12);
+        } catch(e) {}
+      }
+      playWebBlast() {
+        if (!this.enabled || !this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(800, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(120, this.ctx.currentTime + 0.22);
+          gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.22);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.22);
         } catch(e) {}
       }
       toggle() {
@@ -939,10 +1098,10 @@
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0xf4f6fb, 1); // Clean architectural drafting paper white
+    renderer.setClearColor(0xf2f5fa, 1);
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0xf4f6fb, 0.012);
+    scene.fog = new THREE.FogExp2(0xf2f5fa, 0.012);
 
     const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
 
@@ -971,22 +1130,19 @@
     });
     const lookCurve = new THREE.CatmullRomCurve3(lookTargetPoints);
 
-    // Architectural Line-Art Drafting Skyscrapers (Flat Cartoon Cel-Shaded)
+    // Architectural Line-Art Drafting Skyscrapers (Cel-Shaded)
     const cityGroup = new THREE.Group();
     scene.add(cityGroup);
 
     const towerGeo = new THREE.BoxGeometry(1, 1, 1);
-    
-    // Flat Cel-Shaded Paper-White Facade with Ink Black Wireframe Edges
     const towerMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
     const inkWireframeMat = new THREE.MeshBasicMaterial({ color: 0x1e293b, wireframe: true });
     const redAccentWireMat = new THREE.MeshBasicMaterial({ color: 0xe11d48, wireframe: true });
 
-    // Generate 100 Architectural Sketch Skyscrapers
+    // Populate 100 Architectural Sketch Skyscrapers
     for (let i = 0; i < 100; i++) {
       const isRedAccent = Math.random() < 0.25;
       
-      // Building Body
       const bMesh = new THREE.Mesh(towerGeo, towerMat);
       const side = Math.random() < 0.5 ? -1 : 1;
       const x = side * (20 + Math.random() * 65);
@@ -998,13 +1154,11 @@
       bMesh.position.set(x, h * 0.5 - 28, z);
       cityGroup.add(bMesh);
 
-      // Ink Outline Mesh (Slightly larger for cartoon cel-shaded outline)
       const outlineMesh = new THREE.Mesh(towerGeo, isRedAccent ? redAccentWireMat : inkWireframeMat);
       outlineMesh.scale.set(w * 1.002, h * 1.002, w * 1.002);
       outlineMesh.position.set(x, h * 0.5 - 28, z);
       cityGroup.add(outlineMesh);
 
-      // Architectural Rooftop Parapet / Antenna
       if (h > 60) {
         const needleGeo = new THREE.CylinderGeometry(0.2, 0.4, 16, 6);
         const needleMat = new THREE.MeshBasicMaterial({ color: isRedAccent ? 0xe11d48 : 0x0f172a });
@@ -1019,20 +1173,35 @@
     gridHelper.position.y = -27.8;
     scene.add(gridHelper);
 
+    // Floating 3D CAD Blueprint Compass in Sky
+    const cadCompassGroup = new THREE.Group();
+    cadCompassGroup.position.set(0, 48, -180);
+    scene.add(cadCompassGroup);
+
+    const compassRing1 = new THREE.Mesh(
+      new THREE.RingGeometry(20, 21.2, 64),
+      new THREE.MeshBasicMaterial({ color: 0x0284c7, side: THREE.DoubleSide, transparent: true, opacity: 0.6 })
+    );
+    const compassRing2 = new THREE.Mesh(
+      new THREE.RingGeometry(24, 24.8, 12),
+      new THREE.MeshBasicMaterial({ color: 0xe11d48, side: THREE.DoubleSide, transparent: true, opacity: 0.5 })
+    );
+    cadCompassGroup.add(compassRing1);
+    cadCompassGroup.add(compassRing2);
+
     /* ==========================================================
-       3. MOVING 3D SPIDER-MAN CHARACTER IN THE WORLD!
+       3. MOVING 3D SPIDER-MAN CHARACTER & DUAL-WEB PHYSICS
        ========================================================== */
     const spideyHeroGroup = new THREE.Group();
     scene.add(spideyHeroGroup);
 
-    // Spider-Man Cutout Billboard
     const textureLoader = new THREE.TextureLoader();
     const spideyCutoutSrc = (window.SPIDEY_CUTOUT_B64 && window.SPIDEY_CUTOUT_B64.length > 50)
       ? window.SPIDEY_CUTOUT_B64
       : 'portfolio/assets/spidey-cutout.png';
 
     const spideyTex = textureLoader.load(spideyCutoutSrc);
-    const spideyGeo = new THREE.PlaneGeometry(7.5, 16);
+    const spideyGeo = new THREE.PlaneGeometry(8, 17);
     const spideyMat = new THREE.MeshBasicMaterial({
       map: spideyTex,
       transparent: true,
@@ -1042,30 +1211,55 @@
     const spideyMesh = new THREE.Mesh(spideyGeo, spideyMat);
     spideyHeroGroup.add(spideyMesh);
 
-    // Cartoon Red Halftone Aura Circle behind Spider-Man
-    const auraGeo = new THREE.CircleGeometry(8, 48);
+    // Cartoon Red Halftone Aura Circle
+    const auraGeo = new THREE.CircleGeometry(8.5, 48);
     const auraMat = new THREE.MeshBasicMaterial({
       color: 0xe11d48,
       transparent: true,
-      opacity: 0.18,
+      opacity: 0.22,
       side: THREE.DoubleSide
     });
     const auraMesh = new THREE.Mesh(auraGeo, auraMat);
     auraMesh.position.set(0, 0, -0.2);
     spideyHeroGroup.add(auraMesh);
 
-    // Comic Action Web-Slinging Line (Shoots from Spider-Man's wrist to buildings)
-    const webLineGeo = new THREE.BufferGeometry();
-    const webLinePositions = new Float32Array(6); // 2 vertices (wrist -> building)
-    webLineGeo.setAttribute('position', new THREE.BufferAttribute(webLinePositions, 3));
-    const webLineMat = new THREE.LineBasicMaterial({
-      color: 0xe11d48,
-      linewidth: 3,
-      transparent: true,
-      opacity: 0.85
-    });
-    const activeWebLine = new THREE.Line(webLineGeo, webLineMat);
-    scene.add(activeWebLine);
+    // Dual 3D Web Lines (Left & Right Hands)
+    const leftWebGeo = new THREE.BufferGeometry();
+    const leftWebPos = new Float32Array(6);
+    leftWebGeo.setAttribute('position', new THREE.BufferAttribute(leftWebPos, 3));
+    const leftWebMat = new THREE.LineBasicMaterial({ color: 0xe11d48, linewidth: 3, transparent: true, opacity: 0.85 });
+    const leftWebLine = new THREE.Line(leftWebGeo, leftWebMat);
+    scene.add(leftWebLine);
+
+    const rightWebGeo = new THREE.BufferGeometry();
+    const rightWebPos = new Float32Array(6);
+    rightWebGeo.setAttribute('position', new THREE.BufferAttribute(rightWebPos, 3));
+    const rightWebMat = new THREE.LineBasicMaterial({ color: 0x0284c7, linewidth: 3, transparent: true, opacity: 0.75 });
+    const rightWebLine = new THREE.Line(rightWebGeo, rightWebMat);
+    scene.add(rightWebLine);
+
+    // Comic Speed Lines (3D Radial Ink Streaks)
+    const speedLineCount = 30;
+    const speedLineGroup = new THREE.Group();
+    scene.add(speedLineGroup);
+
+    const slMat = new THREE.LineBasicMaterial({ color: 0x0f172a, transparent: true, opacity: 0.25 });
+    const speedLines = [];
+
+    for (let i = 0; i < speedLineCount; i++) {
+      const slGeo = new THREE.BufferGeometry();
+      const zLen = 8 + Math.random() * 14;
+      const pts = new Float32Array([0, 0, 0, 0, 0, -zLen]);
+      slGeo.setAttribute('position', new THREE.BufferAttribute(pts, 3));
+      const slMesh = new THREE.Line(slGeo, slMat);
+      speedLineGroup.add(slMesh);
+      speedLines.push({
+        mesh: slMesh,
+        radius: 12 + Math.random() * 20,
+        angle: Math.random() * Math.PI * 2,
+        speed: 1.5 + Math.random() * 2
+      });
+    }
 
     // Waypoint 1: Floating 3D Bot Hub Cel-Shaded Reactor
     const botHubGroup = new THREE.Group();
@@ -1101,16 +1295,39 @@
     scene.add(beacon);
 
     /* ==========================================================
-       4. INTERACTIVE FLIGHT & SPIDER-MAN KINETIC MOVEMENT
+       4. INTERACTIVE FLIGHT & SPIDER-MAN ACROBATICS ON CLICK
        ========================================================== */
     let targetProgress = 0;
     let currentProgress = 0;
     let lastThwipProgress = 0;
 
+    let spideySpin = 0;
+    let isSpinning = false;
+
     let mouseX = 0, mouseY = 0;
     window.addEventListener('mousemove', (e) => {
       mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
       mouseY = -(e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    // Raycaster to detect click directly on Spider-Man!
+    const raycaster = new THREE.Raycaster();
+    const mouseVec = new THREE.Vector2();
+
+    window.addEventListener('click', (e) => {
+      if (e.target.closest('header, aside, .comic-card, .comic-throttle-bar')) return;
+      mouseVec.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseVec.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouseVec, camera);
+
+      const intersects = raycaster.intersectObject(spideyMesh);
+      if (intersects.length > 0 || Math.hypot(e.clientX - window.innerWidth/2, e.clientY - window.innerHeight/2) < 180) {
+        // Trigger Spider-Man Acrobatics!
+        sfx.init();
+        sfx.playWebBlast();
+        triggerComicFx('BOOM-WEB!', e.clientX, e.clientY);
+        isSpinning = true;
+      }
     });
 
     const throttleSlider = document.getElementById('throttleSlider');
@@ -1129,10 +1346,9 @@
       targetProgress = clamp(targetProgress + e.deltaY * 0.0006);
       throttleSlider.value = Math.round(targetProgress * 100);
 
-      // Trigger THWIP! sound effect on scrolling bursts
       if (Math.abs(targetProgress - lastThwipProgress) > 0.08) {
         sfx.playThwip();
-        triggerComicFx('THWIP!', window.innerWidth / 2 + (Math.random() - 0.5) * 160, window.innerHeight / 2 - 80);
+        triggerComicFx('THWIP!', window.innerWidth / 2 + (Math.random() - 0.5) * 180, window.innerHeight / 2 - 80);
         lastThwipProgress = targetProgress;
       }
     }, { passive: true });
@@ -1276,11 +1492,9 @@
         /* ==========================================================
            SPIDER-MAN CHARACTER DYNAMIC MOVEMENT & KINETIC WEB-SLING
            ========================================================== */
-        // Spider-Man position flies right in front of the camera like an active superhero guide!
         const forwardVector = new THREE.Vector3().subVectors(lookPos, camPos).normalize();
         const spideyTargetPos = new THREE.Vector3().copy(camPos).add(forwardVector.clone().multiplyScalar(14));
 
-        // Add comic kinetic bobbing and crouch breathing
         const bobY = Math.sin(elapsed * 4.5) * 0.6;
         const bankX = Math.sin(elapsed * 2.2) * 0.8;
 
@@ -1290,21 +1504,48 @@
           spideyTargetPos.z
         );
 
-        // Spider-Man faces the camera with dynamic banking
+        // Spin acrobatics on click
+        if (isSpinning) {
+          spideySpin += 0.35;
+          spideyMesh.rotation.z = spideySpin;
+          if (spideySpin > Math.PI * 2) {
+            spideySpin = 0;
+            isSpinning = false;
+            spideyMesh.rotation.z = 0;
+          }
+        }
+
         spideyHeroGroup.lookAt(camera.position);
         spideyHeroGroup.rotation.z = Math.sin(elapsed * 2.5) * 0.08 - mouseX * 0.12;
 
-        // Dynamic 3D Web Line connecting wrist to skyscraper roof
-        const webPos = activeWebLine.geometry.attributes.position.array;
-        // Wrist position
-        webPos[0] = spideyHeroGroup.position.x - 0.8;
-        webPos[1] = spideyHeroGroup.position.y + 0.4;
-        webPos[2] = spideyHeroGroup.position.z;
-        // Building anchor point ahead
-        webPos[3] = lookPos.x + Math.sin(elapsed) * 18;
-        webPos[4] = lookPos.y + 14;
-        webPos[5] = lookPos.z - 20;
-        activeWebLine.geometry.attributes.position.needsUpdate = true;
+        // Dual 3D Web Lines (Left & Right alternating sling lines)
+        const leftArr = leftWebLine.geometry.attributes.position.array;
+        leftArr[0] = spideyHeroGroup.position.x - 1.2;
+        leftArr[1] = spideyHeroGroup.position.y + 0.4;
+        leftArr[2] = spideyHeroGroup.position.z;
+        leftArr[3] = lookPos.x - 22;
+        leftArr[4] = lookPos.y + 14 + Math.sin(elapsed * 2) * 4;
+        leftArr[5] = lookPos.z - 20;
+        leftWebLine.geometry.attributes.position.needsUpdate = true;
+
+        const rightArr = rightWebLine.geometry.attributes.position.array;
+        rightArr[0] = spideyHeroGroup.position.x + 1.2;
+        rightArr[1] = spideyHeroGroup.position.y + 0.4;
+        rightArr[2] = spideyHeroGroup.position.z;
+        rightArr[3] = lookPos.x + 22;
+        rightArr[4] = lookPos.y + 16 + Math.cos(elapsed * 2) * 4;
+        rightArr[5] = lookPos.z - 20;
+        rightWebLine.geometry.attributes.position.needsUpdate = true;
+
+        // Speed Lines position around Spider-Man
+        speedLines.forEach((sl, idx) => {
+          const theta = sl.angle + elapsed * 0.2;
+          sl.mesh.position.set(
+            spideyHeroGroup.position.x + Math.cos(theta) * sl.radius,
+            spideyHeroGroup.position.y + Math.sin(theta) * sl.radius,
+            spideyHeroGroup.position.z + ((elapsed * sl.speed * 20 + idx * 8) % 30) - 15
+          );
+        });
       }
 
       // Rotate decorative 3D comic assets
@@ -1312,6 +1553,7 @@
       botInnerCore.rotation.x += 0.02;
       torusTunnelGroup.rotation.z += 0.008;
       beacon.rotation.y += 0.016;
+      cadCompassGroup.rotation.z += 0.003;
 
       updateStoryOverlays(currentProgress);
 
