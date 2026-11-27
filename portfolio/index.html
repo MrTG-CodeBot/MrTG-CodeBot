@@ -682,6 +682,73 @@
         width: 120px;
       }
     }
+
+    /* ==========================================================
+       BLUEPRINT TECHNICAL SPEC ANNOTATIONS (MATCHING THE PHOTO!)
+       ========================================================== */
+    .spidey-spec-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 45;
+      transition: opacity 0.3s ease;
+    }
+    .spidey-spec-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .spec-callout {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.70rem;
+      font-weight: 700;
+      color: var(--ink-black);
+      background: rgba(255, 255, 255, 0.95);
+      border: 1.5px solid var(--spidey-red);
+      box-shadow: 2px 2px 0px rgba(225, 29, 72, 0.35);
+      padding: 4px 8px;
+      border-radius: 2px;
+      white-space: nowrap;
+      pointer-events: auto;
+      transition: transform 0.08s ease-out;
+    }
+    .spec-callout::before {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--spidey-red);
+      border-radius: 50%;
+    }
+    .spec-callout.spec-left::before {
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .spec-callout.spec-right::before {
+      left: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .spec-badge {
+      background: var(--spidey-red);
+      color: #fff;
+      padding: 1px 5px;
+      font-size: 0.62rem;
+      border-radius: 2px;
+      letter-spacing: 0.5px;
+    }
+    @media (max-width: 900px) {
+      .spidey-spec-overlay {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -713,6 +780,26 @@
   <!-- Comic Action Sound FX Callout (THWIP!) -->
   <div class="comic-sound-fx" id="comicFx">THWIP!</div>
 
+  <!-- Blueprint Technical Spec Annotations (Matching the Photo!) -->
+  <div class="spidey-spec-overlay" id="spideySpecOverlay">
+    <div class="spec-callout spec-left" id="specAudio">
+      <span class="spec-badge">AUDIO</span>
+      <span>WH-1000XM4 // APEX HEADPHONES</span>
+    </div>
+    <div class="spec-callout spec-right" id="specHoodie">
+      <span class="spec-badge">CHASSIS</span>
+      <span>WATERPROOF WHITE TECH HOODIE</span>
+    </div>
+    <div class="spec-callout spec-left" id="specPack">
+      <span class="spec-badge">PAYLOAD</span>
+      <span>RED WEB-FLUID RESERVOIR</span>
+    </div>
+    <div class="spec-callout spec-right" id="specShoes">
+      <span class="spec-badge">TRACTION</span>
+      <span>AIR JORDAN 1 CHICAGO HIGH</span>
+    </div>
+  </div>
+
   <!-- Top Header Navigation -->
   <header class="comic-header">
     <div class="comic-logo">
@@ -727,6 +814,14 @@
     </div>
 
     <div class="comic-controls">
+      <button class="comic-btn" id="avatarModeToggle" onclick="toggleHeroMode()" title="Toggle Hero Mode">
+        <i class="fa-solid fa-mask" style="color:var(--spidey-red)"></i>
+        <span id="avatarModeText">HERO: HOODIE PHOTO</span>
+      </button>
+      <button class="comic-btn" id="specToggle" onclick="toggleSpecHud()" title="Toggle Blueprint Annotations">
+        <i class="fa-solid fa-drafting-compass" style="color:var(--spidey-blue)"></i>
+        <span id="specText">SPECS: ON</span>
+      </button>
       <button class="comic-btn" id="sfxToggle">
         <i class="fa-solid fa-volume-high" id="sfxIcon"></i>
         <span id="sfxText">SFX: ON</span>
@@ -991,8 +1086,9 @@
     <span class="scroll-hint">[ SCROLL OR SLIDE TO FLY SPIDER-MAN ]</span>
   </div>
 
-  <!-- Embedded Local Avatar Data -->
+  <!-- Embedded Local Avatar & 3D Model Data (Zero-CORS offline support) -->
   <script src="assets/avatar-data.js"></script>
+  <script src="assets/model-data.js"></script>
 
   <!-- Three.js CDN & GLTF 3D Model Loader -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -1104,6 +1200,18 @@
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0xf2f5fa, 0.012);
 
+    // Dynamic Lighting for True 3D PBR Character Mesh
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
+    scene.add(ambientLight);
+
+    const mainLight = new THREE.DirectionalLight(0xffffff, 1.6);
+    mainLight.position.set(15, 25, 20);
+    scene.add(mainLight);
+
+    const redRimLight = new THREE.DirectionalLight(0xe11d48, 1.2);
+    redRimLight.position.set(-15, -10, 15);
+    scene.add(redRimLight);
+
     const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
 
     // 3D Flight Camera Curve Path
@@ -1199,10 +1307,10 @@
     const textureLoader = new THREE.TextureLoader();
     const spideyCutoutSrc = (window.SPIDEY_CUTOUT_B64 && window.SPIDEY_CUTOUT_B64.length > 50)
       ? window.SPIDEY_CUTOUT_B64
-      : 'portfolio/assets/spidey-cutout.png';
+      : 'assets/spidey-cutout.png';
 
     const spideyTex = textureLoader.load(spideyCutoutSrc);
-    const spideyGeo = new THREE.PlaneGeometry(8, 17);
+    const spideyGeo = new THREE.PlaneGeometry(9.4, 16);
     const spideyMat = new THREE.MeshBasicMaterial({
       map: spideyTex,
       transparent: true,
@@ -1212,44 +1320,121 @@
     const spideyMesh = new THREE.Mesh(spideyGeo, spideyMat);
     spideyHeroGroup.add(spideyMesh);
 
-    // True 3D GLTF Model Loader for Miles Morales
-    const gltfLoader = new THREE.GLTFLoader();
+    // Hero Character Mode: 'photo' (Iconic Hooded Spidey) vs 'mesh3d' (3D Model)
+    let currentHeroMode = 'photo';
+    let modelWrapper = null;
     let mixer = null;
     let miles3DMesh = null;
 
-    function tryLoad3DModel(path) {
-      gltfLoader.load(
-        path,
-        (gltf) => {
-          miles3DMesh = gltf.scene;
-          miles3DMesh.scale.set(4.5, 4.5, 4.5);
-          miles3DMesh.position.set(0, -4.5, 0);
+    // True 3D GLTF Model Loader for Miles Morales
+    const gltfLoader = new THREE.GLTFLoader();
 
-          miles3DMesh.traverse((child) => {
-            if (child.isMesh) {
-              child.material.roughness = 0.85;
-            }
-          });
-
-          spideyHeroGroup.remove(spideyMesh);
-          spideyHeroGroup.add(miles3DMesh);
-
-          if (gltf.animations && gltf.animations.length > 0) {
-            mixer = new THREE.AnimationMixer(miles3DMesh);
-            const action = mixer.clipAction(gltf.animations[0]);
-            action.play();
-          }
-          console.log('✅ True 3D Miles Morales Model Loaded Successfully from', path);
-        },
-        undefined,
-        (err) => {
-          console.log('ℹ️ 3D model not yet at', path, '- using comic cutout fallback.');
-        }
-      );
+    function base64ToArrayBuffer(base64) {
+      const binary_string = window.atob(base64);
+      const len = binary_string.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binary_string.charCodeAt(i);
+      }
+      return bytes.buffer;
     }
 
-    tryLoad3DModel('miles-morales-across-the-spider-verse/source/MilesMoralesAcrossTheSpiderVerse.glb');
-    tryLoad3DModel('assets/miles-morales.glb');
+    function onModelLoaded(gltf) {
+      miles3DMesh = gltf.scene;
+
+      // In Blender models, Z is UP; rotate mesh so it stands upright and faces forward
+      miles3DMesh.rotation.x = Math.PI / 2;
+      miles3DMesh.rotation.y = Math.PI;
+
+      // Model Wrapper with tuned scaling & position
+      modelWrapper = new THREE.Group();
+      modelWrapper.scale.set(6.8, 6.8, 6.8);
+      modelWrapper.position.set(0, -5.5, 0);
+      modelWrapper.add(miles3DMesh);
+
+      // Apply Cel-Shaded Comic Materials
+      const comicSuitMat = new THREE.MeshToonMaterial({
+        color: 0x1e293b,
+        emissive: 0x881337,
+        emissiveIntensity: 0.22
+      });
+      const comicWhiteMat = new THREE.MeshBasicMaterial({
+        color: 0xffffff
+      });
+
+      miles3DMesh.traverse((child) => {
+        if (child.isMesh) {
+          if (child.name.toLowerCase().includes('eye') || child.name.toLowerCase().includes('iris')) {
+            child.material = comicWhiteMat;
+          } else {
+            child.material = comicSuitMat;
+          }
+          child.castShadow = true;
+          child.receiveShadow = true;
+        }
+      });
+
+      // Keep modelWrapper hidden by default so photo avatar remains hero
+      modelWrapper.visible = (currentHeroMode === 'mesh3d');
+      spideyHeroGroup.add(modelWrapper);
+
+      // Animations if present
+      if (gltf.animations && gltf.animations.length > 0) {
+        mixer = new THREE.AnimationMixer(miles3DMesh);
+        const action = mixer.clipAction(gltf.animations[0]);
+        action.play();
+      }
+      console.log('✅ True 3D Miles Morales Model Ready and Toggleable!');
+    }
+
+    // Toggle between Photo Avatar (White Hoodie Hero) and 3D Mesh
+    window.toggleHeroMode = function() {
+      sfx.init();
+      if (currentHeroMode === 'photo') {
+        if (!modelWrapper) {
+          triggerComicFx('3D LOADING...');
+          return;
+        }
+        currentHeroMode = 'mesh3d';
+        spideyMesh.visible = false;
+        modelWrapper.visible = true;
+        document.getElementById('avatarModeText').textContent = 'HERO: 3D MESH';
+        document.getElementById('avatarModeToggle').classList.add('active');
+        triggerComicFx('3D MESH!');
+      } else {
+        currentHeroMode = 'photo';
+        spideyMesh.visible = true;
+        if (modelWrapper) modelWrapper.visible = false;
+        document.getElementById('avatarModeText').textContent = 'HERO: HOODIE PHOTO';
+        document.getElementById('avatarModeToggle').classList.remove('active');
+        triggerComicFx('HOODIE SPIDEY!');
+      }
+      sfx.playThwip();
+    };
+
+    // Toggle Blueprint Technical Spec Annotations
+    let specOverlayActive = true;
+    window.toggleSpecHud = function() {
+      specOverlayActive = !specOverlayActive;
+      const overlay = document.getElementById('spideySpecOverlay');
+      if (overlay) overlay.classList.toggle('hidden', !specOverlayActive);
+      const text = document.getElementById('specText');
+      if (text) text.textContent = specOverlayActive ? 'SPECS: ON' : 'SPECS: OFF';
+      sfx.playChime(600);
+    };
+
+    // 1. Priority: Load from embedded Base64 (Zero-CORS, Works directly on file://!)
+    if (window.MILES_GLB_B64 && window.MILES_GLB_B64.length > 100) {
+      try {
+        const ab = base64ToArrayBuffer(window.MILES_GLB_B64);
+        gltfLoader.parse(ab, '', (gltf) => onModelLoaded(gltf), (err) => console.error(err));
+      } catch(e) {
+        console.error('Base64 parse error:', e);
+      }
+    } else {
+      // 2. Fallback: Fetch via HTTP/HTTPS
+      gltfLoader.load('assets/miles-morales.glb', (gltf) => onModelLoaded(gltf));
+    }
 
     // Cartoon Red Halftone Aura Circle
     const auraGeo = new THREE.CircleGeometry(8.5, 48);
@@ -1355,12 +1540,14 @@
     const mouseVec = new THREE.Vector2();
 
     window.addEventListener('click', (e) => {
-      if (e.target.closest('header, aside, .comic-card, .comic-throttle-bar')) return;
+      if (e.target.closest('header, aside, .comic-card, .comic-throttle-bar, .comic-btn')) return;
       mouseVec.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouseVec.y = -(e.clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(mouseVec, camera);
 
-      const intersects = raycaster.intersectObject(spideyMesh);
+      const targetMeshes = [spideyMesh];
+      if (modelWrapper) targetMeshes.push(modelWrapper);
+      const intersects = raycaster.intersectObjects(targetMeshes, true);
       if (intersects.length > 0 || Math.hypot(e.clientX - window.innerWidth/2, e.clientY - window.innerHeight/2) < 180) {
         // Trigger Spider-Man Acrobatics!
         sfx.init();
@@ -1548,15 +1735,43 @@
         if (isSpinning) {
           spideySpin += 0.35;
           spideyMesh.rotation.z = spideySpin;
+          if (modelWrapper) modelWrapper.rotation.y = Math.PI + spideySpin;
           if (spideySpin > Math.PI * 2) {
             spideySpin = 0;
             isSpinning = false;
             spideyMesh.rotation.z = 0;
+            if (modelWrapper) modelWrapper.rotation.y = Math.PI;
           }
         }
 
         spideyHeroGroup.lookAt(camera.position);
         spideyHeroGroup.rotation.z = Math.sin(elapsed * 2.5) * 0.08 - mouseX * 0.12;
+
+        // Blueprint Technical Spec Annotations Screen Projection
+        if (specOverlayActive && spideyHeroGroup) {
+          const heroScreenPos = spideyHeroGroup.position.clone().project(camera);
+          const screenX = (heroScreenPos.x * 0.5 + 0.5) * window.innerWidth;
+          const screenY = (-heroScreenPos.y * 0.5 + 0.5) * window.innerHeight;
+
+          const specAudio = document.getElementById('specAudio');
+          const specHoodie = document.getElementById('specHoodie');
+          const specPack = document.getElementById('specPack');
+          const specShoes = document.getElementById('specShoes');
+
+          if (specAudio && specHoodie && specPack && specShoes) {
+            specAudio.style.left = `${screenX - 250}px`;
+            specAudio.style.top = `${screenY - 100}px`;
+
+            specHoodie.style.left = `${screenX + 90}px`;
+            specHoodie.style.top = `${screenY - 50}px`;
+
+            specPack.style.left = `${screenX - 230}px`;
+            specPack.style.top = `${screenY + 30}px`;
+
+            specShoes.style.left = `${screenX + 75}px`;
+            specShoes.style.top = `${screenY + 120}px`;
+          }
+        }
 
         // Dual 3D Web Lines (Left & Right alternating sling lines)
         const leftArr = leftWebLine.geometry.attributes.position.array;
