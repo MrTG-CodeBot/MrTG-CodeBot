@@ -1,8 +1,25 @@
 <div align="center">
 
-  <h1>Hey 👨‍💻 I’m MrTG-CodeBot</h1>
+<img src="https://readme-typing-svg.demolab.com?font=Press+Start+2P&size=16&duration=2800&pause=1000&color=FF2A5F&center=true&vCenter=true&width=700&lines=HELL0+W0RLD!+I'M+MRTG-CODEBOT;BOT+ARCHITECT+%2F%2F+ASYNC+CONCURRENCY;BUILDING+AUTONOMOUS+BOT+FLEETS;LEVEL+99+AUTOMATION+DEVELOPER" alt="Retro Typing SVG" />
 
-  <img src="./assets/header.gif" width="750" alt="MrTG-CodeBot Pixel Art Coding GIF" />
+<br/><br/>
+
+<img src="./assets/retro-hero.svg" width="750" alt="MrTG-CodeBot Retro Hero Card" />
+
+<br/><br/>
+
+<img src="./assets/header.gif" width="750" alt="MrTG-CodeBot Pixel Art Coding GIF" />
+
+<br/><br/>
+
+<p align="center">
+<img src="https://img.shields.io/badge/🎮_PLAYER_1-ONLINE-00F0FF?style=for-the-badge&logo=retroarch&logoColor=white&labelColor=0d1117" alt="Player 1 Online" />
+&nbsp;
+<img src="https://img.shields.io/badge/⚡_CLASS-BOT_ARCHITECT-FF2A5F?style=for-the-badge&logo=electron&logoColor=white&labelColor=0d1117" alt="Class Bot Architect" />
+&nbsp;
+<img src="https://img.shields.io/badge/🕹️_QUEST-CONCURRENCY-FACC15?style=for-the-badge&logo=speedtest&logoColor=black&labelColor=0d1117" alt="Quest Concurrency" />
+</p>
+
 </div>
 
 ---
