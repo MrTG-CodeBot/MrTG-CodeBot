@@ -994,8 +994,9 @@
   <!-- Embedded Local Avatar Data -->
   <script src="assets/avatar-data.js"></script>
 
-  <!-- Three.js CDN -->
+  <!-- Three.js CDN & GLTF 3D Model Loader -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
   <script>
     /* ==========================================================
@@ -1210,6 +1211,45 @@
     });
     const spideyMesh = new THREE.Mesh(spideyGeo, spideyMat);
     spideyHeroGroup.add(spideyMesh);
+
+    // True 3D GLTF Model Loader for Miles Morales
+    const gltfLoader = new THREE.GLTFLoader();
+    let mixer = null;
+    let miles3DMesh = null;
+
+    function tryLoad3DModel(path) {
+      gltfLoader.load(
+        path,
+        (gltf) => {
+          miles3DMesh = gltf.scene;
+          miles3DMesh.scale.set(4.5, 4.5, 4.5);
+          miles3DMesh.position.set(0, -4.5, 0);
+
+          miles3DMesh.traverse((child) => {
+            if (child.isMesh) {
+              child.material.roughness = 0.85;
+            }
+          });
+
+          spideyHeroGroup.remove(spideyMesh);
+          spideyHeroGroup.add(miles3DMesh);
+
+          if (gltf.animations && gltf.animations.length > 0) {
+            mixer = new THREE.AnimationMixer(miles3DMesh);
+            const action = mixer.clipAction(gltf.animations[0]);
+            action.play();
+          }
+          console.log('✅ True 3D Miles Morales Model Loaded Successfully from', path);
+        },
+        undefined,
+        (err) => {
+          console.log('ℹ️ 3D model not yet at', path, '- using comic cutout fallback.');
+        }
+      );
+    }
+
+    tryLoad3DModel('miles-morales-across-the-spider-verse/source/MilesMoralesAcrossTheSpiderVerse.glb');
+    tryLoad3DModel('assets/miles-morales.glb');
 
     // Cartoon Red Halftone Aura Circle
     const auraGeo = new THREE.CircleGeometry(8.5, 48);
@@ -1546,6 +1586,11 @@
             spideyHeroGroup.position.z + ((elapsed * sl.speed * 20 + idx * 8) % 30) - 15
           );
         });
+      }
+
+      // Animate 3D Model Skeletal Mixer if loaded
+      if (mixer) {
+        mixer.update(clock.getDelta());
       }
 
       // Rotate decorative 3D comic assets
